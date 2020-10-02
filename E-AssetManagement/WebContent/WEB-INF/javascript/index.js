@@ -4,11 +4,10 @@
  */
 function submitForm(){
 
-    let dataValid = true;
+    var dataValid = true;
 
     // retrieve values of form fields
     var regForm = document.forms["reg_form"];
-    console.log(regForm);
     var name = regForm["name"];
     var telephone =  regForm["telephone"];
     var email =  regForm["email"];
@@ -29,41 +28,46 @@ function submitForm(){
     // PASSWORD VALIDATION
     // TODO: Check if password is strong
     // check is password and confirm password fields are matching
-    if(password != confPassword){
+    if(password.value != confPassword.value){
         dataValid = false;
+        console.log(password.value);
+        console.log(confPassword.value);
         confPasswordAlert.innerHTML = "PASSWORD DOES NOT MATCH";
     }
+    else{
+        confPasswordAlert.innerHTML = "";
+    }
 
-    if(dataValid === true){
+    if(dataValid == true){
         console.log("Sending data to server");
-        sendDataToServer();
-    }
+        var ajax=new XMLHttpRequest();
+        submitBtn.disabled =true;
+        submitBtn.value="Processing...";
+        var currentDate = new Date();
+        // TODO: Uncomment the below line and
+        // add the registration form submission endpoint
 
-}
-
-function sendDataToServer(){
-    var ajax=new XMLHttpRequest();
-    submitBtn.disabled =true;
-    submitBtn.value="Processing...";
-    // TODO: Uncomment the below line and
-    // add the registration form submission endpoint
-
-    //ajax.open("POST","",true);
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("name="+name.value+"&telephone="+telephone.value+"&email="+email.value+"&domain="+domain.value+"&shift="+shift.value+"&timestamp="+currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/"
-                + currentdate.getFullYear() + " @ "
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds());
-  ajax.onreadystatechange=function(){
-    if(this.readyState==3){
-      submitButton.value="Submitting...";
-    }
-    else if (this.readyState==4&&this.status==200) {
-      //request ready
-      submitButton.value="Submitted!";
-      document.forms["form"].reset();
-      window.setTimeout(function(){submitButton.disabled =false;submitButton.value="Submit Form";},8000);
+        ajax.open("POST","https://www.google.com",true);
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        ajax.send("name="+name.value+"&telephone="+telephone.value+"&email="+email.value+"&username="+username.value+"&password="+password.value+"&conf_password="+confPassword.value+"&timestamp="+currentDate.getDate() + "/"
+                    + (currentDate.getMonth()+1)  + "/"
+                    + currentDate.getFullYear() + " @ "
+                    + currentDate.getHours() + ":"
+                    + currentDate.getMinutes() + ":"
+                    + currentDate.getSeconds());
+        ajax.onreadystatechange=function(){
+            if(this.readyState==3){
+            submitBtn.value="Submitting...";
+            }
+            else if (this.readyState==4&&this.status==200) {
+            //request ready
+            submitBtn.value="Submitted!";
+            document.forms["reg_form"].reset();
+            window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},8000);
+            }
+            else{
+                submitBtn.disabled =false;submitBtn.value="Register";
+            }
+        }
     }
 }
