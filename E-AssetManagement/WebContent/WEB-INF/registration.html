@@ -7,7 +7,7 @@
     <title>User Registration</title>
 </head>
 <body>
-    <form name="reg_form" id="reg_form">
+    <form name="reg_form" id="reg_form" method="POST">
         <fieldset>
             <legend>
                 Registration Form
@@ -15,28 +15,28 @@
             <label for="name">Enter your Full Name*</label>
             <input type="text" name="name" id="name" required>
             <p id="name_alert" style="color:red;"></p>
-            <br/>
-            <label for="number">Enter your Telephone(with country code)*</label>
-            <input type="tel" name="number" id="number" pattern="[0-9]{10}" required>
-            <p id="number_alert" style="color:red;"></p>
-            <br/>
+
+            <label for="telephone">Enter your Telephone(with country code)*</label>
+            <input type="tel" name="telephone" id="number" pattern="[0-9]{10}" required>
+            <p id="telephone_alert" style="color:red;"></p>
+
             <label for="email">Enter your Email Address*</label>
             <input type="email" name="email" id="email" required>
             <p id="email_alert" style="color:red;"></p>
-            <br/>
+
             <label for="username">Enter your Username*</label>
             <input type="text" name="username" id="username" required>
             <p id="username_alert" style="color:red;"></p>
-            <br/>
+
             <label for="password">Enter your Password*</label>
             <input type="password" name="password" id="password" required>
             <p id="password_alert" style="color:red;"></p>
-            <br/>
+
             <label for="conf_password">Enter your Confirm Password*</label>
             <input type="password" name="conf_password" id="conf_password" required>
             <p id="conf_password_alert" style="color:red;"></p>
-            <br/>
-            <input type="button" name="submit" id="submit" value="Register">
+
+            <input type="button" name="submit" id="submitBtn" onclick="submitForm()" value="Register">
         </fieldset>
     </form>
 </body>
