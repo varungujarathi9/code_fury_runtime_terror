@@ -22,6 +22,7 @@ function submitForm(){
     var usernameAlert =  document.getElementById("username_alert");
     var passwordAlert =  document.getElementById("password_alert");
     var confPasswordAlert =  document.getElementById("conf_password_alert");
+    var formAlert =  document.getElementById("form_alert");
 
     var submitBtn =  document.getElementById("submitBtn");
 
@@ -66,6 +67,8 @@ function submitForm(){
             window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},8000);
             }
             else{
+                formAlert.innerHTML = "Error submitting form";
+                window.setTimeout(function(){formAlert.innerHTML = "";},5000);
                 submitBtn.disabled =false;submitBtn.value="Register";
             }
         }
