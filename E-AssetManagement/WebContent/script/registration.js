@@ -80,7 +80,7 @@ function submitForm(){
             window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
             }
             else{
-                formAlert.innerHTML = "Error submitting form";
+                // formAlert.innerHTML = "Error submitting form";
                 window.setTimeout(function(){formAlert.innerHTML = "";},3000);
                 submitBtn.disabled =false;submitBtn.value="Register";
             }
