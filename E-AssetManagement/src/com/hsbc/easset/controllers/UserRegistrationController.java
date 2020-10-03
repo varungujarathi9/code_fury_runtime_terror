@@ -72,6 +72,8 @@ public class UserRegistrationController extends HttpServlet {
    
         if(eAssetDao.addUser(user))
                out.println("Registered Successfully...");
+        //System.out.println(user.getName());
+        
     //    else
       //  	request.getRequestDispatcher("index.html").forward(request, response);
 		
