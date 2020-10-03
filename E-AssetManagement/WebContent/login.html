@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="./script/login.js"></script>
+    </head>
+    <body>
+     <form id="userLogin"method="POST" action="UserLoginController">
+        <fieldset>
+            <legend>Login:-</a></legend>
+
+              <label for="userName"><b>Enter Username</b></label>
+              <input type="text"  name="userName" required placeholder="Enter Username">
+
+              <label for="password"><b>Password</b></label>
+              <input type="password"  name="password" required placeholder="Enter Password">
+
+              <input type="submit" id="submit" onsubmit="login()" value="Login">
+
+
+        </fieldset>
+    </form>
+    </body>
+</html>
