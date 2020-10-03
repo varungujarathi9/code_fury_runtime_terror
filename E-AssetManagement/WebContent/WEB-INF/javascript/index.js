@@ -7,14 +7,14 @@ window.addEventListener('load',function()
     let content=document.querySelector("#content");
     submitForm();
     userLogin.addEventListener('click',function()
-    
+
     {
-        
+
         document.querySelector("#content div").style.display="block";
     })
 
-   
-    
+
+
 })
 function submitForm(){
 
