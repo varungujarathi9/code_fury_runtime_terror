@@ -17,21 +17,21 @@ public class EAssetDaoImpl implements EAssetDao{
 	private boolean status;
 	private ResourceBundle resourceBundle;
 	private static int uniqueId;
-	
+
 	public  EAssetDaoImpl()
 	{
-			
+
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 	}
 
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
-		
+
 			try
 			{
 			conn=DBHelper.getConnection();
 			pre=conn.prepareStatement(resourceBundle.getString("adduser"));
-			uniqueId=new Random().nextInt(10000)+1;	
+			uniqueId=new Random().nextInt(10000)+1;
 				pre.setInt(1,uniqueId);
 				pre.setString(2, user.getName());
 				pre.setLong(3, user.getTelphoneNumber());
@@ -39,11 +39,11 @@ public class EAssetDaoImpl implements EAssetDao{
 				pre.setString(5, user.getEmailId());
 				pre.setString(6, user.getUsername());
 				pre.setString(7, user.getPassword());
-				pre.setDate(8, Date.valueOf("2020-03-09"));	
+				pre.setDate(8, Date.valueOf("2020-03-09"));
 				pre.executeUpdate();
 				conn.commit();
 				status=true;
-				
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error Code"+e.getErrorCode());
@@ -65,19 +65,19 @@ public class EAssetDaoImpl implements EAssetDao{
 				e.printStackTrace();
 			}
 		}
-		
+
 		return status;
-	
+
 	}
 
 	@Override
 	public boolean validateLogin(User user) {
 		// TODO Auto-generated method stub
-		
+
 	//	System.out.println("entered dao");
 		boolean status=false;
-		
-		
+
+
 		try {
 			conn=DBHelper.getConnection();
 			pre=conn.prepareStatement(resourceBundle.getString("loginQuery"));
@@ -104,13 +104,44 @@ public class EAssetDaoImpl implements EAssetDao{
 		}
 		return status;
 	}
-	
-	
-	
 
-	
-	
-	
-	
+	@Override
+		public boolean isAdmin(User user) throws DBConnCreationException {
+			// TODO Auto-generated method stub
+			boolean status=false;
+			try {
+				conn=DBHelper.getConnection();
+				pre=conn.prepareStatement(resourceBundle.getString("roleQuery"));
+				pre.setString(1, user.getUsername());
+				resultSet=pre.executeQuery();
+				resultSet.next();
+				if(resultSet.getString(1).equals(1)) //if we formerly store admin role as 1 and burrower as 0 in db
+				{
+					status=true;
+				}
+
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw new DBConnCreationException("Connection Error Occurred");
+			}
+			finally
+			{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			return status;
+	}
+
+
+
+
+
+
 
 }
