@@ -69,6 +69,41 @@ public class EAssetDaoImpl implements EAssetDao{
 		return status;
 	
 	}
+
+	@Override
+	public boolean validateLogin(User user) {
+		// TODO Auto-generated method stub
+		
+	//	System.out.println("entered dao");
+		boolean status=false;
+		
+		
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("loginQuery"));
+			pre.setString(1, user.getUsername());
+            pre.setString(2, user.getPassword());
+            resultSet=pre.executeQuery();
+            resultSet.next();
+            if(resultSet.getInt(1)>0)
+            {
+            	status=true;
+            }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return status;
+	}
 	
 	
 	
