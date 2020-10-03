@@ -1,8 +1,8 @@
 /**
- * 
+ *
  * @author Sayan
  * @version 1.0
- * 
+ *
  *
  */
 package com.hsbc.easset.controllers;
@@ -31,7 +31,7 @@ import com.hsbc.easset.models.User;
 @WebServlet(asyncSupported = true, urlPatterns = { "/LoginController" })
 public class UserLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -47,20 +47,20 @@ public class UserLoginController extends HttpServlet {
 		// TODO Auto-generated method stub
 		User user=new User();
 		EAssetDao eAssetDao=new EAssetDaoImpl();
-		PrintWriter out=response.getWriter();		
-		HttpSession session=null;			
+		PrintWriter out=response.getWriter();
+		HttpSession session=null;
 	    response.setContentType("text/html");
 		try
-		{					
+		{
 		user.setName(request.getParameter("userName").toString());
 		user.setPassword(request.getParameter("password").toString());
-        
+
         try
         {
         	if(eAssetDao.validateLogin(user))
         	{
         		session=request.getSession(true);
-        		session.setAttribute("userSession", user);
+        		session.setAttribute("userSession", user); //create user session
         		try
         		{
         			if(eAssetDao.isAdmin(user)) //if logged user is admin or burrower
@@ -74,14 +74,14 @@ public class UserLoginController extends HttpServlet {
         		catch(DBConnCreationException exception)
         		{
         			out.println(exception.getMessage());
-        			session.invalidate(); //close the session
+        			session.invalidate(); //close session
         			//redirect to login page
         			request.getRequestDispatcher("index.html").include(request, response);
         		}
         		catch(Exception exception)
         		{
         			out.println(exception.getMessage());
-        			session.invalidate(); 
+        			session.invalidate();
         			request.getRequestDispatcher("index.html").include(request, response);
         		}
         	}
@@ -95,9 +95,9 @@ public class UserLoginController extends HttpServlet {
         {
         	out.println(exception.getMessage());
         	request.getRequestDispatcher("index.html").include(request, response);
-        	
+
         }
-        
+
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
@@ -107,8 +107,8 @@ public class UserLoginController extends HttpServlet {
 		{
 			out.println(exception.getMessage());
 		}
-		
+
 	}
-	
+
 
 }

@@ -71,27 +71,70 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-	public boolean validateLogin(User user) {
+	public boolean validateLogin(User user) throws DBConnCreationException{
 		// TODO Auto-generated method stub
 
 	//	System.out.println("entered dao");
 		boolean status=false;
+				try {
+					conn=DBHelper.getConnection();
+					pre=conn.prepareStatement(resourceBundle.getString("loginQuery"));
+					pre.setString(1, user.getUsername());
+					pre.setString(2,user.getPassword());
+					resultSet=pre.executeQuery();
+					resultSet.next();
+					if(resultSet.getInt(1)>0)
+					{
+						status=true;
+					}
 
 
-		try {
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					throw new DBConnCreationException("Connection Error Occurred");
+				}
+				finally
+				{
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+		return status;
+	}
+
+	@Override
+		public boolean addAsset(Asset asset) throws DBConnCreationException{
+			// TODO Auto-generated method stub
+			try
+			{
 			conn=DBHelper.getConnection();
-			pre=conn.prepareStatement(resourceBundle.getString("loginQuery"));
-			pre.setString(1, user.getUsername());
-            pre.setString(2, user.getPassword());
-            resultSet=pre.executeQuery();
-            resultSet.next();
-            if(resultSet.getInt(1)>0)
-            {
-            	status=true;
-            }
+			pre=conn.prepareStatement(resourceBundle.getString("addasset"));
+			uniqueId=new Random().nextInt(10000)+1;
+				pre.setInt(1,uniqueId);
+				pre.setString(2, asset.getName());
+				pre.setString(3, asset.getAssetType());
+				pre.setString(4, asset.getDescription());
+				pre.setDate(5, Date.valueOf(asset.getDateAdded()));
+				pre.setBoolean(4, asset.isAvailable());
+				pre.executeUpdate();
+				conn.commit();
+				status=true;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error Code"+e.getErrorCode());
+			System.out.println(e.getMessage());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		finally
 		{
