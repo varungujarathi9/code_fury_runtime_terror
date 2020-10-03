@@ -61,7 +61,7 @@ function submitForm(){
         // TODO: Uncomment the below line and
         // add the registration form submission endpoint
 
-        ajax.open("POST","/UserRegistrationController",true);
+        ajax.open("POST","/E-AssetManagement/UserRegistrationController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         ajax.send("name="+name.value+"&telephone="+telephone.value+"&email="+email.value+"&username="+username.value+"&password="+password.value+"&conf_password="+confPassword.value+"&timestamp="+currentDate.getDate() + "/"
                     + (currentDate.getMonth()+1)  + "/"
