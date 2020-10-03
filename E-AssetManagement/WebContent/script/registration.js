@@ -77,6 +77,7 @@ function submitForm(){
             //request ready
             submitBtn.value="Submitted!";
             document.forms["reg_form"].reset();
+            console.log("Form submitted");
             window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
             }
             else{
