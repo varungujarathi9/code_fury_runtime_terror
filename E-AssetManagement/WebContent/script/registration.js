@@ -5,9 +5,8 @@
 window.addEventListener('load',function()
 {
     let content=document.querySelector("#content");
-    submitForm();
-    userLogin.addEventListener('click',function()
 
+    userLogin.addEventListener('click',function()
     {
 
         document.querySelector("#content div").style.display="block";
@@ -62,7 +61,7 @@ function submitForm(){
         // TODO: Uncomment the below line and
         // add the registration form submission endpoint
 
-        ajax.open("POST","http://localhost:8080/E-AssetManagement/UserRegistrationController",true);
+        ajax.open("POST","/UserRegistrationController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         ajax.send("name="+name.value+"&telephone="+telephone.value+"&email="+email.value+"&username="+username.value+"&password="+password.value+"&conf_password="+confPassword.value+"&timestamp="+currentDate.getDate() + "/"
                     + (currentDate.getMonth()+1)  + "/"
@@ -78,11 +77,11 @@ function submitForm(){
             //request ready
             submitBtn.value="Submitted!";
             document.forms["reg_form"].reset();
-            window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},8000);
+            window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
             }
             else{
                 formAlert.innerHTML = "Error submitting form";
-                window.setTimeout(function(){formAlert.innerHTML = "";},5000);
+                window.setTimeout(function(){formAlert.innerHTML = "";},3000);
                 submitBtn.disabled =false;submitBtn.value="Register";
             }
         }
