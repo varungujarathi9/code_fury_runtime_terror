@@ -76,25 +76,25 @@ public class UserLoginController extends HttpServlet {
         			out.println(exception.getMessage());
         			session.invalidate(); //close session
         			//redirect to login page
-        			request.getRequestDispatcher("index.html").include(request, response);
+        			request.getRequestDispatcher("login.html").include(request, response);
         		}
         		catch(Exception exception)
         		{
         			out.println(exception.getMessage());
         			session.invalidate();
-        			request.getRequestDispatcher("index.html").include(request, response);
+        			request.getRequestDispatcher("login.html").include(request, response);
         		}
         	}
         	else
         	{
         		out.println("<p style='float:right;color:red'>Login Credentials are not valid</p>");
-        		request.getRequestDispatcher("index.html").include(request, response);
+        		request.getRequestDispatcher("login.html").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
         {
         	out.println(exception.getMessage());
-        	request.getRequestDispatcher("index.html").include(request, response);
+        	request.getRequestDispatcher("login.html").include(request, response);
 
         }
 
