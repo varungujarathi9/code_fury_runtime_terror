@@ -28,7 +28,7 @@ import com.hsbc.easset.models.User;
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/LoginController" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/UserLoginController" })
 public class UserLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
