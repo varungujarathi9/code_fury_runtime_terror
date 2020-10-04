@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import com.hsbc.easset.exceptions.DBConnCreationException;
 import com.hsbc.easset.helpers.DBHelper;
+import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
 public class EAssetDaoImpl implements EAssetDao{
