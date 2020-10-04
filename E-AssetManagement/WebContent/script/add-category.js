@@ -16,6 +16,7 @@ function addCategory(){
     var addCategoryForm = document.forms["addCategoryForm"];
     var name = addCategory["name"];
     var lendingPeriod =  addCategory["lendingPeriod"];
+    console.log("Found lending period obj "+lendingPeriod);
     var lateFees =  addCategory["lateFees"];
 
 
@@ -27,14 +28,22 @@ function addCategory(){
 
     var submitBtn =  document.getElementById("submitBtn");
 
-    //Verifying required input
-    if(name.value!="" && lendingPeriod.value!="" ){
+    //Verifying required input 
+    console.log("name "+name.value);
+    console.log(" lending"+lendingPeriod.value);
+    console.log(" late"+lateFees.value);
+    if(name.value!="" && lendingPeriod.value!="" && lateFees.value!=""){
         dataValid=true;
         formAlert.innerHTML = "";
     }
     else{
         dataValid=false;
         formAlert.innerHTML = "Please fill required values";
+    }
+
+    if(!Number.isInteger(lendingPeriod.value)){
+        dataValid=false;
+        lendingPeriodAlert.innerHTML = "Please fill in Integer values";
     }
 
     //Sending Data to the Controller
