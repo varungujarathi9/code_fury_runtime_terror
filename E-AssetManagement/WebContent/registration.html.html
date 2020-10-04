@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+     <script type="text/javascript" src="./script/index.js"></script>
+
+</head>
+<body>
+    <form name="reg_form" id="reg_form" method="POST" action="UserRegistrationController">
+        <fieldset>
+            <legend>
+                Registration Form
+            </legend>
+            <label for="name">Enter your Full Name*</label>
+            <input type="text" name="name" id="name" required>
+            <p id="name_alert" style="color:red;"></p>
+
+            <label for="telephone">Enter your Telephone(with country code)*</label>
+            <input type="tel" name="telephone" id="number" pattern="[0-9]{10}" required>
+            <p id="telephone_alert" style="color:red;"></p>
+
+            <label for="email">Enter your Email Address*</label>
+            <input type="email" name="email" id="email" required>
+            <p id="email_alert" style="color:red;"></p>
+
+            <label for="username">Enter your Username*</label>
+            <input type="text" name="username" id="username" required>
+            <p id="username_alert" style="color:red;"></p>
+
+            <label for="password">Enter your Password*</label>
+            <input type="password" name="password" id="password" required>
+            <p id="password_alert" style="color:red;"></p>
+
+            <label for="conf_password">Enter your Confirm Password*</label>
+            <input type="password" name="conf_password" id="conf_password" required>
+            <p id="conf_password_alert" style="color:red;"></p>
+
+            <input type="submit" id="submitBtn" onclick="submitForm()" value="Register">
+
+            <p id="form_alert" style="color:red;"></p>
+        </fieldset>
+    </form>
+</body>
+</html>
