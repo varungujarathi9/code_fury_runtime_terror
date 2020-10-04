@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.PropertyResourceBundle;
 
 import com.hsbc.easset.exceptions.DBConnCreationException;
 import com.hsbc.easset.helpers.DBHelper;
@@ -201,8 +202,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					
 					while(resultSet.next())
 					{
-						if(resultSet.getString(6).equals("true"))
-						{
+
 						asset=new Asset();
 						asset.setName(resultSet.getString(2));
 						asset.setAssetType(resultSet.getString(3));
@@ -210,8 +210,6 @@ public class EAssetDaoImpl implements EAssetDao{
 						asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
 						asset.setAvailable(true);
 						assetList.add(asset);	
-						}
-						
 								
 					}
 				} catch (SQLException e) {
@@ -224,13 +222,10 @@ public class EAssetDaoImpl implements EAssetDao{
 					conn.close();
 				}
 				
-				if(assetList != null)
-					return assetList;
-				else
-					return null;
-					
-	
-		
+
+				System.out.println("returned ");
+				return assetList;
+
 	}
 
 //	@Override
