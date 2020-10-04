@@ -28,7 +28,7 @@ public class EAssetDaoImpl implements EAssetDao{
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 	}
 
-	public boolean addUser(User user) {
+	public boolean addUser(User user) throws SQLException{
 		// TODO Auto-generated method stub
 
 			try
@@ -58,13 +58,13 @@ public class EAssetDaoImpl implements EAssetDao{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//throw new DBConnCreationException("Connection Error Occurred");
+			throw new SQLException("Connection Error Occurred");
 		}
 		finally
 		{
 			try {
 				conn.close();
-			} catch (SQLException e) {
+				} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -75,7 +75,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-	public boolean validateLogin(User user) throws DBConnCreationException{
+	public boolean validateLogin(User user) throws SQLException{
 		// TODO Auto-generated method stub
 
 	//	System.out.println("entered dao");
@@ -95,7 +95,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					throw new DBConnCreationException("Connection Error Occurred");
+					throw new SQLException("Connection Error Occurred");
 				}
 				finally
 				{
@@ -106,13 +106,14 @@ public class EAssetDaoImpl implements EAssetDao{
 						e.printStackTrace();
 					}
 				}
-        System.out.println(status);
+
 		return status;
 	}
 
 	@Override
-		public boolean addAsset(Asset asset) throws DBConnCreationException{
+		public boolean addAsset(Asset asset) throws SQLException{
 			// TODO Auto-generated method stub
+			boolean status=false;
 			try
 			{
 			conn=DBHelper.getConnection();
@@ -138,7 +139,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			throw new DBConnCreationException("Connection Error Occurred");
+			throw new SQLException("Connection Error Occurred");
 		}
 		finally
 		{
@@ -153,7 +154,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean isAdmin(User user) throws DBConnCreationException {
+		public boolean isAdmin(User user) throws SQLException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try {
@@ -170,7 +171,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new DBConnCreationException("Connection Error Occurred");
+				throw new SQLException("Connection Error Occurred");
 			}
 			finally
 			{
@@ -243,6 +244,77 @@ public class EAssetDaoImpl implements EAssetDao{
 //		// TODO Auto-generated method stub
 //		return false;
 //	}
+	public boolean existsCategory(String categoryName) throws SQLException {
+		// TODO Auto-generated method stub
+		boolean status=false;
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("categoryQuery"));
+			pre.setString(1, categoryName);
+			resultSet=pre.executeQuery();
+			resultSet.next();
+			if(resultSet.getInt(1)>0)
+			{
+				status=true;
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SQLException("Connection Error Occurred");
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+return status;
+	}
+
+	@Override
+	public boolean addCategory(String categoryName, int lendingPeriod, int lateFees)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		boolean status=false;
+		try
+		{
+		conn=DBHelper.getConnection();
+		pre=conn.prepareStatement(resourceBundle.getString("addcategory"));
+			pre.setString(1, categoryName);
+			pre.setInt(2, lendingPeriod);
+			pre.setInt(3, lateFees);
+			pre.executeUpdate();
+			conn.commit();
+			status=true;
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		System.out.println("Error Code"+e.getErrorCode());
+		System.out.println(e.getMessage());
+		try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		throw new SQLException("Connection Error Occurred");
+	}
+	finally
+	{
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return status;
+	}
 
 
 

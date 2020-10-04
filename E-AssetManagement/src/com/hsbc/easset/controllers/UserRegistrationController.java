@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.easset.dao.EAssetDao;
+import com.hsbc.easset.exceptions.DBConnCreationException;
+import com.hsbc.easset.bl.EAssetBL;
+import com.hsbc.easset.bl.EAssetBLImpl;
 import com.hsbc.easset.dao.*;
 import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
@@ -61,31 +65,36 @@ public class UserRegistrationController extends HttpServlet {
 			user.setUsername(userData.get(3).toString());
 			user.setPassword(userData.get(4).toString());
 			user.setRole(RoleType.BORROWER);
+			//user.setDob(LocalDate.parse(customerData.get(2).toString(),formatter));
+	        //create conn with bl
+			EAssetBL eAssetBL= new EAssetBLImpl();
 	
-	     //   user.setDob(LocalDate.parse(customerData.get(2).toString(),
-	       // 		formatter));
-	
-	        //out.println("Registered Successfully...");
-	        //create conn with dao
-			EAssetDao eAssetDao= new EAssetDaoImpl();
-	
-	
-	        if(eAssetDao.addUser(user))
-	        {
+			try
+			{
+				eAssetBL.addUser(user);
 	        	out.println("Registered Successfully...");
+	        	//direct to login page
 	        	request.getRequestDispatcher("login.html").forward(request, response);
 			}
-        //System.out.println(user.getName());
-
-    //    else
-      //  	request.getRequestDispatcher("index.html").include(request, response);
+			catch(DBConnCreationException exception)
+			{
+				out.println(exception.getMessage());
+				//redirect to registration page
+				request.getRequestDispatcher("index.html").include(request, response);
+			}
 
 		}
-
+		catch(NullPointerException|InputMismatchException exception)
+		{
+			out.println(exception.getMessage());
+			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
+			request.getRequestDispatcher("index.html").include(request, response);
+		}
 		catch(Exception exception)
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
+			request.getRequestDispatcher("index.html").include(request, response);
 		}
 
 	}

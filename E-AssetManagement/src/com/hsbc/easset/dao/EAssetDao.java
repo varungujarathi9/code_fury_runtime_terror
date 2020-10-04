@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.hsbc.easset.exceptions.DBConnCreationException;
+
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
@@ -17,5 +18,7 @@ public interface EAssetDao {
 	//List<Asset> searchAvailableAssets(Asset asset);
 	//boolean issueAvailableAssets(List<Asset> assetList);
 	//boolean returnAssets(List<Asset> assetList);
-	
+
+	boolean existsCategory(String categoryName) throws SQLException;
+	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws SQLException;
 }

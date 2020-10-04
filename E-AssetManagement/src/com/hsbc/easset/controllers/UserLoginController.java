@@ -2,6 +2,7 @@
  *
  * @author Sayan
  * @version 1.0
+ * @createdOn 03 Oct 2020
  *
  *
  */
@@ -21,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.easset.dao.EAssetDao;
-import com.hsbc.easset.dao.EAssetDaoImpl;
+import com.hsbc.easset.bl.EAssetBL;
+import com.hsbc.easset.bl.EAssetBLImpl;
 import com.hsbc.easset.exceptions.DBConnCreationException;
 import com.hsbc.easset.models.User;
 
@@ -49,27 +50,26 @@ public class UserLoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		User user=new User();
-		EAssetDao eAssetDao=new EAssetDaoImpl();
+		EAssetBL eAssetBL=new EAssetBLImpl();
 		PrintWriter out=response.getWriter();
 		HttpSession session=null;
-		List<String> customerData=new ArrayList();
-		//User user=new User();
+		List<String> customerData=new ArrayList<String>();
 		Enumeration<String> enumeration=request.getParameterNames();
 		String parameterName=null;
 		String value=null;
 	    response.setContentType("text/html");
-	    
+
 		while(enumeration.hasMoreElements())
 		{
 			parameterName=enumeration.nextElement().toString();
 			value=request.getParameter(parameterName);
 			customerData.add(value);
-			
-			
+
+
 		}
 		try
 		{
-			
+
 			System.out.println(customerData);
 			//received data from client and mapped to model class
 			user.setUsername(customerData.get(0).toString());
@@ -77,20 +77,20 @@ public class UserLoginController extends HttpServlet {
 
         try
         {
-        	if(eAssetDao.validateLogin(user))
+        	if(eAssetBL.validateLogin(user))
         	{
         		session=request.getSession(true);
-        		out.println("<p style='float:right;color:green'>Login Credentials are valid</p>");
+        		out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
         		session.setAttribute("userSession", user); //create user session
         		request.getRequestDispatcher("index.html").include(request, response);
         		try
         		{
-        			if(eAssetDao.isAdmin(user)) //if logged user is admin or burrower
-        			{	//redirect to admin homepage
+        			if(eAssetBL.isAdmin(user)) //if logged user is admin or burrower
+        			{	//direct to admin homepage
         			}
         			else
         			{
-        				//redirect to burrower homepage
+        				//direct to burrower homepage
         			}
         		}
         		catch(DBConnCreationException exception)
@@ -98,13 +98,6 @@ public class UserLoginController extends HttpServlet {
         			out.println(exception.getMessage());
         			session.invalidate(); //close session
         			//redirect to login page
-        			request.getRequestDispatcher("login.html").include(request, response);
-        			
-        		}
-        		catch(Exception exception)
-        		{
-        			out.println(exception.getMessage());
-        			session.invalidate();
         			request.getRequestDispatcher("login.html").include(request, response);
         		}
         	}
@@ -125,10 +118,12 @@ public class UserLoginController extends HttpServlet {
 		catch(NullPointerException|InputMismatchException exception)
 		{
 			out.println(exception.getMessage());
+			request.getRequestDispatcher("login.html").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			out.println(exception.getMessage());
+			request.getRequestDispatcher("login.html").include(request, response);
 		}
 
 	}
