@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Asset</title>
      <script type="text/javascript" src="./script/add-asset.js"></script>
-     
+
 </head>
 <body>
     <form name="addAssetForm" id="addAssetForm" method="POST" action="AddAssetController">
@@ -19,7 +19,7 @@
 
             <label for="description">Description*</label>
             <input type="text" name="description" id="description" required>
-            <p id="description_alert" style="color:red;"></p>  
+            <p id="description_alert" style="color:red;"></p>
 
             <label for="category">Category*</label>
             <select id="category" name="category">
@@ -28,12 +28,12 @@
               <option value="Other" >Other</option>
 
             </select>
-            <p id="category_alert" style="color:red;"></p>  
-            
+            <p id="category_alert" style="color:red;"></p>
+
                 <div id="addCategory" style="display: none; margin-bottom: 2%;">
                     <button>Add Category</button>
                 </div>
-           
+
 
 
             <input type="button" id="submitBtn" onclick="addAsset()" value="Add Asset">
