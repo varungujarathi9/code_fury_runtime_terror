@@ -76,7 +76,7 @@ public class AddCategoryController extends HttpServlet {
         			eAssetBL.addCategory(categoryName,lendingPeriod,lateFees);
         			out.println("Added Successfully...");
         			//direct to addasset page
-        			request.getRequestDispatcher("addAsset.html").forward(request, response);
+        			request.getRequestDispatcher("add-asset.html").forward(request, response);
         		}
         		catch(DBConnCreationException exception)
             	{

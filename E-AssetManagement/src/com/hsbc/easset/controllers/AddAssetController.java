@@ -86,7 +86,7 @@ public class AddAssetController extends HttpServlet {
 	        {
 	        	out.println(exception.getMessage());
 	        	//redirect to addasset page
-	        	request.getRequestDispatcher("addAsset.html").include(request, response);
+	        	request.getRequestDispatcher("add-asset.html").include(request, response);
 	        }
 
 			}
@@ -94,13 +94,13 @@ public class AddAssetController extends HttpServlet {
 			{
 				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("addAsset.html").include(request, response);
+				request.getRequestDispatcher("add-asset.html").include(request, response);
 			}
 			catch(Exception exception)
 			{
 				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("addAsset.html").include(request, response);
+				request.getRequestDispatcher("add-asset.html").include(request, response);
 			}
 
 	}
