@@ -18,21 +18,14 @@
             <p id="name_alert" style="color:red;"></p>
 
             <label for="lendingPeriod">Lending Period (in days)*</label>
-            <input type="number" name="lendingPeriod" id="lendingPeriod" required>
+            <input type="number" name="lendingPeriod" id="lendingPeriod" min="1" required>
             <p id="lendingPeriod_alert" style="color:red;"></p>  
 
             <label for="lateFees">Late Fees (per day)*</label>
             <input type="number" name="lateFees" id="lateFees" required>
             <p id="lateFees_alert" style="color:red;"></p>  
 
-            
-                <div id="addCategory" style="display: none; margin-bottom: 2%;">
-                    <button>Add Category</button>
-                </div>
-           
-
-
-            <input type="button" id="submitBtn" onclick="addCategory()" value="Add Category">
+            <input type="submit" id="submitBtn" value="Add Category">
             <p id="form_alert" style="color:red;"></p>
         </fieldset>
     </form>
