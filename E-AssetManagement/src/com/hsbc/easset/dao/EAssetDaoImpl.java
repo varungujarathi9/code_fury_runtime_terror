@@ -2,6 +2,8 @@ package com.hsbc.easset.dao;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -185,6 +187,63 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
+	public List<Asset> showAvailableAssets() throws SQLException {
+		// TODO Auto-generated method stub
+		
+		// TODO Auto-generated method stub
+				List<Asset> assetList=new ArrayList<Asset>();
+				assetList=null;
+				Asset asset=null;
+				try {
+					conn=DBHelper.getConnection();
+					stmt=conn.createStatement();
+					resultSet=stmt.executeQuery(resourceBundle.getString("getAssets"));
+					
+					while(resultSet.next())
+					{
+						if(resultSet.getString(6).equals("true"))
+						{
+						asset=new Asset();
+						asset.setName(resultSet.getString(2));
+						asset.setAssetType(resultSet.getString(3));
+						asset.setAssetType(resultSet.getString(4));
+						asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
+						asset.setAvailable(true);
+						assetList.add(asset);	
+						}
+						
+								
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getErrorCode());
+					throw new SQLException("Connection Error Occurred");
+				}
+				finally
+				{
+					conn.close();
+				}
+				
+				if(assetList != null)
+					return assetList;
+				else
+					return null;
+					
+	
+		
+	}
+
+//	@Override
+//	public boolean issueAvailableAssets(List<Asset> assetList) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean returnAssets(List<Asset> assetList) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 	public boolean existsCategory(String categoryName) throws SQLException {
 		// TODO Auto-generated method stub
 		boolean status=false;
