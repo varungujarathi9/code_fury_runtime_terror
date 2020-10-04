@@ -2,20 +2,9 @@
  * @author Varun Gujarathi
  * @createdOn 02 Oct 2020
  */
-window.addEventListener('load',function()
+
+function submitForm()
 {
-    let content=document.querySelector("#content");
-
-    userLogin.addEventListener('click',function()
-    {
-
-        document.querySelector("#content div").style.display="block";
-    })
-
-
-
-})
-function submitForm(){
 
     var dataValid = true;
 
@@ -88,3 +77,5 @@ function submitForm(){
         }
     }
 }
+
+

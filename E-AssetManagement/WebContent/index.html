@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-     <script type="text/javascript" src="./javascript/index.js"></script>
-
+     <script type="text/javascript" src="./script/index.js"></script>
+     
 </head>
 <body>
     <form name="reg_form" id="reg_form" method="POST">
@@ -38,30 +38,9 @@
             <p id="conf_password_alert" style="color:red;"></p>
 
             <input type="button" id="submitBtn" onclick="submitForm()" value="Register">
+            
             <p id="form_alert" style="color:red;"></p>
         </fieldset>
     </form>
-    <article id="login">
-        <div>
-         <form id="userLogin" method="post">
-            <fieldset>
-                <legend>Login:-</a></legend>
-
-                  <label for="userName"><b>Enter Username</b></label>
-                  <input type="text"  name="userName" required placeholder="Enter Username">
-
-                  <label for="password"><b>Password</b></label>
-                  <input type="password"  name="password" required placeholder="Enter Password">
-
-                  <input type="button" id="submit" onclick="login()" value="Login">
-
-
-            </fieldset>
-        </form>
-        </div>
-        </article>
-
-
-
 </body>
 </html>
