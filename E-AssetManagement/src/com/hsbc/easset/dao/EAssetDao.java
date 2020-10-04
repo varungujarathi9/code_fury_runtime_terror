@@ -1,25 +1,20 @@
 package com.hsbc.easset.dao;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-import com.hsbc.easset.exceptions.DBConnCreationException;
 
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
 public interface EAssetDao {
-<<<<<<< HEAD
-	boolean addUser(User user) throws DBConnCreationException;
-    boolean validateLogin(User user) throws DBConnCreationException;
-    boolean addAsset(Asset asset) throws DBConnCreationException;
-	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage
-=======
-	boolean addUser(User user) throws SQLException;
+
+	boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException;
     boolean validateLogin(User user) throws SQLException;
     boolean addAsset(Asset asset) throws SQLException;
 	boolean isAdmin(User user) throws SQLException; //to redirect to admin or burrower homepage
->>>>>>> 03822a7729756892a6fc809a99e05e467af72582
+
 	
 	List<Asset> showAvailableAssets() throws   SQLException;
 	//List<Asset> searchAvailableAssets(Asset asset);

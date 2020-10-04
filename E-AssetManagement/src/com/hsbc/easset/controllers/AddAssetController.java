@@ -70,8 +70,6 @@ public class AddAssetController extends HttpServlet {
 			asset.setName(assetData.get(0).toString());
 			asset.setAssetType(assetData.get(1).toString());
 			asset.setDescription(assetData.get(2).toString());
-			asset.setDateAdded(LocalDate.parse(assetData.get(3).toString(),formatter));
-			asset.setAvailable(Boolean.parseBoolean(assetData.get(4).toString()));
 
 	        //create conn with bl
 			EAssetBL eAssetBL= new EAssetBLImpl();

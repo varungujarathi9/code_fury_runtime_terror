@@ -1,4 +1,6 @@
 package com.hsbc.easset.bl;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  *
  * @author Sayan
@@ -13,7 +15,7 @@ import com.hsbc.easset.models.User;
 
 public interface EAssetBL {
 
-	boolean addUser(User user) throws DBConnCreationException;;
+	boolean addUser(User user) throws DBConnCreationException,SQLIntegrityConstraintViolationException;
     boolean validateLogin(User user) throws DBConnCreationException;
     boolean addAsset(Asset asset) throws DBConnCreationException;
 	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage

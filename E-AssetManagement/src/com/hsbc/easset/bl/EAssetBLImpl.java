@@ -1,13 +1,7 @@
 package com.hsbc.easset.bl;
-/**
- *
- * @author Sayan
- * @version 1.0
- * @createdOn 04 Oct 2020
- *
- *
- */
+
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import com.hsbc.easset.dao.EAssetDao;
 import com.hsbc.easset.dao.EAssetDaoImpl;
@@ -17,20 +11,20 @@ import com.hsbc.easset.models.User;
 
 public class EAssetBLImpl implements EAssetBL{
 	private EAssetDao eAssetDao;
-
+	
 	public EAssetBLImpl()
 	{
 		eAssetDao=new EAssetDaoImpl();
 	}
 
 	@Override
-	public boolean addUser(User user) throws DBConnCreationException{
+	public boolean addUser(User user) throws DBConnCreationException, SQLIntegrityConstraintViolationException{
 		// TODO Auto-generated method stub
 			boolean status=false;
 			try {
 				eAssetDao.addUser(user);
 				status=true;
-			} catch (DBConnCreationException e) {
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				throw new DBConnCreationException("Connection Error Occurred");
 			}
@@ -44,7 +38,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.validateLogin(user);
 			status=true;
-		} catch (DBConnCreationException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
@@ -58,7 +52,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.addAsset(asset);
 			status=true;
-		} catch (DBConnCreationException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
@@ -72,7 +66,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.isAdmin(user);
 			status=true;
-		} catch (DBConnCreationException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}

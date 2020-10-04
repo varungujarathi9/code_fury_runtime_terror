@@ -2,6 +2,7 @@ package com.hsbc.easset.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -76,7 +77,7 @@ public class UserRegistrationController extends HttpServlet {
 	        	//direct to login page
 	        	request.getRequestDispatcher("login.html").forward(request, response);
 			}
-			catch(DBConnCreationException exception)
+			catch(DBConnCreationException|SQLIntegrityConstraintViolationException exception)
 			{
 				out.println(exception.getMessage());
 				//redirect to registration page
