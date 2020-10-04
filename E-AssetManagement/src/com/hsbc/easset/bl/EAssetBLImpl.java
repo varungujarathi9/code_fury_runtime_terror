@@ -30,7 +30,7 @@ public class EAssetBLImpl implements EAssetBL{
 			try {
 				eAssetDao.addUser(user);
 				status=true;
-			} catch (SQLException e) {
+			} catch (DBConnCreationException e) {
 				// TODO Auto-generated catch block
 				throw new DBConnCreationException("Connection Error Occurred");
 			}
@@ -44,7 +44,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.validateLogin(user);
 			status=true;
-		} catch (SQLException e) {
+		} catch (DBConnCreationException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
@@ -58,7 +58,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.addAsset(asset);
 			status=true;
-		} catch (SQLException e) {
+		} catch (DBConnCreationException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
@@ -72,7 +72,7 @@ public class EAssetBLImpl implements EAssetBL{
 		try {
 			eAssetDao.isAdmin(user);
 			status=true;
-		} catch (SQLException e) {
+		} catch (DBConnCreationException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}

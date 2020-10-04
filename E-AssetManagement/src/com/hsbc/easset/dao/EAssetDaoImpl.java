@@ -12,6 +12,8 @@ import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+
 public class EAssetDaoImpl implements EAssetDao{
 
 	private Connection conn;
@@ -24,11 +26,11 @@ public class EAssetDaoImpl implements EAssetDao{
 
 	public  EAssetDaoImpl()
 	{
-
+		
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 	}
 
-	public boolean addUser(User user) throws SQLException{
+	public boolean addUser(User user) throws DBConnCreationException {
 		// TODO Auto-generated method stub
 
 			try
@@ -58,7 +60,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			throw new SQLException("Connection Error Occurred");
+			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		finally
 		{
@@ -75,7 +77,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-	public boolean validateLogin(User user) throws SQLException{
+	public boolean validateLogin(User user) throws DBConnCreationException{
 		// TODO Auto-generated method stub
 
 	//	System.out.println("entered dao");
@@ -95,7 +97,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					throw new SQLException("Connection Error Occurred");
+					throw new DBConnCreationException("Connection Error Occurred");
 				}
 				finally
 				{
@@ -111,7 +113,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean addAsset(Asset asset) throws SQLException{
+		public boolean addAsset(Asset asset) throws DBConnCreationException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try
@@ -139,7 +141,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			throw new SQLException("Connection Error Occurred");
+			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		finally
 		{
@@ -154,7 +156,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean isAdmin(User user) throws SQLException {
+		public boolean isAdmin(User user) throws DBConnCreationException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try {
@@ -171,7 +173,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new SQLException("Connection Error Occurred");
+				throw new DBConnCreationException("Connection Error Occurred");
 			}
 			finally
 			{
@@ -192,7 +194,7 @@ public class EAssetDaoImpl implements EAssetDao{
 		
 		// TODO Auto-generated method stub
 				List<Asset> assetList=new ArrayList<Asset>();
-				assetList=null;
+				//assetList=null;
 				Asset asset=null;
 				try {
 					conn=DBHelper.getConnection();
@@ -216,7 +218,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					System.out.println(e.getErrorCode());
+					//System.out.println(e.getErrorCode());
 					throw new SQLException("Connection Error Occurred");
 				}
 				finally
