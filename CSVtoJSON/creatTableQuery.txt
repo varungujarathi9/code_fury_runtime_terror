@@ -1,0 +1,1 @@
+create table Userss(uniqueId INT,Name varchar(100),telephoneNumber varchar(100),role varchar(100),emailId varchar(100),userName varchar(100),password varchar(100),lastLogin date, CONSTRAINT uniqueId_PK PRIMARY KEY(uniqueId));
