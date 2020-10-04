@@ -1,8 +1,9 @@
 /**
- * 
+ *
  * @author Sayan
  * @version 1.0
- * 
+ * @createdOn 03 Oct 2020
+ *
  *
  */
 package com.hsbc.easset.controllers;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hsbc.easset.bl.EAssetBL;
+import com.hsbc.easset.bl.EAssetBLImpl;
 import com.hsbc.easset.dao.EAssetDao;
 import com.hsbc.easset.dao.EAssetDaoImpl;
 import com.hsbc.easset.exceptions.DBConnCreationException;
@@ -34,7 +37,7 @@ import com.hsbc.easset.models.Asset;
 @WebServlet(asyncSupported = true, urlPatterns = { "/AddAssetController" })
 public class AddAssetController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -59,49 +62,47 @@ public class AddAssetController extends HttpServlet {
 			try
 			{
 			while(enumeration.hasMoreElements())
-			{			
+			{
 				parameterName=enumeration.nextElement().toString();
 			    value=request.getParameter(parameterName);
 			    assetData.add(value);
-			}		
+			}
 			asset.setName(assetData.get(0).toString());
 			asset.setAssetType(assetData.get(1).toString());
 			asset.setDescription(assetData.get(2).toString());
 			asset.setDateAdded(LocalDate.parse(assetData.get(3).toString(),formatter));
 			asset.setAvailable(Boolean.parseBoolean(assetData.get(4).toString()));
-	       
-	        //create conn with dao
-			EAssetDao eAssetDao= new EAssetDaoImpl();
-			
-	   
+
+	        //create conn with bl
+			EAssetBL eAssetBL= new EAssetBLImpl();
+
+
 	        try
 	        {
-	        	if(eAssetDao.addAsset(asset))
-	        		out.println("Added Successfully...");
-	        	else
-	        	{
-	        		//redirect to addasset page
-	        	}
+	        	eAssetBL.addAsset(asset);
+	        	out.println("Added Successfully...");
 	        }
 	        catch(DBConnCreationException exception)
 	        {
 	        	out.println(exception.getMessage());
 	        	//redirect to addasset page
-	        }	
-			
+	        	request.getRequestDispatcher("addAsset.html").include(request, response);
+	        }
+
 			}
 			catch(NullPointerException|InputMismatchException exception)
 			{
 				out.println(exception.getMessage());
-				//out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
+				request.getRequestDispatcher("addAsset.html").include(request, response);
 			}
 			catch(Exception exception)
 			{
 				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
+				request.getRequestDispatcher("addAsset.html").include(request, response);
 			}
-			
+
 	}
 
 }
