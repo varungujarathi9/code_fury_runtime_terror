@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+     <script type="text/javascript" src="./script/add-category.js"></script>
+     
+</head>
+<body>
+    <form name="addCategoryForm" id="addCategoryForm" method="POST" action="AddCategoryController">
+        <fieldset>
+            <legend>
+                Add Category
+            </legend>
+            <label for="name">Category Name*</label>
+            <input type="text" name="name" id="name" required>
+            <p id="name_alert" style="color:red;"></p>
+
+            <label for="lendingPeriod">Lending Period (in days)*</label>
+            <input type="number" name="lendingPeriod" id="lendingPeriod" required>
+            <p id="lendingPeriod_alert" style="color:red;"></p>  
+
+            <label for="lateFees">Late Fees (per day)*</label>
+            <input type="number" name="lateFees" id="lateFees" required>
+            <p id="lateFees_alert" style="color:red;"></p>  
+
+            
+                <div id="addCategory" style="display: none; margin-bottom: 2%;">
+                    <button>Add Category</button>
+                </div>
+           
+
+
+            <input type="button" id="submitBtn" onclick="addCategory()" value="Add Category">
+            <p id="form_alert" style="color:red;"></p>
+        </fieldset>
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Asset</title>
+     <script type="text/javascript" src="./script/add-asset.js"></script>
+
+</head>
+<body>
+    <form name="addAssetForm" id="addAssetForm" method="POST" action="AddAssetController">
+        <fieldset>
+            <legend>
+                Add Asset
+            </legend>
+            <label for="name">Asset Name*</label>
+            <input type="text" name="name" id="name" required>
+            <p id="name_alert" style="color:red;"></p>
+
+            <label for="description">Description*</label>
+            <input type="text" name="description" id="description" required>
+            <p id="description_alert" style="color:red;"></p>
+
+            <label for="category">Category*</label>
+            <select id="category" name="category">
+              <option value="Laptop">Laptop</option>
+              <option value="Mobile">Mobile</option>
+              <option value="Other" >Other</option>
+
+            </select>
+            <p id="category_alert" style="color:red;"></p>
+
+                <div id="addCategory" style="display: none; margin-bottom: 2%;">
+                    <button>Add Category</button>
+                </div>
+
+
+
+            <input type="button" id="submitBtn" onclick="addAsset()" value="Add Asset">
+            <p id="form_alert" style="color:red;"></p>
+        </fieldset>
+    </form>
+
+
+</body>
+</html>

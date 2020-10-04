@@ -47,8 +47,6 @@ function submitForm()
         submitBtn.disabled =true;
         submitBtn.value="Processing...";
         var currentDate = new Date();
-        // TODO: Uncomment the below line and
-        // add the registration form submission endpoint
 
         ajax.open("POST","/E-AssetManagement/UserRegistrationController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

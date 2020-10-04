@@ -80,8 +80,9 @@ public class UserLoginController extends HttpServlet {
         	if(eAssetDao.validateLogin(user))
         	{
         		session=request.getSession(true);
-        		out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
+        		out.println("<p style='float:right;color:green'>Login Credentials are valid</p>");
         		session.setAttribute("userSession", user); //create user session
+        		request.getRequestDispatcher("index.html").include(request, response);
         		try
         		{
         			if(eAssetDao.isAdmin(user)) //if logged user is admin or burrower
