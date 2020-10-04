@@ -4,7 +4,7 @@ document.querySelector("#userLogin").addEventListener('submit',
         function()
     {
         //console.log("login successfull !!");
-        alert("login successfull !!");
+        //alert("login successfull !!");
 
     })
 
@@ -29,7 +29,7 @@ function login()
 
 
 
-        ajax.open("POST","http://localhost:8080/E-AssetManagement/UserLoginController",true);
+        ajax.open("POST","/E-AssetManagement/UserLoginController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         ajax.send("&username="+username+"&password="+password);
 

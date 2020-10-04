@@ -9,7 +9,10 @@ package com.hsbc.easset.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,17 +52,35 @@ public class UserLoginController extends HttpServlet {
 		EAssetDao eAssetDao=new EAssetDaoImpl();
 		PrintWriter out=response.getWriter();
 		HttpSession session=null;
+		List<String> customerData=new ArrayList();
+		//User user=new User();
+		Enumeration<String> enumeration=request.getParameterNames();
+		String parameterName=null;
+		String value=null;
 	    response.setContentType("text/html");
+	    
+		while(enumeration.hasMoreElements())
+		{
+			parameterName=enumeration.nextElement().toString();
+			value=request.getParameter(parameterName);
+			customerData.add(value);
+			
+			
+		}
 		try
 		{
-		user.setName(request.getParameter("userName").toString());
-		user.setPassword(request.getParameter("password").toString());
+			
+			System.out.println(customerData);
+			//received data from client and mapped to model class
+			user.setUsername(customerData.get(0).toString());
+			user.setPassword(customerData.get(1).toString());
 
         try
         {
         	if(eAssetDao.validateLogin(user))
         	{
         		session=request.getSession(true);
+        		out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
         		session.setAttribute("userSession", user); //create user session
         		try
         		{
@@ -77,6 +98,7 @@ public class UserLoginController extends HttpServlet {
         			session.invalidate(); //close session
         			//redirect to login page
         			request.getRequestDispatcher("login.html").include(request, response);
+        			
         		}
         		catch(Exception exception)
         		{

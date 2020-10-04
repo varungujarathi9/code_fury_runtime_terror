@@ -104,7 +104,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						e.printStackTrace();
 					}
 				}
-
+        System.out.println(status);
 		return status;
 	}
 
