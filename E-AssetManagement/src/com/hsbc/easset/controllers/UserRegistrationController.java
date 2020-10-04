@@ -38,7 +38,7 @@ public class UserRegistrationController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		System.out.println("Request received");
 		Enumeration<String> enumeration=request.getParameterNames();
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
 		String parameterName=null;
@@ -49,32 +49,32 @@ public class UserRegistrationController extends HttpServlet {
 	    response.setContentType("text/html");
 		try
 		{
-		while(enumeration.hasMoreElements())
-		{
-			parameterName=enumeration.nextElement().toString();
-		    value=request.getParameter(parameterName);
-		    userData.add(value);
-		}
-		user.setName(userData.get(0).toString());
-		user.setTelphoneNumber(Long.parseLong(userData.get(1).toString()));
-		user.setEmailId(userData.get(2).toString());
-		user.setUsername(userData.get(3).toString());
-		user.setPassword(userData.get(4).toString());
-		user.setRole(RoleType.BORROWER);
-
-     //   user.setDob(LocalDate.parse(customerData.get(2).toString(),
-       // 		formatter));
-
-        //out.println("Registered Successfully...");
-        //create conn with dao
-		EAssetDao eAssetDao= new EAssetDaoImpl();
-
-
-        if(eAssetDao.addUser(user))
-        {
-        	out.println("Registered Successfully...");
-        	request.getRequestDispatcher("login.html").forward(request, response);
-		}
+			while(enumeration.hasMoreElements())
+			{
+				parameterName=enumeration.nextElement().toString();
+			    value=request.getParameter(parameterName);
+			    userData.add(value);
+			}
+			user.setName(userData.get(0).toString());
+			user.setTelphoneNumber(Long.parseLong(userData.get(1).toString()));
+			user.setEmailId(userData.get(2).toString());
+			user.setUsername(userData.get(3).toString());
+			user.setPassword(userData.get(4).toString());
+			user.setRole(RoleType.BORROWER);
+	
+	     //   user.setDob(LocalDate.parse(customerData.get(2).toString(),
+	       // 		formatter));
+	
+	        //out.println("Registered Successfully...");
+	        //create conn with dao
+			EAssetDao eAssetDao= new EAssetDaoImpl();
+	
+	
+	        if(eAssetDao.addUser(user))
+	        {
+	        	out.println("Registered Successfully...");
+	        	request.getRequestDispatcher("login.html").forward(request, response);
+			}
         //System.out.println(user.getName());
 
     //    else

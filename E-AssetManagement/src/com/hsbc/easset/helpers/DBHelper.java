@@ -15,6 +15,7 @@ public class DBHelper {
 		Connection conn=null;
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 		String url=resourceBundle.getString("url");
+		System.out.println(url);
 		String userName=resourceBundle.getString("username");
 		String password=resourceBundle.getString("password");
 		String driver=resourceBundle.getString("driver");
