@@ -1,5 +1,7 @@
 package com.hsbc.easset.dao;
 
+import com.hsbc.easset.exceptions.DBConnCreationException;
+import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
 public interface EAssetDao {
