@@ -5,7 +5,7 @@ window.addEventListener('load', function(){
     var ajax=new XMLHttpRequest();
     showAssets.innerHTML = "Requesting server...";
 
-    ajax.open("POST","/E-AssetManagement/BorrowerShowAssetController",true);
+    ajax.open("GET","/E-AssetManagement/BorrowerShowAssetController",true);
     // ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send();
     ajax.onreadystatechange=function(){

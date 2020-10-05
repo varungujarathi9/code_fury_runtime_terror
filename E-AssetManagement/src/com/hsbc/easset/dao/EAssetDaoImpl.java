@@ -224,28 +224,30 @@ public class EAssetDaoImpl implements EAssetDao{
 
 	@Override
 	public List<Asset> showAvailableAssets() throws SQLException {
-		// TODO Auto-generated method stub
 		
 		// TODO Auto-generated method stub
 				List<Asset> assetList=new ArrayList<Asset>();
-				//assetList=null;
+
 				Asset asset=null;
 				try {
 					conn=DBHelper.getConnection();
 					stmt=conn.createStatement();
 					resultSet=stmt.executeQuery(resourceBundle.getString("getAssets"));
-					
+					if(resultSet.getFetchSize()>0)
+						System.out.println("Result set not empty"+resultSet.getFetchSize());
+					else
+						System.out.println("Result set empty");
 					while(resultSet.next())
 					{
-
+						
 						asset=new Asset();
 						asset.setName(resultSet.getString(2));
 						asset.setAssetType(resultSet.getString(3));
-						asset.setAssetType(resultSet.getString(4));
+						asset.setDescription(resultSet.getString(4));
 						asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
 						asset.setAvailable(true);
 						assetList.add(asset);	
-								
+						
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -257,7 +259,8 @@ public class EAssetDaoImpl implements EAssetDao{
 					conn.close();
 				}
 				
-
+				System.out.println(assetList.get(0));
+				
 				System.out.println("returned ");
 				return assetList;
 

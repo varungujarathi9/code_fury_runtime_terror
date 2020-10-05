@@ -40,6 +40,12 @@ public class Asset {
 		this.isAvailable = isAvailable;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
 	
 	
 	
