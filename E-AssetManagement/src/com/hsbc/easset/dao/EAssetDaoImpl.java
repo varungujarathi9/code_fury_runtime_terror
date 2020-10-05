@@ -8,10 +8,11 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.PropertyResourceBundle;
 
-import com.hsbc.easset.exceptions.DBConnCreationException;
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
+
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 
 public class EAssetDaoImpl implements EAssetDao{
 
@@ -25,11 +26,11 @@ public class EAssetDaoImpl implements EAssetDao{
 
 	public  EAssetDaoImpl()
 	{
-
+		
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 	}
 
-	public boolean addUser(User user) throws SQLException{
+	public boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException {
 		// TODO Auto-generated method stub
 
 			try
@@ -44,12 +45,23 @@ public class EAssetDaoImpl implements EAssetDao{
 				pre.setString(5, user.getEmailId());
 				pre.setString(6, user.getUsername());
 				pre.setString(7, user.getPassword());
-				pre.setDate(8, Date.valueOf("2020-03-09"));
+				pre.setDate(8, null);
 				pre.executeUpdate();
 				conn.commit();
 				status=true;
 
-		} catch (SQLException e) {
+		} catch(SQLIntegrityConstraintViolationException e)
+			{
+				System.out.println(e.getMessage());
+				try {
+				conn.rollback();
+				} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			throw new SQLIntegrityConstraintViolationException("Email Id or Username already exists.......");
+			}
+			catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error Code"+e.getErrorCode());
 			System.out.println(e.getMessage());
@@ -61,6 +73,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			}
 			throw new SQLException("Connection Error Occurred");
 		}
+			
 		finally
 		{
 			try {
@@ -90,7 +103,28 @@ public class EAssetDaoImpl implements EAssetDao{
 					resultSet.next();
 					if(resultSet.getInt(1)>0)
 					{
-						status=true;
+						//update last login
+						try
+						{
+							pre=conn.prepareStatement(resourceBundle.getString("addlastlogin"));
+							pre.setDate(1, Date.valueOf(LocalDate.now()));
+							pre.setString(2, user.getUsername());
+							pre.executeUpdate();
+							conn.commit();
+							status=true;
+						}
+						catch (SQLException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Error Code"+e.getErrorCode());
+							System.out.println(e.getMessage());
+							try {
+								conn.rollback();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							throw new SQLException("Connection Error Occurred");
+						}
 					}
 
 
@@ -112,7 +146,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean addAsset(Asset asset) throws SQLException{
+		public boolean addAsset(Asset asset) throws SQLException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try
@@ -124,8 +158,9 @@ public class EAssetDaoImpl implements EAssetDao{
 				pre.setString(2, asset.getName());
 				pre.setString(3, asset.getAssetType());
 				pre.setString(4, asset.getDescription());
-				pre.setDate(5, Date.valueOf(asset.getDateAdded()));
-				pre.setBoolean(4, asset.isAvailable());
+				pre.setDate(5, Date.valueOf(LocalDate.now()));
+				pre.setBoolean(6, true);
+				pre.setBoolean(7, false);
 				pre.executeUpdate();
 				conn.commit();
 				status=true;
@@ -193,7 +228,7 @@ public class EAssetDaoImpl implements EAssetDao{
 		
 		// TODO Auto-generated method stub
 				List<Asset> assetList=new ArrayList<Asset>();
-				assetList=null;
+				//assetList=null;
 				Asset asset=null;
 				try {
 					conn=DBHelper.getConnection();
@@ -214,7 +249,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					System.out.println(e.getErrorCode());
+					//System.out.println(e.getErrorCode());
 					throw new SQLException("Connection Error Occurred");
 				}
 				finally

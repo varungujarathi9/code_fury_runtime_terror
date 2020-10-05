@@ -82,17 +82,18 @@ public class AddCategoryController extends HttpServlet {
             	{
         			out.println(exception.getMessage());
         			//redirect to addcategory page
+        			request.getRequestDispatcher("add-category.html").include(request, response);
             	}
         	else
         	{
         		out.println("<p style='float:right;color:red'>Category already exists</p>");
-        		//redirect to addcategory page
+        		request.getRequestDispatcher("add-category.html").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
         {
         	out.println(exception.getMessage());
-        	//redirect to addcategory page
+        	request.getRequestDispatcher("add-category.html").include(request, response);
         }
 
 		}
@@ -100,13 +101,13 @@ public class AddCategoryController extends HttpServlet {
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			//redirect to addcategory page
+			request.getRequestDispatcher("add-category.html").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			//redirect to addcategory page
+			request.getRequestDispatcher("add-category.html").include(request, response);
 		}
 	}
 
