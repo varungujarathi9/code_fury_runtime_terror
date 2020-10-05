@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <head>
-
+    <p id="status"></p>
+    <script type="text/javascript" src="importUsers.js"></script>
 </head>
 <body>
-    <form id="importUser">
+    <form id="importUsers" method="POST" action="importUsersController"enctype="multipart/form-data">
         <fieldset>
             <legend>Import Users (select jason/xml file):-</a></legend>
                 <label for="myfile">Select a file:</label>
-                <input type="file" id="myfile" name="myfile" accept=".xml,.json,|text/*" multiple><br><br>
+                <input type="file" id="myfile" name="myfile" accept=".xml,.json,|text/*"><br><br>
                 <input type="submit" id="submit"  value="Import">
         </fieldset>
       </form>
