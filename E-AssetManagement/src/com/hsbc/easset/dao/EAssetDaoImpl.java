@@ -2,6 +2,9 @@ package com.hsbc.easset.dao;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +13,7 @@ import java.util.PropertyResourceBundle;
 
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
+import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
 
 import jdk.nashorn.internal.ir.debug.JSONWriter;
@@ -107,7 +111,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						try
 						{
 							pre=conn.prepareStatement(resourceBundle.getString("addlastlogin"));
-							pre.setDate(1, Date.valueOf(LocalDate.now()));
+							pre.setDate(1, Date.valueOf(LocalDateTime.now().toString()));
 							pre.setString(2, user.getUsername());
 							pre.executeUpdate();
 							conn.commit();
@@ -347,6 +351,41 @@ return status;
 		}
 	}
 	return status;
+	}
+
+	@Override
+	public User getUserInfo(User user) throws SQLException{
+		// TODO Auto-generated method stub
+		User userObj=null;
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("userInfoQuery"));
+			pre.setString(1,user.getUsername());
+			resultSet=pre.executeQuery();
+			resultSet.next();
+			userObj=new User();
+			userObj.setName(resultSet.getString(2));
+			userObj.setTelphoneNumber(resultSet.getLong(3));
+			userObj.setRole(RoleType.valueOf(resultSet.getString(4)));
+			userObj.setEmailId(resultSet.getString(5));
+			userObj.setLastLogin(LocalDateTime.ofInstant(resultSet.getDate(8).toInstant(),ZoneId.systemDefault()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			
+			throw new SQLException("Connection Error Occurred");
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return userObj;
 	}
 
 

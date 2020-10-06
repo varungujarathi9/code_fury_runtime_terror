@@ -1,5 +1,7 @@
 package com.hsbc.easset.models;
 
+import java.time.LocalDateTime;
+
 public class User {
 	private String name;
 	private RoleType role;
@@ -7,6 +9,13 @@ public class User {
 	private String emailId;
 	private String password;
 	private String username;
+	private LocalDateTime lastLogin;
+	public LocalDateTime getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(LocalDateTime lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 	public String getName() {
 		return name;
 	}

@@ -102,4 +102,17 @@ public class EAssetBLImpl implements EAssetBL{
 		return status;
 	}
 
+	@Override
+	public User getUserInfo(User user) throws DBConnCreationException {
+		// TODO Auto-generated method stub
+		User userObj=null;
+		try {
+			userObj=eAssetDao.getUserInfo(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DBConnCreationException("Connection Error Occurred");
+		}
+		return userObj;
+	}
+
 }

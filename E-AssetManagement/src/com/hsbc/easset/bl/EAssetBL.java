@@ -1,4 +1,5 @@
 package com.hsbc.easset.bl;
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
@@ -21,4 +22,5 @@ public interface EAssetBL {
 	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage
 	boolean existsCategory(String categoryName) throws DBConnCreationException;
 	boolean addCategory(String categoryName, int lendingPeriod, int lateFees) throws DBConnCreationException;
+	User getUserInfo(User user) throws DBConnCreationException;
 }

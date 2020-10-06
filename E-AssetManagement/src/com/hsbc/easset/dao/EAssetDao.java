@@ -23,4 +23,5 @@ public interface EAssetDao {
 
 	boolean existsCategory(String categoryName) throws SQLException;
 	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws  SQLException;
+	User getUserInfo(User user) throws SQLException;
 }
