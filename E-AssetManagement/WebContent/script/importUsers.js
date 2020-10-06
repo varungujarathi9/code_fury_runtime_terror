@@ -1,4 +1,13 @@
-
+/*window.addEventListener("load", function() { 
+  document.getElementById("myfile").onchange = function(event) { 
+    var reader = new FileReader(); 
+    reader.readAsDataURL(event.srcElement.files[0]); 
+    var me = this; 
+    reader.onload = function () { 
+      var fileContent = reader.result; 
+	  console.log(fileContent); 
+    } 
+}});
 
 function importUsers(){
     var form = document.getElementById('importUsers');
@@ -8,12 +17,13 @@ function importUsers(){
 
     form.onsubmit = function(event) {
         event.preventDefault();
-
+         alert('submitted');
         status.innerHTML = 'Uploading . . . ';
 
         // Get the files from the input
         var files = fileSelect.files;
-
+       // alert(document.getElementById("myfile").value);
+        console.log(document.getElementById("myfile").value);
         // Create a FormData object.
         var formData = new FormData();
 
@@ -26,10 +36,10 @@ function importUsers(){
             return;
         }
 
-        /*if (file.size >= 2000000 ) {
+        if (file.size >= 2000000 ) {
             status.innerHTML = 'You cannot upload this file because it exceeds the maximum limit of 2 MB.';
             return;
-        }*/
+        }
 
          // Add the file to the AJAX request.
         formData.append('myfile', file, file.name);
@@ -52,5 +62,6 @@ function importUsers(){
 
         // Send the data.
         ajax.send(formData);
+        alert('formData');
     }
-};
+};*/

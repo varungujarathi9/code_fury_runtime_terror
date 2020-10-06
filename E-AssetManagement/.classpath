@@ -9,5 +9,12 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/java-json.jar/java-json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/commons-fileupload-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/jackson-annotations-2.1.2.jar/jackson-annotations-2.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/json-simple-1.1.jar/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/org.json.jar/org.json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/db-derby-10.14.2.0-bin/lib/derby.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

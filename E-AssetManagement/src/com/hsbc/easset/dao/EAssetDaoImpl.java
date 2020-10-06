@@ -1,8 +1,15 @@
 package com.hsbc.easset.dao;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -345,6 +352,73 @@ return status;
 	}
 	return status;
 	}
+
+	@Override
+	public int addImportUser(String filepath) throws SQLException {
+		// TODO Auto-generated method stub
+		int result=0;
+	//	System.out.println(filepath);
+		JSONParser parser = new JSONParser();
+		Object obj;
+		try {
+			obj = parser.parse(new FileReader(filepath));
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("adduser"));
+			JSONArray jsonObject = (JSONArray)obj;
+			int i =0;
+		     //to count how many users were successfully imported//
+			  int UniqueID =1000;             //unique id///
+			Iterator iterator = ((List) jsonObject).iterator();
+	         while (iterator.hasNext()) {
+	      
+	        	 JSONObject name = (JSONObject)jsonObject.get(i);
+	        	// LinkedHashMap<String, String> names = new LinkedHashMap<String, String>(name); 
+	        	// System.out.println(names);
+	        	    pre.setInt(1,UniqueID);  
+					pre.setString(2, name.get("Name").toString());     ///this is been hardcoded..think of how to avoid hardcoding///
+					pre.setString(3, name.get("Role").toString());
+					pre.setString(4, name.get("Telephone").toString());
+					pre.setString(5, name.get("Email").toString());
+					pre.setString(6, name.get("UserName").toString());
+					pre.setString(7, name.get("Password").toString());
+					pre.setDate(8, Date.valueOf("2020-03-09"));
+					pre.executeUpdate();
+				UniqueID++;
+					i++;
+					iterator.next();
+	         }
+	         conn.commit();
+	    //    System.out.println("data added");
+	            result=i;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//location of json file
+	
+	finally
+	{
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+		  return result;
+	}
+
+	
 
 
 
