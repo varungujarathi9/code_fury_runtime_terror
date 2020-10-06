@@ -50,6 +50,7 @@ public class UserLoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		User user=new User();
+		User loggedUser=new User();
 		EAssetBL eAssetBL=new EAssetBLImpl();
 		PrintWriter out=response.getWriter();
 		HttpSession session=null;
@@ -79,9 +80,19 @@ public class UserLoginController extends HttpServlet {
         {
         	if(eAssetBL.validateLogin(user))
         	{
+        		try
+        		{
+        		loggedUser=eAssetBL.getUserInfo(user);
+        		}
+        		catch(DBConnCreationException exception)
+        		{
+        			out.println(exception.getMessage());
+        			//redirect to login page
+        			request.getRequestDispatcher("login.html").include(request, response);
+        		}
         		session=request.getSession(true);
         		out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
-        		session.setAttribute("userSession", user); //create user session
+        		session.setAttribute("userSession", loggedUser); //create user session
         		request.getRequestDispatcher("index.html").include(request, response);
         		try
         		{

@@ -16,7 +16,7 @@ import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
 
-import org.json.JSONArray;
+import org.json.*;
 
 /**
  * Servlet implementation class BorrowerShowAssetController
@@ -36,17 +36,14 @@ public class BorrowerShowAssetController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	//	System.out.println("Request received");
 		//Enumeration<String> enumeration=request.getParameterNames();
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
 		String parameterName=null;
-		String value=null;
-		User user=new User();
-		List<String> userData=new ArrayList<String>();
 		PrintWriter out=response.getWriter();
-//	    response.setContentType("application/json");
+	    response.setContentType("text/html");
 		try
 		{
 			//while(enumeration.hasMoreElements())
@@ -62,9 +59,14 @@ public class BorrowerShowAssetController extends HttpServlet {
 			assetList = eAssetDao.showAvailableAssets();
 			if(assetList.size() > 0)
 			{
-//				JSONArray json = new JSONArray(assetList);
-				out.println(assetList.size());
-				response.getWriter().print("GOT DATA");
+				JSONArray json = new JSONArray(assetList);
+				//out.println(assetList.size());
+			//	out.println(json);
+				
+			
+	
+				response.getWriter().println(json);
+				
 
 			}
 			else
