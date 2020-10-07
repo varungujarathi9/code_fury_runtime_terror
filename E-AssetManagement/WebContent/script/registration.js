@@ -11,7 +11,7 @@ function usernameSelector(){
         if (emailInput.value == ""){
             alert("Please enter email");
             checkBox.checked = false;
-            emailInput.focus;
+            emailInput.focus();
         }
         else{
             userNameInput.value = emailInput.value;

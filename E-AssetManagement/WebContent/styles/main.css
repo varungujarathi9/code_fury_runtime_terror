@@ -97,7 +97,7 @@ header{
 
 input[type=submit]{
   width:100%;
-  align:center;
+  box-align:center;
   border-style:solid;
   border-radius: 5px;
   border-color: #000!important;
