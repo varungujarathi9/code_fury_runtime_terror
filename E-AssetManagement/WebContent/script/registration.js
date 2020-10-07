@@ -8,8 +8,15 @@ function usernameSelector(){
     var checkBox = document.forms["reg_form"]["useEmail"];
     if(checkBox.checked){
         checkBox.value="true";
-        userNameInput.value = emailInput.value;
-        userNameInput.disabled = true;
+        if (emailInput.value == ""){
+            alert("Please enter email");
+            checkBox.checked = false;
+            emailInput.focus;
+        }
+        else{
+            userNameInput.value = emailInput.value;
+            userNameInput.disabled = true;
+        }
     }
     else{
         checkBox.value="false";
