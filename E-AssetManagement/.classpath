@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/yeole/Downloads/derby-10.14.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yeole/Downloads/json-20160810.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yeole/Downloads/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/apache-tomcat-9.0.38-windows-x64/apache-tomcat-9.0.38/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yeole/Downloads/commons-io-2.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yeole/Downloads/commons-fileupload-1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

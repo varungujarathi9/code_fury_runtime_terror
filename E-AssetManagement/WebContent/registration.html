@@ -4,43 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-     <script type="text/javascript" src="./script/index.js"></script>
+    <script type="text/javascript" src="./script/registration.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- BOOTSTRAP 4 LIBRARIES -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-    <form name="reg_form" id="reg_form" method="POST" action="UserRegistrationController">
-        <fieldset>
-            <legend>
-                Registration Form
-            </legend>
-            <label for="name">Enter your Full Name*</label>
-            <input type="text" name="name" id="name" required>
-            <p id="name_alert" style="color:red;"></p>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">E-Asset Management</a>
+        <!-- Links -->
+        <!-- <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 3</a>
+          </li>
+        </ul> -->
 
-            <label for="telephone">Enter your Telephone(with country code)*</label>
-            <input type="tel" name="telephone" id="number" maxlength=10 size=10 pattern="[0-9]{10}" required>
-            <p id="telephone_alert" style="color:red;"></p>
+    </nav>
+    <br/>
+    <div class="form container">
+        <center>
+            <header>
+              <h2>User Registration</h2>
+              <h3>E-Asset Management System</h3><!--TODO:text colored background black-->
+            </header>
+          </center>
+          <div class="instructions">
+            <strong><h3 align="center">Instructions for filling form</h3></strong>
+            <ol type="1">
+                <li>All fields are mandatory *</li>
+                <li>Email & Phone should be valid & working</li>
+                <li>Password should be strong enough</li>
+                <li>You can your email as username</li>
+            </ol>
+          </div>
+        <form name="reg_form" id="reg_form" method="POST" action="UserRegistrationController">
 
-            <label for="email">Enter your Email Address*</label>
-            <input type="email" name="email" id="email" required>
-            <p id="email_alert" style="color:red;"></p>
+                <div class="form-group">
+                    <label for="name">Full Name<p style="color:red;display:inline">*</p></label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" required>
+                    <p id="name_alert" style="color:red;"></p>
+                </div>
 
-            <label for="username">Enter your Username*</label>
-            <input type="text" name="username" id="username" required>
-            <p id="username_alert" style="color:red;"></p>
+                <div class="form-group">
+                    <label for="telephone">Mobile Number<p style="color:red;display:inline">*</p></label>
+                    <input type="tel" name="telephone" class="form-control" id="number" placeholder="Enter your mobile Number (10 Digits)" maxlength=10 size=10 pattern="[0-9]{10}" required>
+                    <p id="telephone_alert" style="color:red;"></p>
+                </div>
 
-            <label for="password">Enter your Password*</label>
-            <input type="password" name="password" id="password" required>
-            <p id="password_alert" style="color:red;"></p>
+                <div class="form-group">
+                    <label for="email">Email Address<p style="color:red;display:inline">*</p></label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                    <p id="email_alert" style="color:red;"></p>
+                </div>
 
-            <label for="conf_password">Enter your Confirm Password*</label>
-            <input type="password" name="conf_password" id="conf_password" required>
-            <p id="conf_password_alert" style="color:red;"></p>
+                <div class="form-group">
+                    <label for="username">Username<p style="color:red;display:inline">*</p><br/><label class="form-check-label" for="check1"></label> <input type="checkbox" class="form-check-input" id="check1" name="useEmail" value="useEmail" onclick="usernameSelector()"><p style="margin:12px;display:inline"></p>Select this to use email as username</label></label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username" required>
+                    <p id="username_alert" style="color:red;"></p>
+                </div>
 
-            <input type="submit" id="submitBtn" value="Register">
+                <div class="form-group">
+                    <label for="password">Password<p style="color:red;display:inline">*</p></label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter a strong password" id="password" placeholder="" required>
+                    <p id="password_alert" style="color:red;"></p>
+                </div>
 
-            <p id="form_alert" style="color:red;"></p>
-        </fieldset>
-    </form>
+                <div class="form-group">
+                    <label for="conf_password">Confirm Password<p style="color:red;display:inline">*</p></label>
+                    <input type="password" name="conf_password" class="form-control" id="conf_password" placeholder="Re-enter password to confirm" required>
+                    <p id="conf_password_alert" style="color:red;"></p>
+                </div>
+
+                <center><input type="submit" id="submitBtn" class="btn" value="Register"></center>
+
+                <p id="form_alert" style="color:red;"></p>
+        </form>
+    </div>
 </body>
 </html>
