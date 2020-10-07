@@ -22,5 +22,4 @@ public interface EAssetBL {
 	boolean existsCategory(String categoryName) throws DBConnCreationException;
 	boolean addCategory(String categoryName, int lendingPeriod, int lateFees) throws DBConnCreationException;
 	int addImportUser(String filepath) throws DBConnCreationException;
-	User getUserInfo(User user);
 }
