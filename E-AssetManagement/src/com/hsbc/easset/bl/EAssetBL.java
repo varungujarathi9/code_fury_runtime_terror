@@ -10,12 +10,15 @@ import java.sql.SQLIntegrityConstraintViolationException;
  *
  */
 import com.hsbc.easset.exceptions.DBConnCreationException;
+import com.hsbc.easset.exceptions.InvalidEmailIdException;
+import com.hsbc.easset.exceptions.InvalidTelephoneNumberException;
+import com.hsbc.easset.exceptions.PasswordMismatchException;
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
 public interface EAssetBL {
 
-	boolean addUser(User user) throws DBConnCreationException,SQLIntegrityConstraintViolationException;
+	boolean addUser(User user,String confirmPassword) throws DBConnCreationException,SQLIntegrityConstraintViolationException, InvalidTelephoneNumberException, InvalidEmailIdException, PasswordMismatchException;
     boolean validateLogin(User user) throws DBConnCreationException;
     boolean addAsset(Asset asset) throws DBConnCreationException;
 	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage
