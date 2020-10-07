@@ -5,40 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Asset</title>
      <script type="text/javascript" src="./script/add-asset.js"></script>
+     <!-- BOOTSTRAP 4 LIBRARIES -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/add-asset.css"
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
     <form name="addAssetForm" id="addAssetForm" method="POST" action="AddAssetController">
+        <center>
         <fieldset>
-            <legend>
-                Add Asset
-            </legend>
-            <label for="name">Asset Name*</label>
-            <input type="text" name="name" id="name" required>
-            <p id="name_alert" style="color:red;"></p>
+            <strong><h3 align="center">Add Asset</h3></strong>
 
-            <label for="description">Description*</label>
-            <input type="text" name="description" id="description" required>
-            <p id="description_alert" style="color:red;"></p>
+            <div class="form-group">
+                <label for="name">Asset Name<p style="color:red;display:inline">*</p></label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Asset Name" required>
+                <p id="name_alert" style="color:red;"></p>
+            </div>
 
-            <label for="category">Category*</label>
-            <select id="category" name="category">
-              <option value="Laptop">Laptop</option>
-              <option value="Mobile">Mobile</option>
-              <option value="Other" >Other</option>
+            <div class="form-group">
+                <label for="description">Description<p style="color:red;display:inline">*</p></label>
+                <input type="text" name="description" class="form-control" id="description" placeholder="Enter Description about Asset" required>
+                <p id="description_alert" style="color:red;"></p>
+            </div>
 
-            </select>
-            <p id="category_alert" style="color:red;"></p>
+            
 
-                <div id="addCategory" style="display: none; margin-bottom: 2%;">
-                    <button>Add Category</button>
+              <div class="form-group">
+                <label for="category">Category<p style="color:red;display:inline">*</p></label>
+                <select id="category" name="category">
+                <option value="Laptop">Laptop</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Other" >Other</option>
+                <p id="category_alert" style="color:red;"></p>
+             </select>
+             </div>
+
+                <div id="addCategory" style="display: none">
+                   <!-- <submit>Add Category</submit>-->
+                    <input type="submit" id="submitBtn" class="btn" value="Add Category">
+                    <p id="addCategory_alert" style="color:red;"></p>
                 </div>
 
-
-
-            <input type="button" id="submitBtn" onclick="addAsset()" value="Add Asset">
-            <p id="form_alert" style="color:red;"></p>
+            <center><input type="submit" id="submitBtn" class="btn1" onclick="addAsset()" value="Add Asset"></center>
+                <p id="form_alert" style="color:red;"></p>
         </fieldset>
+    </center>
     </form>
 
 
