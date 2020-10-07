@@ -1,6 +1,6 @@
 /**
  *
- * @author Sayan
+ * @author Sayan, Madhura
  * @version 1.0
  * @createdOn 03 Oct 2020
  *
@@ -52,7 +52,7 @@ public class AddAssetController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Enumeration<String> enumeration=request.getParameterNames();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
 			String parameterName=null;
 			String value=null;
 			Asset asset=new Asset();
@@ -72,19 +72,22 @@ public class AddAssetController extends HttpServlet {
 			asset.setDescription(assetData.get(2).toString());
 
 	        //create conn with bl
+			System.out.println("Calling easset BL");
 			EAssetBL eAssetBL= new EAssetBLImpl();
-
+			
 
 	        try
 	        {
+	        	System.out.println("eassetBL.Addasset(asset)");
 	        	eAssetBL.addAsset(asset);
-	        	out.println("Added Successfully...");
+	        	System.out.println("eassetBL.Addasset(asset) RETURN");
+	        	out.println("Added Successfully..."+assetData.get(0)+assetData.get(1));
 	        }
 	        catch(DBConnCreationException exception)
 	        {
 	        	out.println(exception.getMessage());
 	        	//redirect to addasset page
-	        	request.getRequestDispatcher("add-asset.html").include(request, response);
+	        	request.getRequestDispatcher("addAsset.html").include(request, response);
 	        }
 
 			}
@@ -92,13 +95,13 @@ public class AddAssetController extends HttpServlet {
 			{
 				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("add-asset.html").include(request, response);
+				request.getRequestDispatcher("addAsset.html").include(request, response);
 			}
 			catch(Exception exception)
 			{
 				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("add-asset.html").include(request, response);
+				request.getRequestDispatcher("addAsset.html").include(request, response);
 			}
 
 	}

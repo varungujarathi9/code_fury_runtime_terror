@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Asset</title>
-     <script type="text/javascript" src="./script/add-asset.js"></script>
+     <script type="text/javascript" src="./script/addAsset.js"></script>
 
 </head>
 <body>
-    <form name="addAssetForm" id="addAssetForm" method="POST" action="AddAssetController">
+    <form name="addAssetForm" id="addAssetForm" method="POST" action="./AddAssetController">
         <fieldset>
             <legend>
                 Add Asset
@@ -36,7 +36,8 @@
 
 
 
-            <input type="button" id="submitBtn" onclick="addAsset()" value="Add Asset">
+            <input type="submit" id="submitBtn" value="Add Asset" >
+<!--              onclick="addAsset()" -->
             <p id="form_alert" style="color:red;"></p>
         </fieldset>
     </form>
