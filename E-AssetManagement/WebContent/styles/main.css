@@ -190,5 +190,5 @@ input[type=submit]:disabled{
 /* The container */
 .form-check-input {
   width:auto !important;
-  margin: 5px;
+  margin-left: 5px !important;
 }
