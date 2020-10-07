@@ -96,7 +96,7 @@ public class UserLoginController extends HttpServlet {
         		request.getRequestDispatcher("index.html").include(request, response);
         		try
         		{
-        			if(eAssetBL.isAdmin(user)) //if logged user is admin or burrower
+        			if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
         			{	//direct to admin homepage
         			}
         			else

@@ -21,7 +21,7 @@ body{
 
 input
 {
-  width:70%!important;
+  width:50%!important;
   box-shadow:0px 0px 0px #fff!important;
   border-color: #000!important;
   border-width: 0px 0px 1px 0px!important;
@@ -97,7 +97,7 @@ header{
 
 input[type=submit]{
   width:100%;
-  align:center;
+  box-align:center;
   border-style:solid;
   border-radius: 5px;
   border-color: #000!important;
@@ -190,5 +190,5 @@ input[type=submit]:disabled{
 /* The container */
 .form-check-input {
   width:auto !important;
-  margin: 5px;
+  margin-left: 5px !important;
 }

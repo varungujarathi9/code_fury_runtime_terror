@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,8 +17,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.PropertyResourceBundle;
 
+import com.hsbc.banking.models.Bank;
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
+import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
 
 import jdk.nashorn.internal.ir.debug.JSONWriter;
@@ -35,6 +39,8 @@ public class EAssetDaoImpl implements EAssetDao{
 	{
 		
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
+
+
 	}
 
 	public boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException {
@@ -114,7 +120,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						try
 						{
 							pre=conn.prepareStatement(resourceBundle.getString("addlastlogin"));
-							pre.setDate(1, Date.valueOf(LocalDate.now()));
+							pre.setDate(1, Date.valueOf(LocalDateTime.now().toString()));
 							pre.setString(2, user.getUsername());
 							pre.executeUpdate();
 							conn.commit();
@@ -158,8 +164,15 @@ public class EAssetDaoImpl implements EAssetDao{
 			boolean status=false;
 			try
 			{
+			System.out.println("Establishing connection");
 			conn=DBHelper.getConnection();
+			System.out.println("Established connection");
+			System.out.println(conn);
+			System.out.println("Making pre statement");
+			System.out.println(resourceBundle.getString("addasset"));
 			pre=conn.prepareStatement(resourceBundle.getString("addasset"));
+			System.out.println("Made prepared statement"+pre);
+
 			uniqueId=new Random().nextInt(10000)+1;
 				pre.setInt(1,uniqueId);
 				pre.setString(2, asset.getName());
@@ -168,9 +181,14 @@ public class EAssetDaoImpl implements EAssetDao{
 				pre.setDate(5, Date.valueOf(LocalDate.now()));
 				pre.setBoolean(6, true);
 				pre.setBoolean(7, false);
+				System.out.println("pre.executeUpdate();");
+
 				pre.executeUpdate();
+				System.out.println("conn.commit();\r\n");
+
 				conn.commit();
 				status=true;
+				System.out.println("Added Asset Dao");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -197,13 +215,13 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean isAdmin(User user) throws SQLException {
+		public boolean isAdmin(String userName) throws SQLException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try {
 				conn=DBHelper.getConnection();
 				pre=conn.prepareStatement(resourceBundle.getString("roleQuery"));
-				pre.setString(1, user.getUsername());
+				pre.setString(1, userName);
 				resultSet=pre.executeQuery();
 				resultSet.next();
 				if(resultSet.getString(1).equals(1)) //if we formerly store admin role as 1 and burrower as 0 in db
@@ -416,6 +434,36 @@ return status;
 	}
 	
 		  return result;
+	}
+
+	@Override
+	public User getUserInfo(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		User userObj=null;
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("userInfoQuery"));
+			pre.setString(1,user.getUsername());
+			resultSet=pre.executeQuery();
+			resultSet.next();
+			userObj=new User();
+			user.setName(resultSet.getString(2));
+			user.setTelphoneNumber(resultSet.getLong(3));
+			user.setRole(RoleType.valueOf(resultSet.getString(4)));
+			user.setEmailId(resultSet.getString(5));
+			user.setLastLogin(LocalDateTime.ofInstant(resultSet.getDate(8).toInstant(), ZoneId.systemDefault()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			
+			throw new SQLException("Connection Error Occurred");
+		}
+		finally
+		{
+			conn.close();
+		}
+		
+		return userObj;
 	}
 
 	

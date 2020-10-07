@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.easset.dao.EAssetDao;
 import com.hsbc.easset.exceptions.DBConnCreationException;
+import com.hsbc.easset.exceptions.InvalidEmailIdException;
+import com.hsbc.easset.exceptions.InvalidTelephoneNumberException;
+import com.hsbc.easset.exceptions.PasswordMismatchException;
 import com.hsbc.easset.bl.EAssetBL;
 import com.hsbc.easset.bl.EAssetBLImpl;
 import com.hsbc.easset.dao.*;
@@ -48,6 +51,7 @@ public class UserRegistrationController extends HttpServlet {
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
 		String parameterName=null;
 		String value=null;
+		String confirmPassword;
 		User user=new User();
 		List<String> userData=new ArrayList<String>();
 		PrintWriter out=response.getWriter();
@@ -64,7 +68,8 @@ public class UserRegistrationController extends HttpServlet {
 			user.setTelphoneNumber(Long.parseLong(userData.get(1).toString()));
 			user.setEmailId(userData.get(2).toString());
 			user.setUsername(userData.get(3).toString());
-			user.setPassword(userData.get(4).toString());
+			user.setPassword(userData.get(5).toString());
+			confirmPassword=userData.get(6).toString();
 			user.setRole(RoleType.BORROWER);
 			//user.setDob(LocalDate.parse(customerData.get(2).toString(),formatter));
 	        //create conn with bl
@@ -72,12 +77,12 @@ public class UserRegistrationController extends HttpServlet {
 	
 			try
 			{
-				eAssetBL.addUser(user);
+				eAssetBL.addUser(user,confirmPassword);
 	        	out.println("Registered Successfully...");
 	        	//direct to login page
 	        	request.getRequestDispatcher("login.html").forward(request, response);
 			}
-			catch(DBConnCreationException|SQLIntegrityConstraintViolationException exception)
+			catch(DBConnCreationException|SQLIntegrityConstraintViolationException|InvalidEmailIdException|InvalidTelephoneNumberException|PasswordMismatchException exception)
 			{
 				out.println(exception.getMessage());
 				//redirect to registration page

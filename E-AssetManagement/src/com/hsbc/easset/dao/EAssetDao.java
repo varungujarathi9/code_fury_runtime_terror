@@ -13,7 +13,7 @@ public interface EAssetDao {
 	boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException;
     boolean validateLogin(User user) throws SQLException;
     boolean addAsset(Asset asset) throws SQLException;
-	boolean isAdmin(User user) throws SQLException; //to redirect to admin or burrower homepage
+	boolean isAdmin(String userName) throws SQLException; //to redirect to admin or burrower homepage
 
 	
 	List<Asset> showAvailableAssets() throws   SQLException;
@@ -23,5 +23,6 @@ public interface EAssetDao {
 
 	boolean existsCategory(String categoryName) throws SQLException;
 	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws  SQLException;
+	User getUserInfo(User user) throws SQLException;
 	int addImportUser(String filepath) throws SQLException;
 }
