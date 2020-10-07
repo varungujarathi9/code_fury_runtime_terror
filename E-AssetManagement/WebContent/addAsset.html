@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,8 @@
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/main.css"
-
+    <link rel="stylesheet" href="styles/main.css">
+    
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -21,6 +22,7 @@
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
+
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
@@ -38,53 +40,58 @@
         </ul> -->
 
     </nav>
-    <br/>
+    <br />
     <div class="form container">
         <center>
             <header>
-              <h2>Add Asset</h2>
-              <h3>E-Asset Management System</h3>
+                <h2>Add Asset</h2>
+                <h3>E-Asset Management System</h3>
             </header>
-          </center>
-          <div class="instructions">
-            <strong><h3 align="center">Instructions for filling form</h3></strong>
+        </center>
+        <div class="instructions">
+            <strong>
+                <h3 align="center">Instructions for filling form</h3>
+            </strong>
             <ol type="1">
                 <!-- TODO -->
                 <li>ADD INSTRUCTION ACCORDING TO BUSINESS RULE</li>
             </ol>
-          </div>
+        </div>
         <form name="addAssetForm" id="addAssetForm" method="POST" action="./AddAssetController">
-                <div class="form-group">
-                    <label for="name">Asset Name<p style="color:red;display:inline">*</p></label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter Asset Name" required>
-                    <p id="name_alert" style="color:red;"></p>
-                </div>
+            <div class="form-group">
+                <label for="name">Asset Name<p style="color:red;display:inline">*</p></label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Asset Name" required>
+                <p id="name_alert" style="color:red;"></p>
+            </div>
 
-                <div class="form-group">
+            <div class="form-group">
                 <label for="category">Asset Category<p style="color:red;display:inline">*</p></label>
-                <select id="category" class="form-control" name="category">
+                <select id="category" class="form-control" name="category" required>
+                    <option value="">-Select Category-</option>
                     <option value="Laptop">Laptop</option>
                     <option value="Mobile">Mobile</option>
-                    <option value="Other" >Other</option>
+                    <option value="Other">Other</option>
                     <p id="category_alert" style="color:red;"></p>
                 </select>
-                </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="description">Description<p style="color:red;display:inline">*</p></label>
-                    <textarea class="form-control" rows="5" name="description" class="form-control" id="description" placeholder="Enter Description about Asset" required></textarea>
-1                    <p id="description_alert" style="color:red;"></p>
-                </div>
+            <div class="form-group">
+                <label for="description">Description<p style="color:red;display:inline">*</p></label>
+                <textarea class="form-control" rows="5" name="description" class="form-control" id="description"
+                    placeholder="Enter Description about Asset" required></textarea>
+                <p id="description_alert" style="color:red;"></p>
+            </div>
 
-                <div id="addCategory" style="display: none">
+            <div id="addCategory" style="display: none">
                 <!-- <submit>Add Category</submit>-->
-                    <input type="submit" id="submitBtn" class="btn" value="Add Category">
-                    <p id="addCategory_alert" style="color:red;"></p>
-                </div>
+                <input type="submit" id="submitBtn" class="btn" value="Add Category">
+                <p id="addCategory_alert" style="color:red;"></p>
+            </div>
 
-                <center><input type="submit" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
-                <p id="form_alert" style="color:red;"></p>
+            <center><input type="submit" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
+            <p id="form_alert" style="color:red;"></p>
         </form>
     </div>
 </body>
+
 </html>
