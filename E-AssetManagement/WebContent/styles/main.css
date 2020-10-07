@@ -186,9 +186,7 @@ input[type=submit]:disabled{
 	background: #ff3030  ;
 }
 
-/* Replacing checkbox button styliing */
-/* The container */
-.form-check-input {
-  width:auto !important;
-  margin-left: 5px !important;
+.side-nav{
+  background-color: #343A40;
+  height: 100%;
 }
