@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,8 +17,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.PropertyResourceBundle;
 
+import com.hsbc.banking.models.Bank;
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
+import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
 
 import jdk.nashorn.internal.ir.debug.JSONWriter;
@@ -116,7 +120,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						try
 						{
 							pre=conn.prepareStatement(resourceBundle.getString("addlastlogin"));
-							pre.setDate(1, Date.valueOf(LocalDate.now()));
+							pre.setDate(1, Date.valueOf(LocalDateTime.now().toString()));
 							pre.setString(2, user.getUsername());
 							pre.executeUpdate();
 							conn.commit();
@@ -430,6 +434,36 @@ return status;
 	}
 	
 		  return result;
+	}
+
+	@Override
+	public User getUserInfo(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		User userObj=null;
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("userInfoQuery"));
+			pre.setString(1,user.getUsername());
+			resultSet=pre.executeQuery();
+			resultSet.next();
+			userObj=new User();
+			user.setName(resultSet.getString(2));
+			user.setTelphoneNumber(resultSet.getLong(3));
+			user.setRole(RoleType.valueOf(resultSet.getString(4)));
+			user.setEmailId(resultSet.getString(5));
+			user.setLastLogin(LocalDateTime.ofInstant(resultSet.getDate(8).toInstant(), ZoneId.systemDefault()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getErrorCode());
+			
+			throw new SQLException("Connection Error Occurred");
+		}
+		finally
+		{
+			conn.close();
+		}
+		
+		return userObj;
 	}
 
 	
