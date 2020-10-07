@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Asset</title>
-<<<<<<< HEAD:E-AssetManagement/WebContent/add-asset.html
-     <script type="text/javascript" src="./script/add-asset.js"></script>
-     <!-- BOOTSTRAP 4 LIBRARIES -->
+    <script type="text/javascript" src="./script/addAsset.js"></script>
+
+    <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/add-asset.css"
+    <link rel="stylesheet" href="styles/main.css"
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,57 +22,69 @@
 
 </head>
 <body>
-    <form name="addAssetForm" id="addAssetForm" method="POST" action="AddAssetController">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
+        <!-- Links -->
+        <!-- <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 3</a>
+          </li>
+        </ul> -->
+
+    </nav>
+    <br/>
+    <div class="form container">
         <center>
-=======
-     <script type="text/javascript" src="./script/addAsset.js"></script>
+            <header>
+              <h2>Add Asset</h2>
+              <h3>E-Asset Management System</h3>
+            </header>
+          </center>
+          <div class="instructions">
+            <strong><h3 align="center">Instructions for filling form</h3></strong>
+            <ol type="1">
+                <!-- TODO -->
+                <li>ADD INSTRUCTION ACCORDING TO BUSINESS RULE</li>
+            </ol>
+          </div>
+        <form name="addAssetForm" id="addAssetForm" method="POST" action="./AddAssetController">
+                <div class="form-group">
+                    <label for="name">Asset Name<p style="color:red;display:inline">*</p></label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter Asset Name" required>
+                    <p id="name_alert" style="color:red;"></p>
+                </div>
 
-</head>
-<body>
-    <form name="addAssetForm" id="addAssetForm" method="POST" action="./AddAssetController">
->>>>>>> 89e0ea92e0e2594548736a9ebe0ce14222d39ebd:E-AssetManagement/WebContent/addAsset.html
-        <fieldset>
-            <strong><h3 align="center">Add Asset</h3></strong>
+                <div class="form-group">
+                <label for="category">Asset Category<p style="color:red;display:inline">*</p></label>
+                <select id="category" class="form-control" name="category">
+                    <option value="Laptop">Laptop</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Other" >Other</option>
+                    <p id="category_alert" style="color:red;"></p>
+                </select>
+                </div>
 
-            <div class="form-group">
-                <label for="name">Asset Name<p style="color:red;display:inline">*</p></label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Asset Name" required>
-                <p id="name_alert" style="color:red;"></p>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description<p style="color:red;display:inline">*</p></label>
-                <input type="text" name="description" class="form-control" id="description" placeholder="Enter Description about Asset" required>
-                <p id="description_alert" style="color:red;"></p>
-            </div>
-
-            
-
-              <div class="form-group">
-                <label for="category">Category<p style="color:red;display:inline">*</p></label>
-                <select id="category" name="category">
-                <option value="Laptop">Laptop</option>
-                <option value="Mobile">Mobile</option>
-                <option value="Other" >Other</option>
-                <p id="category_alert" style="color:red;"></p>
-             </select>
-             </div>
+                <div class="form-group">
+                    <label for="description">Description<p style="color:red;display:inline">*</p></label>
+                    <textarea class="form-control" rows="5" name="description" class="form-control" id="description" placeholder="Enter Description about Asset" required></textarea>
+1                    <p id="description_alert" style="color:red;"></p>
+                </div>
 
                 <div id="addCategory" style="display: none">
-                   <!-- <submit>Add Category</submit>-->
+                <!-- <submit>Add Category</submit>-->
                     <input type="submit" id="submitBtn" class="btn" value="Add Category">
                     <p id="addCategory_alert" style="color:red;"></p>
                 </div>
 
-<<<<<<< HEAD:E-AssetManagement/WebContent/add-asset.html
-            <center><input type="submit" id="submitBtn" class="btn1" onclick="addAsset()" value="Add Asset"></center>
+                <center><input type="submit" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
                 <p id="form_alert" style="color:red;"></p>
-=======
->>>>>>> 89e0ea92e0e2594548736a9ebe0ce14222d39ebd:E-AssetManagement/WebContent/addAsset.html
-        </fieldset>
-    </center>
-    </form>
-
-
+        </form>
+    </div>
 </body>
 </html>
