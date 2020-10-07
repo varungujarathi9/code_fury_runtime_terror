@@ -21,4 +21,5 @@ public interface EAssetBL {
 	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage
 	boolean existsCategory(String categoryName) throws DBConnCreationException;
 	boolean addCategory(String categoryName, int lendingPeriod, int lateFees) throws DBConnCreationException;
+	int addImportUser(String filepath) throws DBConnCreationException;
 }
