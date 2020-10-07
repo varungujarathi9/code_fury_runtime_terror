@@ -28,6 +28,8 @@ public class EAssetDaoImpl implements EAssetDao{
 	{
 		
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
+
+
 	}
 
 	public boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException {
@@ -151,8 +153,15 @@ public class EAssetDaoImpl implements EAssetDao{
 			boolean status=false;
 			try
 			{
+			System.out.println("Establishing connection");
 			conn=DBHelper.getConnection();
+			System.out.println("Established connection");
+			System.out.println(conn);
+			System.out.println("Making pre statement");
+			System.out.println(resourceBundle.getString("addasset"));
 			pre=conn.prepareStatement(resourceBundle.getString("addasset"));
+			System.out.println("Made prepared statement"+pre);
+
 			uniqueId=new Random().nextInt(10000)+1;
 				pre.setInt(1,uniqueId);
 				pre.setString(2, asset.getName());
@@ -161,9 +170,14 @@ public class EAssetDaoImpl implements EAssetDao{
 				pre.setDate(5, Date.valueOf(LocalDate.now()));
 				pre.setBoolean(6, true);
 				pre.setBoolean(7, false);
+				System.out.println("pre.executeUpdate();");
+
 				pre.executeUpdate();
+				System.out.println("conn.commit();\r\n");
+
 				conn.commit();
 				status=true;
+				System.out.println("Added Asset Dao");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

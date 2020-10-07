@@ -15,6 +15,7 @@ public class EAssetBLImpl implements EAssetBL{
 	public EAssetBLImpl()
 	{
 		eAssetDao=new EAssetDaoImpl();
+		System.out.println("In easset BL constructor");
 	}
 
 	@Override
@@ -50,9 +51,13 @@ public class EAssetBLImpl implements EAssetBL{
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
+			System.out.println("Calling E Asset Dao");
 			eAssetDao.addAsset(asset);
+			System.out.println("Easset Dao returned");
+			System.out.println("Added Asset Dao");
+
 			status=true;
-		} catch (SQLException e) {
+		} catch (SQLException e) {//SQLEXCEPTION
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
