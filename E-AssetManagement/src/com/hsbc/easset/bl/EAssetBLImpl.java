@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,6 +17,9 @@ import org.json.simple.parser.ParseException;
 import com.hsbc.easset.dao.EAssetDao;
 import com.hsbc.easset.dao.EAssetDaoImpl;
 import com.hsbc.easset.exceptions.DBConnCreationException;
+import com.hsbc.easset.exceptions.InvalidEmailIdException;
+import com.hsbc.easset.exceptions.InvalidTelephoneNumberException;
+import com.hsbc.easset.exceptions.PasswordMismatchException;
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
@@ -26,11 +30,29 @@ public class EAssetBLImpl implements EAssetBL {
 		eAssetDao = new EAssetDaoImpl();
 		//System.out.println("0");
 	}
-
+	//Telephone Number,EmailId and Password validations
+	private boolean validateTelephoneNumber(long telephoneNumber)
+	{
+		return Pattern.matches("\\d{10}", String.valueOf(telephoneNumber)); 
+	}
+	private boolean validateEmailId(String emailId)
+	{
+		return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", emailId);
+	}
+	private boolean validatePassword(String password,String confirmPassword)
+	{
+		return (password==confirmPassword); 
+	}
 	@Override
-	public boolean addUser(User user) throws DBConnCreationException, SQLIntegrityConstraintViolationException {
+	public boolean addUser(User user,String confirmPassword) throws DBConnCreationException, SQLIntegrityConstraintViolationException, InvalidTelephoneNumberException,InvalidEmailIdException,PasswordMismatchException {
 		// TODO Auto-generated method stub
 		boolean status = false;
+		if(!validateTelephoneNumber(user.getTelphoneNumber()))
+			throw new InvalidTelephoneNumberException("Telephone Number must be in ten digits.....");
+		if(!validateEmailId(user.getEmailId()))
+			throw new InvalidEmailIdException("Invalid Email Id.....");
+		if(!validatePassword(user.getPassword(),confirmPassword))
+			throw new PasswordMismatchException("Passwords do not match.....");
 		try {
 			eAssetDao.addUser(user);
 			status = true;
