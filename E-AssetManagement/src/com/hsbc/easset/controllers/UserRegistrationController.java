@@ -51,7 +51,7 @@ public class UserRegistrationController extends HttpServlet {
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
 		String parameterName=null;
 		String value=null;
-		String confirmPassword;
+		String confirmPassword=null;
 		User user=new User();
 		List<String> userData=new ArrayList<String>();
 		PrintWriter out=response.getWriter();
@@ -74,7 +74,6 @@ public class UserRegistrationController extends HttpServlet {
 			//user.setDob(LocalDate.parse(customerData.get(2).toString(),formatter));
 	        //create conn with bl
 			EAssetBL eAssetBL= new EAssetBLImpl();
-	
 			try
 			{
 				eAssetBL.addUser(user,confirmPassword);
