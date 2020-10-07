@@ -215,13 +215,13 @@ public class EAssetDaoImpl implements EAssetDao{
 	}
 
 	@Override
-		public boolean isAdmin(User user) throws SQLException {
+		public boolean isAdmin(String userName) throws SQLException {
 			// TODO Auto-generated method stub
 			boolean status=false;
 			try {
 				conn=DBHelper.getConnection();
 				pre=conn.prepareStatement(resourceBundle.getString("roleQuery"));
-				pre.setString(1, user.getUsername());
+				pre.setString(1, userName);
 				resultSet=pre.executeQuery();
 				resultSet.next();
 				if(resultSet.getString(1).equals(1)) //if we formerly store admin role as 1 and burrower as 0 in db

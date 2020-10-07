@@ -88,11 +88,11 @@ public class EAssetBLImpl implements EAssetBL{
 	}
 
 	@Override
-	public boolean isAdmin(User user) throws DBConnCreationException {
+	public boolean isAdmin(String userName) throws DBConnCreationException {
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
-			eAssetDao.isAdmin(user);
+			eAssetDao.isAdmin(userName);
 			status=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

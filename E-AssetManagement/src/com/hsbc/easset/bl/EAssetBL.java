@@ -21,7 +21,7 @@ public interface EAssetBL {
 	boolean addUser(User user,String confirmPassword) throws DBConnCreationException,SQLIntegrityConstraintViolationException, InvalidTelephoneNumberException, InvalidEmailIdException, PasswordMismatchException;
     boolean validateLogin(User user) throws DBConnCreationException;
     boolean addAsset(Asset asset) throws DBConnCreationException;
-	boolean isAdmin(User user) throws DBConnCreationException; //to redirect to admin or burrower homepage
+	boolean isAdmin(String userName) throws DBConnCreationException; //to redirect to admin or burrower homepage
 	boolean existsCategory(String categoryName) throws DBConnCreationException;
 	boolean addCategory(String categoryName, int lendingPeriod, int lateFees) throws DBConnCreationException;
 	User getUserInfo(User user) throws DBConnCreationException;;
