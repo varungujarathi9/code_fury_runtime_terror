@@ -1,5 +1,5 @@
 window.addEventListener('load', function(){
-    var borrowedAssets = document.getElementById("borrowedItems");
+    var borrowedAssets = document.getElementById("borrowedAssets");
     borrowedAssets.innerHTML = "Requesting server...";
 
     var ajax=new XMLHttpRequest();

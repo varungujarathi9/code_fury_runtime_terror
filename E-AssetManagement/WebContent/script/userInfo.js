@@ -1,9 +1,9 @@
 window.addEventListener('load', function(){
-    var showAssets = document.getElementById("issueAssets");
+    var userName = document.getElementById("userName");
     showAssets.innerHTML = "Requesting server...";
 
     var ajax=new XMLHttpRequest();
-    ajax.open("GET","/E-AssetManagement/BorrowerShowAssetController",true);
+    ajax.open("GET","/E-AssetManagement/UserInfoController",true);
     // ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send();
     ajax.onreadystatechange=function(){
@@ -32,25 +32,3 @@ window.addEventListener('load', function(){
         }
     }
 });
-
-function issueAsset(assetId){
-    var issueButton = document.getElementById(assetId);
-    issueButton.innerHTML = "Issuing";
-
-    var ajax=new XMLHttpRequest();
-    ajax.open("GET","/E-AssetManagement/BorrowIssueAssetController",true);
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("assetId="+assetId);
-    ajax.onreadystatechange=function(){
-        if (this.readyState==4&&this.status==200) {
-            //request ready
-            issueButton.innerHTML = "Issued";
-            // TODO: change color of button
-        }
-        else if(this.readyState==4){
-            issueButton.innerHTML = "Not Issued";
-            // TODO: change color of button
-        }
-    }
-
-}

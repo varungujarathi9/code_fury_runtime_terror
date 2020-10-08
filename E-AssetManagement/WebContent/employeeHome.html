@@ -52,22 +52,35 @@
     <center>
       <!-- shows user information assets -->
       <div id="userInfo">
-        No user info
+        <div class="card" style="width:400px">
+          <img class="card-img-top" src="images/img_avatar1.png" alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title" id="userName">No name</h4>
+            <p class="card-text">No info</p>
+            <!-- <a href="#" class="btn btn-primary">See Profile</a> -->
+          </div>
+        </div>
       </div>
 
       <!-- shows all borrowed assets -->
       <div id="borrowedAssets" style="display: none;">
-        No assets borrowed
+        <div class="card bg-danger text-white">
+          <div class="card-body">No assets borrowed</div>
+        </div>
       </div>
 
       <!-- shows all available assets -->
       <div id="issueAssets" style="display: none;">
-        No assets available
+        <div class="card bg-danger text-white">
+          <div class="card-body">No assets available</div>
+        </div>
       </div>
 
       <!-- shows all overdue messages -->
       <div id="messages" style="display: none;">
-        No messages to display
+        <div class="card bg-danger text-white">
+          <div class="card-body">No messages to display</div>
+        </div>
       </div>
     </center>
   </div>

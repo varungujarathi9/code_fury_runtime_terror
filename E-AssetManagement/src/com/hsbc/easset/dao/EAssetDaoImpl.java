@@ -17,7 +17,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.PropertyResourceBundle;
 
-import com.hsbc.banking.models.Bank;
+//import com.hsbc.banking.models.Bank;
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.RoleType;
