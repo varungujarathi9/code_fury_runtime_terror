@@ -91,6 +91,7 @@ select:focus {
   border-style: solid;
   border-color: #DC3545;
   padding: 0px !important;
+  width:50%;
 }
 
 header {
