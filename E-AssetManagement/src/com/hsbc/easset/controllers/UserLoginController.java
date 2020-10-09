@@ -98,10 +98,12 @@ public class UserLoginController extends HttpServlet {
         		{
         			if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
         			{	//direct to admin homepage
+        				request.getRequestDispatcher("adminHome.html").forward(request, response);
         			}
         			else
         			{
         				//direct to burrower homepage
+        				request.getRequestDispatcher("employeeHome.html").forward(request, response);
         			}
         		}
         		catch(DBConnCreationException exception)
