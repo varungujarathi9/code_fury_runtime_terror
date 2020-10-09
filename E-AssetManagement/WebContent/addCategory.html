@@ -51,8 +51,9 @@
                 <h3 align="center">Instructions for filling form</h3>
             </strong>
             <ol type="1">
-                <!-- TODO -->
-                <li>ADD INSTRUCTION ACCORDING TO BUSINESS RULE</li>
+                <li>All fields are compulsory<p style="color:red;display:inline">*</p>
+                </li>
+                <li>Make sure that the category name is unique i.e. not entered in system previously</li>
             </ol>
         </div>
         <form name="addCategoryForm" id="addCategoryForm" method="POST" action="AddCategoryController">
@@ -84,22 +85,16 @@
         </form>
     </div>
     <footer class="footer-menu">
-        <nav>
-          <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacts</a></li>
-              <li><a href="#">  Terms & Condition</a></li>
-              <li><a href="#">Privacy Policy</a></li>  
-          </ul>
-        </nav> 
-        <article>
-              <p> © Copyright 2020. Runtime Terrors (WFS-6). All rights reserved.</p>
-        </article>
-          
-        
-     </footer>
-
-
+        <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contacts</a></li>
+            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li class="copyright">
+                <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+            </li>
+        </ul>
+    </footer>
 </body>
 
 </html>
