@@ -1,9 +1,10 @@
 package com.hsbc.easset.bl;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 /**
  *
- * @author Sayan
+ * @author Saya
  * @version 1.0
  * @createdOn 04 Oct 2020
  *
@@ -24,7 +25,9 @@ public interface EAssetBL {
 	boolean isAdmin(String userName) throws DBConnCreationException; //to redirect to admin or burrower homepage
 	boolean existsCategory(String categoryName) throws DBConnCreationException;
 	boolean addCategory(String categoryName, int lendingPeriod, int lateFees) throws DBConnCreationException;
-	User getUserInfo(User user) throws DBConnCreationException;
-	int addImportUser(String path);;
+	User getUserInfo(User user) throws DBConnCreationException;;
+	int addImportUser(String filepath) throws DBConnCreationException;
 	//int addImportUser(String filepath) throws DBConnCreationException;
+
+	boolean returnAssets(List<String> assetList);
 }

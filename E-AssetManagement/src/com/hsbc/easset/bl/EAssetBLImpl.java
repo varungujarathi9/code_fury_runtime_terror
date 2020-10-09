@@ -2,6 +2,7 @@ package com.hsbc.easset.bl;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import com.hsbc.easset.dao.EAssetDao;
@@ -145,9 +146,25 @@ public class EAssetBLImpl implements EAssetBL{
 	}
 
 	@Override
-	public int addImportUser(String path) {
+	public int addImportUser(String filepath) throws DBConnCreationException {
 		// TODO Auto-generated method stub
-		return 0;
+		int result =0;
+		try {
+			result = eAssetDao.addImportUser(filepath);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DBConnCreationException("Connection Error Occurred");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public boolean returnAssets(List<String> assetList) {
+		// TODO Auto-generated method stub
+		boolean status=false;
+		status = eAssetDao.returnAssets(assetList);
+		return false;
 	}
 
 }
