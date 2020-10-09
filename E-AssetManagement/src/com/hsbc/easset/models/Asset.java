@@ -4,11 +4,20 @@ import java.time.LocalDate;
 
 public class Asset {
 	
+	private int assetId;
 	private String name;
 	private String assetType;
 	private String description;
 	private LocalDate dateAdded;
 	private boolean isAvailable;
+	
+	
+	public int getAssetId() {
+		return assetId;
+	}
+	public void setAssetId(int assetId) {
+		this.assetId = assetId;
+	}
 	public String getName() {
 		return name;
 	}

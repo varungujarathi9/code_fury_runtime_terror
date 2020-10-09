@@ -466,6 +466,39 @@ return status;
 		return userObj;
 	}
 
+	@Override
+	public boolean returnAssets(List<String> assetList) {
+		// TODO Auto-generated method stub
+		
+		boolean status = false;
+		//Asset asset = null
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("returnAssets"));
+			
+			for(String str: assetList)
+			{
+				
+				pre.setInt(1, Integer.parseInt(str));
+				pre.setBoolean(6, true);
+				
+			}
+			pre = conn.prepareStatement(resourceBundle.getString("issuelogUpdate"));
+			for(String str: assetList)
+			{
+				pre.setInt(1, Integer.parseInt(str));
+				//pre.setInt(2, x);
+				pre.setDate(5, Date.valueOf(LocalDate.now()));
+			}
+			status = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+
 	
 
 

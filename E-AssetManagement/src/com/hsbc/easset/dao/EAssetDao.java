@@ -14,12 +14,13 @@ public interface EAssetDao {
     boolean validateLogin(User user) throws SQLException;
     boolean addAsset(Asset asset) throws SQLException;
 	boolean isAdmin(String userName) throws SQLException; //to redirect to admin or burrower homepage
+	
 
 	
 	List<Asset> showAvailableAssets() throws   SQLException;
 	//List<Asset> searchAvailableAssets(Asset asset);
 	//boolean issueAvailableAssets(List<Asset> assetList);
-	//boolean returnAssets(List<Asset> assetList);
+	boolean returnAssets(List<String> assetList);
 
 	boolean existsCategory(String categoryName) throws SQLException;
 	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws  SQLException;
