@@ -144,4 +144,10 @@ public class EAssetBLImpl implements EAssetBL{
 		
 	}
 
+	@Override
+	public int addImportUser(String path) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -54,7 +54,7 @@ select:focus{
   padding: 20px;
 }
 .form-group:hover{
-  background: linear-gradient(to right, #ff3030 , #fff);
+  background: linear-gradient(to right, #DC3545 , #fff);
   color:#000!important;
 }
 .form-group:hover input{
@@ -84,12 +84,12 @@ select:focus{
   color: #000;
   text-align:left;
   border-style:solid;
-  border-color:#ff3030 ;
+  border-color:#DC3545 ;
   padding: 0px!important;
 }
 
 header{
-  background-color: #ff3030 ;
+  background-color: #DC3545 ;
   color: #000;
   font-family: 'Montserrat', sans-serif;
   padding:25px;
@@ -109,41 +109,22 @@ input[type=submit]{
   color:#000;
   cursor: default;
 }
-input[type=button]{
-  width:100%;
-  margin-left: 25%;
-  border-style:solid;
-  border-radius: 5px;
-  border-color: #000!important;
-  border-width:1px!important;
-  padding: 10px;
-  margin-top: 20px;
-  margin-bottom:20px;
-  transition: 0.4s ease;
-  color:#000;
-  cursor: default;
-}
 input[type=submit]:hover{
-  background-color: #ff3030 ;
+  background-color: #DC3545 ;
   color:#000;
-  border-color: #ff3030 !important;
-  cursor: pointer;
-}
-input[type=button]:hover{
-  background-color: #ff3030 ;
-  color:#000;
-  border-color: #ff3030 !important;
+  border-color: #DC3545 !important;
   cursor: pointer;
 }
 input[type=submit]:active{
-  background-color: #0091EA ;
-  border-color: #0091EA!important;
+  background-color: #DC3545 ;
+  border-color: #DC3545!important;
 }
 input[type=submit]:disabled{
-  background-color: #0091EA ;
-  border-color: #0091EA !important;
+  background-color: #DC3545 ;
+  border-color: #DC3545 !important;
   cursor:wait;
 }
+
 /* Replacing radio button styliing */
 /* The container */
 .radiocontainer {
@@ -203,7 +184,7 @@ input[type=submit]:disabled{
 	width: 13px;
 	height: 13px;
 	border-radius: 50%;
-	background: #ff3030  ;
+	background: #DC3545  ;
 }
 
 .side-nav{
