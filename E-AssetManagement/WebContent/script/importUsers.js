@@ -1,4 +1,13 @@
 /*window.addEventListener("load", function() { 
+  	//recieving user info from jsp
+	var jsName=document.getElementById("jspName").value;
+	var jsTelephoneNumber=document.getElementById("jspTelephoneNumber").value;
+	var jsRole=document.getElementById("jspRole").value;
+	var jsEmailId=document.getElementById("jspEmailId").value;
+	var jsUsername=document.getElementById("jspUsername").value;
+	var jsPassword=document.getElementById("jspPassword").value;
+	var jsLastLogin=document.getElementById("jspLastLogin").value;
+	
   document.getElementById("myfile").onchange = function(event) { 
     var reader = new FileReader(); 
     reader.readAsDataURL(event.srcElement.files[0]); 
