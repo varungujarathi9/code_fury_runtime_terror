@@ -26,6 +26,10 @@
 <% if(request.getParameter("param1")!=null)
 {
 	out.println(request.getParameter("param1"));
+}
+if(request.getParameter("param0")!=null)
+{
+	out.println(request.getParameter("param1"));
 }%>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>

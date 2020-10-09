@@ -25,7 +25,11 @@
 <!-- Session handling -->
 <% if(!session.isNew())
 {
-	//passing user info to js
+	user=(User)session.getAttribute("userSession");
+	if(user.getRole().equals(RoleType.ADMIN))
+		{%>
+	
+	<!--  passing user info to js-->
 	user=(User)session.getAttribute("userSession");%>
 	<input type="text" id="jspName" value=<%=user.getName()%>>
 	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
@@ -110,7 +114,13 @@
           
         
      </footer>
-     <% }else
+     <%}
+     else
+     {%>
+    	 <jsp:forward page="login.jsp">
+         <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>"/>
+         </jsp:forward>
+     <%} }else
      {%><jsp:forward page="login.jsp">
      <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>"/>
      </jsp:forward>
