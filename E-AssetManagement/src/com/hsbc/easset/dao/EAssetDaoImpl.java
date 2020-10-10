@@ -763,7 +763,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 			}
 
-			@Override
+					@Override
 					public List<String> getOverdueAssets() throws SQLException {
 						// TODO Auto-generated method stub
 						JSONArray jsonarray = new JSONArray();
@@ -810,10 +810,55 @@ public class EAssetDaoImpl implements EAssetDao{
 						}
 						finally
 						{
-							conn.close();
+							try {
+											conn.close();
+										}
+										catch (SQLException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+			}
 						}
 						return overdueAssetsList;
-	}
+				}
+				@Override
+				public List<String> getCategoryList() throws SQLException {
+					// TODO Auto-generated method stub
+					JSONArray jsonarray = new JSONArray();
+					List<String> categoryList=new ArrayList<String>();
+					try {
+						conn=DBHelper.getConnection();
+						stmt=conn.createStatement();
+						resultSet=stmt.executeQuery(resourceBundle.getString("getCategoryList"));
+
+						while(resultSet.next())
+						{
+							JSONObject obj = new JSONObject();
+					        obj.put("CATEGORY",resultSet.getString(1) );
+					        jsonarray.add(obj);
+
+						}
+						if (jsonarray != null) {
+							int len = jsonarray.size();
+						    for (int i=0;i<len;i++)
+		                   		categoryList.add(jsonarray.get(i).toString());
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						//System.out.println(e.getErrorCode());
+						throw new SQLException("Connection Error Occurred");
+					}
+					finally
+					{
+						try {
+										conn.close();
+									}
+									catch (SQLException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+			}
+					}
+					return categoryList;
+			}
 
 
 
