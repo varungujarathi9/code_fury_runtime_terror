@@ -1,10 +1,11 @@
 package com.hsbc.easset.bl;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
  *
- * @author Saya
+ * @author Sayan
  * @version 1.0
  * @createdOn 04 Oct 2020
  *
@@ -28,6 +29,7 @@ public interface EAssetBL {
 	User getUserInfo(User user) throws DBConnCreationException;;
 	int addImportUser(String filepath) throws DBConnCreationException;
 	//int addImportUser(String filepath) throws DBConnCreationException;
+	List<String> getOverdueAssets() throws DBConnCreationException;
 
 	boolean returnAssets(List<String> assetList);
 	public List<Asset> showAvailableAssets(int userId);
