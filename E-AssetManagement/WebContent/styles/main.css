@@ -241,3 +241,7 @@ footer {
 .container h4{
   text-align: center;
 }
+.card
+{
+  border: 2px solid black;
+}
