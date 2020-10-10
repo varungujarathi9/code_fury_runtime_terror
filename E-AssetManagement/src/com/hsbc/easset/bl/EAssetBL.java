@@ -1,4 +1,7 @@
 package com.hsbc.easset.bl;
+import org.json.simple.*;
+import org.json.simple.parser.*;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
@@ -28,6 +31,7 @@ public interface EAssetBL {
 	User getUserInfo(User user) throws DBConnCreationException;;
 	int addImportUser(String filepath) throws DBConnCreationException;
 	//int addImportUser(String filepath) throws DBConnCreationException;
+	JSONArray getOverdueAssets() throws DBConnCreationException;
 
 	boolean returnAssets(List<String> assetList);
 }
