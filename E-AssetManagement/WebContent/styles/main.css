@@ -115,7 +115,7 @@ header {
   padding: 20px;
 }
 
-input[type=submit] {
+input[type=button] {
   width: 100%;
   box-align: center;
   border-style: solid;
@@ -130,21 +130,21 @@ input[type=submit] {
   cursor: default;
 }
 
-input[type=submit]:hover {
+input[type=button]:hover {
   background-color:darkslategrey;
   color:white;
   border-color:black !important;
   cursor: pointer;
 }
 
-input[type=submit]:active {
-  background-color: #DC3545;
-  border-color: #DC3545 !important;
+input[type=button]:active {
+  background-color: darkslategrey;
+  border-color: darkslategrey !important;
 }
 
-input[type=submit]:disabled {
-  background-color: #DC3545;
-  border-color: #DC3545 !important;
+input[type=button]:disabled {
+  background-color: darkslategrey;
+  border-color: darkslategrey !important;
   cursor: wait;
 }
 
@@ -207,7 +207,7 @@ input[type=submit]:disabled {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #DC3545;
+  background: darkslategrey;
 }
 
 .side-nav {

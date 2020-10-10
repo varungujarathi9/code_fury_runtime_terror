@@ -32,4 +32,5 @@ public interface EAssetBL {
 	List<String> getOverdueAssets() throws DBConnCreationException;
 
 	boolean returnAssets(List<String> assetList);
+	public List<Asset> showAvailableAssets(int userId);
 }

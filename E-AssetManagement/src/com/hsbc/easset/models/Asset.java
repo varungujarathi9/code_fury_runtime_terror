@@ -9,7 +9,7 @@ public class Asset {
 	private String assetType;
 	private String description;
 	private LocalDate dateAdded;
-	private boolean isAvailable;
+	private String isAvailable;
 	
 	
 	public int getAssetId() {
@@ -42,10 +42,10 @@ public class Asset {
 	public void setDateAdded(LocalDate dateAdded) {
 		this.dateAdded = dateAdded;
 	}
-	public boolean isAvailable() {
+	public String isAvailable() {
 		return isAvailable;
 	}
-	public void setAvailable(boolean isAvailable) {
+	public void setAvailable(String isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 	

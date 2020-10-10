@@ -38,14 +38,13 @@ public class UserRegistrationController extends HttpServlet {
      */
     public UserRegistrationController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		System.out.println("Request received");
 		Enumeration<String> enumeration=request.getParameterNames();
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
@@ -77,13 +76,13 @@ public class UserRegistrationController extends HttpServlet {
 			try
 			{
 				eAssetBL.addUser(user,confirmPassword);
-	        	out.println("Registered Successfully...");
+	        	//out.println("Registered Successfully...");
 	        	//direct to login page
 	        	request.getRequestDispatcher("login.html").forward(request, response);
 			}
 			catch(DBConnCreationException|SQLIntegrityConstraintViolationException|InvalidEmailIdException|InvalidTelephoneNumberException|PasswordMismatchException exception)
 			{
-				out.println(exception.getMessage());
+				//out.println(exception.getMessage());
 				//redirect to registration page
 				request.getRequestDispatcher("index.html").include(request, response);
 			}
@@ -91,13 +90,13 @@ public class UserRegistrationController extends HttpServlet {
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
-			out.println(exception.getMessage());
+			//out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
 			request.getRequestDispatcher("index.html").include(request, response);
 		}
 		catch(Exception exception)
 		{
-			out.println(exception.getMessage());
+			//out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
 			request.getRequestDispatcher("index.html").include(request, response);
 		}

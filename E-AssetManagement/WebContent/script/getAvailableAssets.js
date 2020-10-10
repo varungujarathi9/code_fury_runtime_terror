@@ -1,18 +1,18 @@
 window.addEventListener('load', function () {
 	//recieving user info from jsp
-	var jsName=document.getElementById("jspName").value;
-	var jsTelephoneNumber=document.getElementById("jspTelephoneNumber").value;
-	var jsRole=document.getElementById("jspRole").value;
-	var jsEmailId=document.getElementById("jspEmailId").value;
-	var jsUsername=document.getElementById("jspUsername").value;
-	var jsPassword=document.getElementById("jspPassword").value;
-	var jsLastLogin=document.getElementById("jspLastLogin").value;
+	// var jsName=document.getElementById("jspName").value;
+	// var jsTelephoneNumber=document.getElementById("jspTelephoneNumber").value;
+	// var jsRole=document.getElementById("jspRole").value;
+	// var jsEmailId=document.getElementById("jspEmailId").value;
+	// var jsUsername=document.getElementById("jspUsername").value;
+	// var jsPassword=document.getElementById("jspPassword").value;
+	// var jsLastLogin=document.getElementById("jspLastLogin").value;
 	
     var showAssets = document.getElementById("issueAssets");
     showAssets.innerHTML = "Requesting server...";
 
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/E-AssetManagement/BorrowerShowAssetController", true);
+    ajax.open("GET", "/E-AssetManagement/ShowAssetController", true);
     // ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send();
     ajax.onreadystatechange = function () {
