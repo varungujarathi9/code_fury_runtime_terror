@@ -24,7 +24,7 @@ import com.hsbc.easset.exceptions.DBConnCreationException;
 @WebServlet(asyncSupported = true, urlPatterns = { "/GetCategoryListController" })
 public class GetCategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -45,14 +45,14 @@ public class GetCategoryListController extends HttpServlet {
 			//create conn with bl
 			EAssetDao eAssetBL = new EAssetBLImpl();
 			List<String> categoryList = new ArrayList<String>();
-			//overdueAssetsList is an array of json strings where each string represents one json object//
+			//categoryList is an array of json strings where each string represents one json object//
 			try
 			{
 				categoryList = eAssetBL.getCategoryList();
 				if(categoryList.size() > 0)
 				{
 					JSONArray json = new JSONArray(categoryList);
-					System.out.println("returned overdue assets info");
+					System.out.println("returned category list");
 					out.println(json);
 				}
 				else
