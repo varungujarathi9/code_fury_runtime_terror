@@ -12,8 +12,8 @@ window.addEventListener('load', function(){
     borrowedAssets.innerHTML = "Requesting server...";
 
     var ajax=new XMLHttpRequest();
-    ajax.open("GET","/E-AssetManagement/BorrowIssuedAssetController",true);
-    // ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.open("GET","/E-AssetManagement/BorrowAssetController",true);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send();
     ajax.onreadystatechange=function(){
         if(this.readyState==3){
@@ -52,7 +52,7 @@ function returnAsset(assetId){
     var ajax=new XMLHttpRequest();
     ajax.open("GET","/E-AssetManagement/BorrowReturnAssetController",true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("assetId="+assetId);
+    ajax.send("assetId="+assetId+"?userId=1");
     ajax.onreadystatechange=function(){
         if (this.readyState==4&&this.status==200) {
             //request ready

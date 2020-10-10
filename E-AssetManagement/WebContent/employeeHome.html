@@ -4,8 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script/getAvailableAssets.js"></script>
-    <script src="script/getBorrowedAssets.js"></script>
+    
     <!-- <script src="script/employeeHome.js"></script> -->
     <title>Employee Home Page</title>
 
@@ -23,7 +22,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 
-  </head>
+    <script type="text/javascript"> window.history.forward(); function noBack() { alert("Back button is restricted"); window.history.forward(); } </script> 
+
+</head>
 
   <body style="background-color:white">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -34,7 +35,7 @@
           <a class="nav-link" href="#userInfo">User Info</a>
         </li>
         <li class="nav-item" onclick="changeSection(2)">
-          <a class="nav-link" href="borrowedAssets.html">My Assets</a>
+          <a class="nav-link" href="#borrowAssets">My Assets</a>
         </li>
         <li class="nav-item" onclick="changeSection(3)">
           <a class="nav-link" href="#issueAssets">Issue Assets</a>
@@ -82,7 +83,7 @@
         </div>
       </center>
     </div>
-    <footer class="footer-menu1">
+    <footer class="footer-menu">
       <ul>
         <li><a href="teamPage.html">About Us</a></li>
         <li><a href="teamPage.html">Contacts</a></li>
@@ -95,6 +96,8 @@
     </footer>
 
   </body>
+  <script src="script/getAvailableAssets.js"></script>
+  <script src="script/getBorrowedAssets.js"></script>
   <script lang="javascript">
     function changeSection(sectionId) {
       var userInfoDiv = document.getElementById("userInfo");

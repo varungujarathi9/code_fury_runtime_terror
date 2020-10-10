@@ -38,7 +38,7 @@ public class ShowAssetController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
 		Enumeration<String> enumeration=request.getParameterNames();
@@ -46,7 +46,8 @@ public class ShowAssetController extends HttpServlet {
 		String parameterName=null;
 		List<Asset> assetList=new ArrayList<>();
 		List<String> userData=new ArrayList<>();
-		int userId=0;
+//		Integer userId=Integer.parseInt(request.getParameter("userId"));
+		int userId = 0;
 		PrintWriter out=response.getWriter();
 	    response.setContentType("text/html");
 		try
@@ -54,10 +55,13 @@ public class ShowAssetController extends HttpServlet {
 			while(enumeration.hasMoreElements())
 			{
 				parameterName=enumeration.nextElement().toString();
+				System.out.println(parameterName);
 			    value=request.getParameter(parameterName);
 			    userData.add(value);
 			}
-			userId=Integer.parseInt(userData.get(1).toString());
+			System.out.println("*****************************"+userData);
+			userId=Integer.parseInt(userData.get(0).toString());
+//			userId=1;
 			
 	        //create conn with dao
 			EAssetBL eAssetBL=new EAssetBLImpl();
@@ -73,15 +77,16 @@ public class ShowAssetController extends HttpServlet {
 			}
 			else
 			{
-			 	response.getWriter().print("Sorry you have been banned");
+			 	response.getWriter().print("Sorry! You cannot buy more assets");
 			 	//out.println("Sorry you have been banned");
-			 	System.out.println("YOU ARE BANNED......");
+			 	System.out.println("Sorry! You cannot buy more assets");
 	         	// request.getRequestDispatcher("home.html").include(request, response);
 			}
 		}
 
 		catch(Exception exception)
 		{
+			exception.printStackTrace();
 			System.out.println("EXCEPTION:"+exception.getMessage());
 			response.getWriter().print(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");

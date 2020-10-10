@@ -26,7 +26,7 @@ body {
   
 }
 header{
- /* padding: 1px;*/
+  padding: 1px;
 }
 
 
@@ -65,13 +65,6 @@ select:focus {
   background-color:transparent;
   padding: 10px;
 }
-.form-group1 {
-  width: 100%;
-  text-align: center;
-  background-color:transparent;
-  padding: 20px;
-}
-
 
 .form-group:hover {
   background: linear-gradient(to right,green, #fff);
@@ -119,7 +112,7 @@ input[type=button] {
   width: 100%;
   box-align: center;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 5px;
   border-color: #000 !important;
   border-width: 1px !important;
   padding: 10px;
@@ -244,28 +237,6 @@ footer {
   font-size: small;
   color: white;
   font-family: sans-serif;
-}
-.footer-menu1 {
-  position: absolute;
-  bottom: 0px;
-  margin-bottom: 0%;
-  width: 100%;
-  background-color: black;
-  padding: 15px;
-  font-family: sans-serif;
-  font-size: small;
-  color: white;
-}
-
-.footer-menu1 ul li {
-  display: inline;
-  list-style: none;
-}
-
-.footer-menu1 ul li a {
-  padding-left: 10px;
-  color: white;
-  list-style-type: none;
 }
 .container h4{
   text-align: center;
