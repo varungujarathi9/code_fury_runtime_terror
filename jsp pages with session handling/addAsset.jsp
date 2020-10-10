@@ -59,7 +59,6 @@
         <center>
             <header>
                 <h2>Add Asset</h2>
-                <h3>E-Asset Management System</h3>
             </header>
         </center>
         <div class="instructions">
@@ -68,7 +67,8 @@
             </strong>
             <ol type="1">
                 <!-- TODO -->
-                <li>ADD INSTRUCTION ACCORDING TO BUSINESS RULE</li>
+                <li>All fields are compulsory<p style="color:red;display:inline">*</p></li>
+                <li>Make sure that the correct asset type and description is entered</li>
             </ol>
         </div>
         <form name="addAssetForm" id="addAssetForm" method="POST" action="./AddAssetController">
@@ -82,8 +82,8 @@
                 <label for="category">Asset Category<p style="color:red;display:inline">*</p></label>
                 <select id="category" class="form-control" name="category" required>
                     <option value="">-Select Category-</option>
-                    <option value="Laptop">Laptop</option>
-                    <option value="Mobile">Mobile</option>
+                    <option value="LAPTOP">LAPTOP</option>
+                    <option value="MOBILE">MOBILE</option>
                     <option value="Other">Other</option>
                     <p id="category_alert" style="color:red;"></p>
                 </select>
@@ -106,24 +106,21 @@
             <p id="form_alert" style="color:red;"></p>
         </form>
     </div>
-    <footer class="footer-menu">
-        <nav>
-          <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacts</a></li>
-              <li><a href="#">  Terms & Condition</a></li>
-              <li><a href="#">Privacy Policy</a></li>  
-          </ul>
-        </nav> 
-        <article>
-              <p> © Copyright 2020. Runtime Terrors (WFS-6). All rights reserved.</p>
-        </article>
-          
-        
-     </footer>
+  <footer class="footer-menu">
+    <ul>
+      <li><a href="teamPage.html">About Us</a></li>
+      <li><a href="teamPage.html">Contacts</a></li>
+      <li><a href="#">Terms & Condition</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li class="copyright">
+        <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+      </li>
+    </ul>
+  </footer>
      <%}
      else
-     {%>
+     {
+     	session.invalidate();%>
     	 <jsp:forward page="login.jsp">
          <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>"/>
          </jsp:forward>

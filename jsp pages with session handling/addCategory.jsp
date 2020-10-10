@@ -30,7 +30,7 @@
 		{%>
 	
 	<!--  passing user info to js-->
-	user=(User)session.getAttribute("userSession");%>
+	
 	<input type="text" id="jspName" value=<%=user.getName()%>>
 	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
 	<input type="text" id="jspRole" value=<%=user.getRole()%>>
@@ -55,11 +55,10 @@
 
     </nav>
     <br />
-    <div class="form container">
+    <div class="form container"style="width:40%">
         <center>
             <header>
                 <h2>Add Category</h2>
-                <h3>E-Asset Management System</h3>
             </header>
         </center>
         <div class="instructions">
@@ -67,8 +66,9 @@
                 <h3 align="center">Instructions for filling form</h3>
             </strong>
             <ol type="1">
-                <!-- TODO -->
-                <li>ADD INSTRUCTION ACCORDING TO BUSINESS RULE</li>
+                <li>All fields are compulsory<p style="color:red;display:inline">*</p>
+                </li>
+                <li>Make sure that the category name is unique i.e. not entered in system previously</li>
             </ol>
         </div>
         <form name="addCategoryForm" id="addCategoryForm" method="POST" action="AddCategoryController">
@@ -100,23 +100,20 @@
         </form>
     </div>
     <footer class="footer-menu">
-        <nav>
-          <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacts</a></li>
-              <li><a href="#">  Terms & Condition</a></li>
-              <li><a href="#">Privacy Policy</a></li>  
-          </ul>
-        </nav> 
-        <article>
-              <p> © Copyright 2020. Runtime Terrors (WFS-6). All rights reserved.</p>
-        </article>
-          
-        
-     </footer>
+        <ul>
+            <li><a href="teamPage.html">About Us</a></li>
+            <li><a href="teamPage.html">Contacts</a></li>
+            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li class="copyright">
+                <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+            </li>
+        </ul>
+    </footer>
      <%}
      else
-     {%>
+     {
+     	session.invalidate();%>
     	 <jsp:forward page="login.jsp">
          <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>"/>
          </jsp:forward>

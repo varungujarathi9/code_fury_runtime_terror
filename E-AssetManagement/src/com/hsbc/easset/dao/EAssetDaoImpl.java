@@ -574,7 +574,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			@Override
 			public List<Asset> showAvailableAssets(int userId) throws SQLException {
 				// TODO Auto-generated method stub
-				
+
 				PreparedStatement pre1,pre2, pre3;
 				ResultSet resultSet1,resultSet2, resultSet3;
 				String assetType;
@@ -582,7 +582,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 				// TODO Auto-generated method stub
 				List<Asset> assetList = new ArrayList<Asset>();
-			
+
 				LocalDate expectedReturnDate, actualReturnDate;
 
 
@@ -596,32 +596,32 @@ public class EAssetDaoImpl implements EAssetDao{
 				boolean isIssueLogEmpty = false;
 				boolean isnewUser = true;
 				int count=0;
-				
-			
+
+
 				try {
-					
+
 					conn = DBHelper.getConnection();
 					pre1=conn.prepareStatement(resourceBundle.getString("returncount"));
 					pre1.setInt(1, userId);
 					resultSet1=pre1.executeQuery();
 						resultSet1.next();
 				 count=resultSet1.getInt(1);
-				 
+
 					pre = conn.prepareStatement(resourceBundle.getString("getFromIssueLog"));
 					pre.setInt(1, userId);
 					resultSet = pre.executeQuery();
-					
-					
+
+
 					if (count>0) {
 						//not a new user
-						
+
 						// logic for banning the user
 						while (resultSet.next()) {
-							
+
 							assetId = resultSet.getInt(1);
-						
+
 							expectedReturnDate = LocalDate.parse(resultSet.getDate(2).toString());
-							
+
 
 							if (resultSet.getDate(3) == null) {
 								actualDateStatus = true;
@@ -630,31 +630,32 @@ public class EAssetDaoImpl implements EAssetDao{
 								actualReturnDate = LocalDate.parse(resultSet.getDate(3).toString());
 
 
-							
+
 							if (actualDateStatus) {
 
-							
+
 								if (expectedReturnDate.isBefore(LocalDate.now())) {
 									System.out.println("BAnned ....");
 									banStatus = true;
 									break;
 								}
 
+
 							}
 
 							else
 
 							{
-								
+
 								pre2 = conn.prepareStatement(resourceBundle.getString("getAssetType"));
 								pre2.setInt(1, assetId);
 								resultSet2 = pre.executeQuery();
 
-							
+
 								while (resultSet2.next()) {
 									assetType = resultSet2.getString(1);
 
-								
+
 									pre3 = conn.prepareStatement(resourceBundle.getString("getFromAssetManagement"));
 									pre3.setString(1, assetType);
 									resultSet3 = pre3.executeQuery();
@@ -689,23 +690,23 @@ public class EAssetDaoImpl implements EAssetDao{
 					e.printStackTrace();
 					throw new SQLException("Connection Error Occurred");
 				} finally {
-				
+
 				}
 
 				// ****************************************LOGIC FOR RRETURNING THE ASSETS THAT USER DOESNT POSSESS********************************************
-			
-				pre = conn.prepareStatement(resourceBundle.getString("getAssetId")); 
-																						
+
+				pre = conn.prepareStatement(resourceBundle.getString("getAssetId"));
+
 				pre.setInt(1, userId);
 				resultSet = pre.executeQuery();
 
 				// we can get a list of items user might have issued
 
 				if (count>0) {
-				
+
 					isnewUser = false;
 				while (resultSet.next()) {
-					
+
 						assetId = resultSet.getInt(1);
 						System.out.println("aseet id user has already="+assetId);
 
@@ -720,12 +721,12 @@ public class EAssetDaoImpl implements EAssetDao{
 						assetListAlreadyBurrowed.add(assetType);
 
 					}
-				
+
 
 
 				}
 
-			
+
 				pre3 = conn.prepareStatement(resourceBundle.getString("getAssets"));
 				resultSet3 = pre3.executeQuery();
 
@@ -740,7 +741,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						asset.setAvailable("1");
 					else
 						asset.setAvailable("0");
-			
+
 					// add all assets to assestlist
 					assetList.add(asset);
 				}
@@ -753,16 +754,16 @@ public class EAssetDaoImpl implements EAssetDao{
 							for(String assetType1:assetListAlreadyBurrowed) {
 								if(assets.getAssetType().contains(assetType1))
 									assetList.remove(assets);
-								
+
 							}
 							if (assetList.size()==0) {
 								break;
 							}
-							
+
 						}
 					}
 				}
-					
+
 
 				conn.close();
 				return assetList;
@@ -776,25 +777,25 @@ public class EAssetDaoImpl implements EAssetDao{
 				String assetType=null;
 				int lendingPeriod=0;
 				int status=0;
-				
+
 				try {
 					conn = DBHelper.getConnection();
-					
+
 					//get asset type
 					pre=conn.prepareStatement(resourceBundle.getString("getAssetType"));
 					pre.setInt(1, assetId);
 					resultSet=pre.executeQuery();
 					resultSet.next();
 					assetType=resultSet.getString(1);
-					
+
 					//get ending peroid from asset_mgmt
 					pre=conn.prepareStatement(resourceBundle.getString("getLendingPeriod"));
 					pre.setString(1, assetType);
 					resultSet=pre.executeQuery();
 					resultSet.next();
-					
+
 					lendingPeriod=resultSet.getInt(1);
-					
+
 					//update isseulog
 					pre = conn.prepareStatement(resourceBundle.getString("updateIssueLog"));
 					pre.setInt(1, assetId);
@@ -804,21 +805,21 @@ public class EAssetDaoImpl implements EAssetDao{
 					pre.setDate(5, null);
 					pre.setString(6, "0");
 					status=pre.executeUpdate();
-					
+
 					//update assets tbale
 					if(status>0) {
 						//set is_avb in assets=0
 						pre=conn.prepareStatement(resourceBundle.getString("setAvailableStatus"));
 						pre.setInt(1, assetId);
 						status=pre.executeUpdate();
-						
-						
-					}
-					
-					
-				
 
-				
+
+					}
+
+
+
+
+
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -834,6 +835,102 @@ public class EAssetDaoImpl implements EAssetDao{
 				else
 					return false;
 			}
+			public List<String> getOverdueAssets() throws SQLException {
+				// TODO Auto-generated method stub
+				JSONArray jsonarray = new JSONArray();
+				List<String> overdueAssetsList=new ArrayList<String>();
+				try {
+					conn=DBHelper.getConnection();
+					stmt=conn.createStatement();
+					resultSet=stmt.executeQuery(resourceBundle.getString("getOverdueAssets"));
+
+					while(resultSet.next())
+					{
+						JSONObject obj = new JSONObject();
+				        obj.put("USER_ID",resultSet.getInt(1) );
+				        obj.put("ASSET_ID",resultSet.getInt(2));
+				        obj.put("ISSUE_DATE",resultSet.getDate(3));
+				        obj.put("EXPECTED_RETURN_DATE",	resultSet.getDate(4));
+				        obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
+				        obj.put("ADMIN_ALERT",	resultSet.getString(6));
+				        obj.put("NAME",	resultSet.getString(8));
+				        obj.put("TELEPHONENUMBER",	resultSet.getLong(9));
+				        obj.put("EMAILID",	resultSet.getString(10));
+				        obj.put("USERNAME",	resultSet.getString(11));
+				        obj.put("PASSWORD",	resultSet.getString(12));
+				        obj.put("LASTLOGIN",	resultSet.getDate(13));
+				        obj.put("ROLE",	resultSet.getString(14));
+				        obj.put("ASSET_NAME",	resultSet.getString(16));
+				        obj.put("ASSET_TYPE",	resultSet.getString(17));
+				        obj.put("ASSET_DESCRIPTION",	resultSet.getString(18));
+				        obj.put("DATE_ADDED",	resultSet.getDate(19));
+				        obj.put("IS_AVAILABLE",	resultSet.getString(20));
+
+						jsonarray.add(obj);
+
+					}
+					if (jsonarray != null) {
+						int len = jsonarray.size();
+					    for (int i=0;i<len;i++)
+			            	overdueAssetsList.add(jsonarray.get(i).toString());
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						//System.out.println(e.getErrorCode());
+						throw new SQLException("Connection Error Occurred");
+					}
+					finally
+					{
+						try {
+							conn.close();
+							}
+							catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+					return overdueAssetsList;
+				}
+				@Override
+				public List<String> getCategoryList() throws SQLException {
+					// TODO Auto-generated method stub
+					JSONArray jsonarray = new JSONArray();
+					List<String> categoryList=new ArrayList<String>();
+					try {
+						conn=DBHelper.getConnection();
+						stmt=conn.createStatement();
+						resultSet=stmt.executeQuery(resourceBundle.getString("getCategoryList"));
+
+						while(resultSet.next())
+						{
+							JSONObject obj = new JSONObject();
+					        obj.put("CATEGORY",resultSet.getString(1) );
+					        jsonarray.add(obj);
+
+						}
+						if (jsonarray != null) {
+							int len = jsonarray.size();
+						    for (int i=0;i<len;i++)
+		                   		categoryList.add(jsonarray.get(i).toString());
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						//System.out.println(e.getErrorCode());
+						throw new SQLException("Connection Error Occurred");
+					}
+					finally
+					{
+						try {
+							conn.close();
+						}
+						catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					return categoryList;
+			}
+
 
 
 

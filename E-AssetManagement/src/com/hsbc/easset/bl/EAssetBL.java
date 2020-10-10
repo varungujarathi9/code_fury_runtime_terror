@@ -29,6 +29,8 @@ public interface EAssetBL {
 	User getUserInfo(User user) throws DBConnCreationException;;
 	int addImportUser(String filepath) throws DBConnCreationException;
 	//int addImportUser(String filepath) throws DBConnCreationException;
+	List<String> getOverdueAssets() throws DBConnCreationException;
+	List<String> getCategoryList() throws DBConnCreationException;
 
 	boolean returnAssets(List<String> assetList);
 	public List<Asset> showAvailableAssets(int userId);
