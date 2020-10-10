@@ -65,9 +65,8 @@ public class UserLoginController extends HttpServlet {
 			parameterName=enumeration.nextElement().toString();
 			value=request.getParameter(parameterName);
 			customerData.add(value);
-
-
 		}
+		
 		try
 		{
 
@@ -80,49 +79,59 @@ public class UserLoginController extends HttpServlet {
         {
         	if(eAssetBL.validateLogin(user))
         	{
+        		System.out.println("Valid User");
         		try
         		{
-        		loggedUser=eAssetBL.getUserInfo(user);
+        			loggedUser=eAssetBL.getUserInfo(user);
+        			System.out.println("Got user info");
         		}
         		catch(DBConnCreationException exception)
         		{
-        			out.println(exception.getMessage());
+        			//out.println(exception.getMessage());
         			//redirect to login page
+        			exception.printStackTrace();
         			request.getRequestDispatcher("login.html").include(request, response);
         		}
         		session=request.getSession(true);
-        		out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
+        		//out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
         		session.setAttribute("userSession", loggedUser); //create user session
-        		request.getRequestDispatcher("index.html").include(request, response);
         		try
         		{
-        			if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
-        			{	//direct to admin homepage
-        				request.getRequestDispatcher("adminHome.html").forward(request, response);
-        			}
-        			else
-        			{
-        				//direct to burrower homepage
-        				request.getRequestDispatcher("employeeHome.html").forward(request, response);
-        			}
+        			eAssetBL.isAdmin(user.getUsername());
+        			System.out.println("Redirecting to home page");
+        			request.getRequestDispatcher("adminHome.html").forward(request, response);
+//        			if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
+//        			{	//direct to admin homepage
+//        				request.getRequestDispatcher("adminHome.html").forward(request, response);
+//        			}
+//        			else
+//        			{
+//        				//direct to burrower homepage
+//        				request.getRequestDispatcher("employeeHome.html").forward(request, response);
+//        			}
         		}
         		catch(DBConnCreationException exception)
         		{
-        			out.println(exception.getMessage());
+        			//out.println(exception.getMessage());
         			session.invalidate(); //close session
         			//redirect to login page
+
+        			exception.printStackTrace();
         			request.getRequestDispatcher("login.html").include(request, response);
         		}
         	}
         	else
         	{
-        		out.println("<p style='float:right;color:red'>Login Credentials are not valid</p>");
+        		//out.println("<p style='float:right;color:red'>Login Credentials are not valid</p>");
+        		System.out.println("INVALID CREDS");
         		request.getRequestDispatcher("login.html").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
         {
-        	out.println(exception.getMessage());
+        	//out.println(exception.getMessage());
+
+			exception.printStackTrace();
         	request.getRequestDispatcher("login.html").include(request, response);
 
         }
@@ -130,12 +139,14 @@ public class UserLoginController extends HttpServlet {
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
-			out.println(exception.getMessage());
+			//out.println(exception.getMessage());
+			exception.printStackTrace();
 			request.getRequestDispatcher("login.html").include(request, response);
 		}
 		catch(Exception exception)
 		{
-			out.println(exception.getMessage());
+			//out.println(exception.getMessage());
+			exception.printStackTrace();
 			request.getRequestDispatcher("login.html").include(request, response);
 		}
 

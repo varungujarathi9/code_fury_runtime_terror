@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-    <script type="text/javascript" src="./script/registration.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/main.css">
@@ -61,19 +60,19 @@
 
                 <div class="form-group">
                     <label for="name">Full Name<p style="color:red;display:inline">*</p></label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" required>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" onkeyup="validateName()" required>
                     <p id="name_alert" style="color:red;"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="telephone">Mobile Number<p style="color:red;display:inline">*</p></label>
-                    <input type="tel" name="telephone" class="form-control" id="number" placeholder="Enter your mobile Number (10 Digits)" maxlength=10 size=10 required>
-                    <p id="telephone_alert" style="color:red;"></p>
+                    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter your mobile number (10 Digits)" onkeyup="validateMobile()" maxlength=10 size=10 required>
+                    <p id="mobile_alert" style="color:red;"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address<p style="color:red;display:inline">*</p></label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                    <input type="text" name="email" class="form-control" id="email" placeholder="Enter your email address" onkeyup="validateEmail()" required>
                     <p id="email_alert" style="color:red;"></p>
                 </div>
 
@@ -90,17 +89,17 @@
 
                 <div class="form-group">
                     <label for="password">Password<p style="color:red;display:inline">*</p></label>
-                    <input type="password" name="password" class="form-control" placeholder="Enter a strong password" id="password" placeholder="" required>
+                    <input type="password" name="password" class="form-control" placeholder="Enter a strong password" onkeyup="validatePassword()" id="password" required>
                     <p id="password_alert" style="color:red;"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="conf_password">Confirm Password<p style="color:red;display:inline">*</p></label>
-                    <input type="password" name="conf_password" class="form-control" id="conf_password" placeholder="Re-enter password to confirm" required>
+                    <input type="password" name="conf_password" class="form-control" id="conf_password" placeholder="Re-enter password to confirm" onkeyup="matchPasswords()" required>
                     <p id="conf_password_alert" style="color:red;"></p>
                 </div>
 
-                <center><input type="submit" id="submitBtn" class="btn" value="Register"></center>
+                <center><input type="button" id="submitBtn" class="btn" value="Register" onclick="submitForm()"></center>
 
                 <p id="form_alert" style="color:red;"></p>
         </form>
@@ -117,4 +116,5 @@
       </ul>
   </footer>
 </body>
+<script type="text/javascript" src="./script/registration.js"></script>
 </html>

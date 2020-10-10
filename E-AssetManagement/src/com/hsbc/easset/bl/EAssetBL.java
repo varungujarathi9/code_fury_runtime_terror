@@ -30,4 +30,5 @@ public interface EAssetBL {
 	//int addImportUser(String filepath) throws DBConnCreationException;
 
 	boolean returnAssets(List<String> assetList);
+	public List<Asset> showAvailableAssets(int userId);
 }

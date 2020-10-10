@@ -28,7 +28,7 @@ public class DBHelper {
 			System.out.println("conn=DriverManager.getConnection(url,userName,password);"+conn);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			System.out.println("DB Helper ERROR:"+e.getMessage());
 		}
 		System.out.println("returning conn="+conn);
 		return conn;

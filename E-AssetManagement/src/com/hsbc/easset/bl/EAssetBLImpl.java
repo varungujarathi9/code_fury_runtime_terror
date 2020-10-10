@@ -2,6 +2,7 @@ package com.hsbc.easset.bl;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -40,15 +41,14 @@ public class EAssetBLImpl implements EAssetBL{
 		public boolean addUser(User user,String confirmPassword) throws DBConnCreationException, SQLIntegrityConstraintViolationException, InvalidTelephoneNumberException,InvalidEmailIdException,PasswordMismatchException {
 			// TODO Auto-generated method stub
 			boolean status = false;
-			if(!validateTelephoneNumber(user.getTelphoneNumber()))
-				throw new InvalidTelephoneNumberException("Telephone Number must be in ten digits.....");
-			if(!validateEmailId(user.getEmailId()))
-				throw new InvalidEmailIdException("Invalid Email Id.....");
-			if(!validatePassword(user.getPassword(),confirmPassword))
-				throw new PasswordMismatchException("Passwords do not match.....");
+//			if(!validateTelephoneNumber(user.getTelphoneNumber()))
+//				throw new InvalidTelephoneNumberException("Telephone Number must be in ten digits.....");
+//			if(!validateEmailId(user.getEmailId()))
+//				throw new InvalidEmailIdException("Invalid Email Id.....");
+//			if(!validatePassword(user.getPassword(),confirmPassword))
+//				throw new PasswordMismatchException("Passwords do not match.....");
 			try {
-				eAssetDao.addUser(user);
-				status = true;
+				status = eAssetDao.addUser(user);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				throw new DBConnCreationException("Connection Error Occurred");
@@ -61,8 +61,7 @@ public class EAssetBLImpl implements EAssetBL{
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
-			eAssetDao.validateLogin(user);
-			status=true;
+			status=eAssetDao.validateLogin(user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
@@ -96,7 +95,6 @@ public class EAssetBLImpl implements EAssetBL{
 			eAssetDao.isAdmin(userName);
 			status=true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		return status;
@@ -165,6 +163,19 @@ public class EAssetBLImpl implements EAssetBL{
 		boolean status=false;
 		status = eAssetDao.returnAssets(assetList);
 		return false;
+	}
+	
+	@Override
+	public List<Asset> showAvailableAssets(int userId) {
+		// TODO Auto-generated method stub
+		List<Asset> assetList=new ArrayList<>();
+		try {
+			assetList=eAssetDao.showAvailableAssets(userId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return assetList;
 	}
 
 }

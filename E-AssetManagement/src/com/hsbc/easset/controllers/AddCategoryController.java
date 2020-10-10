@@ -76,18 +76,18 @@ public class AddCategoryController extends HttpServlet {
         			eAssetBL.addCategory(categoryName,lendingPeriod,lateFees);
         			out.println("Added Successfully...");
         			//direct to addasset page
-        			request.getRequestDispatcher("add-asset.html").forward(request, response);
+        			request.getRequestDispatcher("addAsset.html").forward(request, response);
         		}
         		catch(DBConnCreationException exception)
             	{
         			out.println(exception.getMessage());
         			//redirect to addcategory page
-        			request.getRequestDispatcher("add-category.html").include(request, response);
+        			request.getRequestDispatcher("addCategory.html").include(request, response);
             	}
         	else
         	{
-        		out.println("<p style='float:right;color:red'>Category already exists</p>");
-        		request.getRequestDispatcher("add-category.html").include(request, response);
+        		out.println("<p style='float:left;color:red'>Category already exists</p>");
+        		request.getRequestDispatcher("addCategory.html").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
