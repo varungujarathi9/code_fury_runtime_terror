@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    import="com.hsbc.easset.models.*" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +25,19 @@
   <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color:white">
+<%!User user=null; %>
 <!-- Session handling -->
 <% if(!session.isNew())
-{%>
+{
+	//passing user info to js
+	user=(User)session.getAttribute("userSession");%>
+	<input type="text" id="jspName" value=<%=user.getName()%>>
+	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
+	<input type="text" id="jspRole" value=<%=user.getRole()%>>
+	<input type="text" id="jspEmailId" value=<%=user.getEmailId()%>>
+	<input type="text" id="jspUsername" value=<%=user.getUsername()%>>
+	<input type="text" id="jspPassword" value=<%=user.getPassword()%>>
+	<input type="text" id="jspLastLogin" value=<%=user.getLastLogin()%>>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
     <!-- Links -->

@@ -1,0 +1,208 @@
+public List<Asset> showAvailableAssets(int userId) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("In dao layer of show available ....");
+		PreparedStatement pre1,pre2, pre3;
+		ResultSet resultSet1,resultSet2, resultSet3;
+		String assetType;
+		Set<String> assetListAlreadyBurrowed = new HashSet<String>();
+
+		// TODO Auto-generated method stub
+		List<Asset> assetList = new ArrayList<Asset>();
+		// assetList=null;
+		LocalDate expectedReturnDate, actualReturnDate;
+
+		// LATE_FEES,BAN_PERIOD
+
+		Asset asset = null;
+		boolean banStatus = false;
+		int assetId = 0;
+		int lendingPeriod = 0;
+		int lateFees = 0;
+		int banPeriod = 0;
+		boolean actualDateStatus = false;
+		boolean isIssueLogEmpty = false;
+		boolean isnewUser = true;
+		int count=0;
+		try {
+			conn = DBHelper.getConnection();
+			pre1=conn.prepareStatement(resourceBundle.getString("returncount"));
+			pre1.setInt(1, userId);
+			resultSet1=pre1.executeQuery();
+				resultSet1.next();
+		 count=resultSet1.getInt(1);
+		 System.out.println("COUNT="+count);
+			pre = conn.prepareStatement(resourceBundle.getString("getFromIssueLog"));
+			pre.setInt(1, userId);
+			resultSet = pre.executeQuery();
+			System.out.println("Printing result set ,....");
+			System.out.println(resultSet);
+			System.out.println("Connection created  with issue log for  show available ....");
+			// getFromIssueLog=select ASSET_ID,EXPECTED_RETURN_DATE,ACTUAL_RETURN_DATE from
+			// ISSUELOG where USER_ID=?
+
+		
+			
+			if (count>0) {
+				//resultSet.beforeFirst();
+				System.out.println("not new user ....");
+				// logic for banning the user
+				while (resultSet.next()) {
+					System.out.println("inside result set");
+					// asset=new Asset();
+					assetId = resultSet.getInt(1);
+					System.out.println("inside22 result set");
+
+					// Date expectedReturnDate1 = (resultSet.getDate(2));
+					expectedReturnDate = LocalDate.parse(resultSet.getDate(2).toString());
+					System.out.println("inside date result set" + expectedReturnDate);
+
+					if (resultSet.getDate(3) == null) {
+						actualDateStatus = true;
+						actualReturnDate = null;
+					} else
+						actualReturnDate = LocalDate.parse(resultSet.getDate(3).toString());
+
+					System.out.println("Actual date :" + resultSet.getDate(3));
+
+					// actualReturnDate =LocalDate.parse(resultSet.getDate(3).toString());
+					// LocalDate.parse(resultSet.getDate(3).toString());
+					// System.out.println("Local
+					// date="+LocalDate.parse(resultSet.getDate(3).toString()));
+					System.out.println("ActualDate" + actualReturnDate);
+					if (actualDateStatus) {
+
+						System.out.println("In actual date status......");
+						if (expectedReturnDate.isBefore(LocalDate.now())) {
+							System.out.println("BAnned ....");
+							banStatus = true;
+							break;
+						}
+
+					}
+
+					else
+					// if (actualReturnDate.toString() != null)
+					{
+						System.out.println("in not null...");
+						// getAssetType=select ASSET_TYPE from ASSETS where ASSET_ID=?;
+						pre2 = conn.prepareStatement(resourceBundle.getString("getAssetType"));
+						pre2.setInt(1, assetId);
+						resultSet2 = pre.executeQuery();
+
+						System.out.println("Connection created  with ASset  for  show available ....");
+						while (resultSet2.next()) {
+							assetType = resultSet2.getString(1);
+
+							// getFromAssetManagement=select LENDING_PERIOD,LATE_FEES,BAN_PERIOD from
+							// ASSET_MANAGEMENT where ASSET_TYPE=?;
+							pre3 = conn.prepareStatement(resourceBundle.getString("getFromAssetManagement"));
+							pre3.setString(1, assetType);
+							resultSet3 = pre3.executeQuery();
+
+							while (resultSet3.next()) {
+								lendingPeriod = resultSet3.getInt(1);
+								lateFees = resultSet3.getInt(2);
+								banPeriod = resultSet3.getInt(3);
+
+							}
+
+							if (actualReturnDate.plusDays(banPeriod).isAfter(LocalDate.now())) {
+								banStatus = true;
+								break;
+							}
+
+						}
+
+						if (banStatus == true)
+							break;
+
+					}
+
+				}
+			}
+			// end of banning logic
+			if (banStatus)
+				return assetList; // return nulll asset list to signify that user is banned
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			// System.out.println(e.getErrorCode());
+			System.out.println("Connection not created of show available ....");
+			throw new SQLException("Connection Error Occurred");
+		} finally {
+		
+		}
+
+		// ****************************************LOGIC FOR RRETURNING THE BOOKS THAT
+		// USER DOESNT POSSESS********************************************
+		// for showing him assests he doesnt posses
+//				select asset_id from issue_log where  user_id=? and where act_date==null;
+//				select asset_type from assets where asset_id=?
+//
+//				select * from asets wher asset_type is not =?
+
+		// select asset_id from issue_log where user_id=? and where act_date==null;
+		pre = conn.prepareStatement(resourceBundle.getString("getAssetId")); // ********query remaining to be
+																				// prepared*************
+		pre.setInt(1, userId);
+		resultSet = pre.executeQuery();
+
+		// we can get a list of items user might have issued
+
+		if (count>0) {
+			//resultSet.beforeFirst();
+			isnewUser = false;
+		while (resultSet.next()) {
+				assetId = resultSet.getInt(1);
+
+//					select asset_type from assets where asset_id=?
+				pre2 = conn.prepareStatement(resourceBundle.getString("getAssetType"));
+				pre2.setInt(1, assetId);
+				resultSet2 = pre2.executeQuery();
+				resultSet2.next();
+				assetType = resultSet2.getString(1);
+
+				// adding the asset type the user has already burrowed
+
+				assetListAlreadyBurrowed.add(assetType);
+
+			}
+
+		}
+
+		// got list of asset types user already possesses
+
+		// Displaying the values after iterating through the iterator
+
+//					select * from asets where asset_type is not =?
+
+		// only select asset user doesn't have
+		pre3 = conn.prepareStatement(resourceBundle.getString("getAssets"));
+		resultSet3 = pre3.executeQuery();
+
+		asset = new Asset();
+		asset.setAssetId(resultSet3.getInt(1));
+		asset.setName(resultSet3.getString(2));
+		asset.setAssetType(resultSet3.getString(3));
+		asset.setDescription(resultSet3.getString(4));
+		asset.setDateAdded(LocalDate.parse(resultSet3.getDate(5).toString()));
+		if (resultSet3.getString(6).equals("1"))
+			asset.setAvailable(true);
+		else
+			asset.setAvailable(false);
+
+		// add all assets to assestlist
+		assetList.add(asset);
+
+		List<String> alreadyBurrowed = new ArrayList<>();
+		for (String asttype : assetListAlreadyBurrowed) {
+			alreadyBurrowed.add(asttype);
+		}
+
+		/// remove the assettypes that user already has
+		if (isnewUser == false)
+			assetList.removeAll(alreadyBurrowed);
+		System.out.println("After removing........");
+		conn.close();
+		return assetList;
+
+	}

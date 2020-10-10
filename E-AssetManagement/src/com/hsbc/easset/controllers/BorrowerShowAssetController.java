@@ -41,8 +41,11 @@ public class BorrowerShowAssetController extends HttpServlet {
 	//	System.out.println("Request received");
 		//Enumeration<String> enumeration=request.getParameterNames();
 	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //can be used later!!
-		String parameterName=null;
+		//String parameterName=null;
+		//System.out.println("in controller");
 		PrintWriter out=response.getWriter();
+		int userid=Integer.parseInt(request.getParameter("userid"));
+	//	System.out.println(userid);
 	    response.setContentType("text/html");
 		try
 		{
@@ -55,8 +58,10 @@ public class BorrowerShowAssetController extends HttpServlet {
 
 	        //create conn with dao
 			EAssetDao eAssetDao = new EAssetDaoImpl();
-			List<Asset> assetList = new ArrayList<Asset>();
-			assetList = eAssetDao.showAvailableAssets();
+			List<String> assetList = new ArrayList<String>();   
+			//	 //assetList is an array of json strings where each string represents one json object//
+			//assetList=[{obj1},{obj2},{obj3},{}]
+			assetList = eAssetDao.showAssets(userid);
 			if(assetList.size() > 0)
 			{
 				JSONArray json = new JSONArray(assetList);
@@ -64,7 +69,7 @@ public class BorrowerShowAssetController extends HttpServlet {
 			//	out.println(json);
 				
 			
-	
+	System.out.println("returned assets info");
 				response.getWriter().println(json);
 				
 

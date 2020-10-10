@@ -37,7 +37,7 @@ public class EAssetDaoImpl implements EAssetDao{
 
 	public  EAssetDaoImpl()
 	{
-		
+
 		resourceBundle=ResourceBundle.getBundle("com/hsbc/easset/resources/db");
 
 
@@ -86,7 +86,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			}
 			throw new SQLException("Connection Error Occurred");
 		}
-			
+
 		finally
 		{
 			try {
@@ -250,7 +250,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	@Override
 	public List<Asset> showAvailableAssets() throws SQLException {
 		// TODO Auto-generated method stub
-		
+
 		// TODO Auto-generated method stub
 				List<Asset> assetList=new ArrayList<Asset>();
 				//assetList=null;
@@ -259,7 +259,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					conn=DBHelper.getConnection();
 					stmt=conn.createStatement();
 					resultSet=stmt.executeQuery(resourceBundle.getString("getAssets"));
-					
+
 					while(resultSet.next())
 					{
 
@@ -269,8 +269,8 @@ public class EAssetDaoImpl implements EAssetDao{
 						asset.setAssetType(resultSet.getString(4));
 						asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
 						asset.setAvailable(true);
-						assetList.add(asset);	
-								
+						assetList.add(asset);
+
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -281,7 +281,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				{
 					conn.close();
 				}
-				
+
 
 				System.out.println("returned ");
 				return assetList;
@@ -388,11 +388,11 @@ return status;
 			  int UniqueID =1000;             //unique id///
 			Iterator iterator = ((List) jsonObject).iterator();
 	         while (iterator.hasNext()) {
-	      
+
 	        	 JSONObject name = (JSONObject)jsonObject.get(i);
-	        	// LinkedHashMap<String, String> names = new LinkedHashMap<String, String>(name); 
+	        	// LinkedHashMap<String, String> names = new LinkedHashMap<String, String>(name);
 	        	// System.out.println(names);
-	        	    pre.setInt(1,UniqueID);  
+	        	    pre.setInt(1,UniqueID);
 					pre.setString(2, name.get("Name").toString());     ///this is been hardcoded..think of how to avoid hardcoding///
 					pre.setString(3, name.get("Role").toString());
 					pre.setString(4, name.get("Telephone").toString());
@@ -417,12 +417,12 @@ return status;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//location of json file
-	
+
 	finally
 	{
 		try {
@@ -432,7 +432,7 @@ return status;
 			e.printStackTrace();
 		}
 	}
-	
+
 		  return result;
 	}
 
@@ -451,37 +451,39 @@ return status;
 			user.setTelphoneNumber(resultSet.getLong(3));
 			user.setRole(RoleType.valueOf(resultSet.getString(4)));
 			user.setEmailId(resultSet.getString(5));
+			user.setUsername(resultSet.getString(6));
+			user.setPassword(resultSet.getString(7));
 			user.setLastLogin(LocalDateTime.ofInstant(resultSet.getDate(8).toInstant(), ZoneId.systemDefault()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getErrorCode());
-			
+
 			throw new SQLException("Connection Error Occurred");
 		}
 		finally
 		{
 			conn.close();
 		}
-		
+
 		return userObj;
 	}
 
 	@Override
 	public boolean returnAssets(List<String> assetList) {
 		// TODO Auto-generated method stub
-		
+
 		boolean status = false;
 		//Asset asset = null
 		try {
 			conn=DBHelper.getConnection();
 			pre=conn.prepareStatement(resourceBundle.getString("returnAssets"));
-			
+
 			for(String str: assetList)
 			{
-				
+
 				pre.setInt(1, Integer.parseInt(str));
 				pre.setBoolean(6, true);
-				
+
 			}
 			pre = conn.prepareStatement(resourceBundle.getString("issuelogUpdate"));
 			for(String str: assetList)
@@ -495,11 +497,69 @@ return status;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return status;
 	}
 
-	
+	@Override
+	public List<String> showAssets(int userid) throws SQLException {
+		// TODO Auto-generated method stub
+		//return json data//
+		 //assetList is an array of json strings where each string represents one json object//
+		//assetList=[{},{}]
+		System.out.println("in dao layer show assets method");
+	     JSONArray jsonarray = new JSONArray();
+		List<String> assetList=new ArrayList<String>();
+		//assetList=null;
+		Asset asset=null;
+		try {
+			conn=DBHelper.getConnection();
+			pre=conn.prepareStatement(resourceBundle.getString("showassets"));
+			pre.setInt(1, userid);
+			//pre.setDate(2,Date.valueOf(customer.getDob()));
+			resultSet=pre.executeQuery();
+			while(resultSet.next())
+			{
+				   JSONObject obj = new JSONObject();
+			        obj.put("Asset_ID",resultSet.getInt(1) );
+			        obj.put("USER_ID",resultSet.getInt(2));
+			        obj.put("ISSUE DATE",resultSet.getDate(3));
+			        obj.put("EXPECTED_RETURN_DATE",	resultSet.getDate(4));
+			        obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
+			        obj.put("ADMIN_ALERT",	resultSet.getString(6));
+
+			      //  ((Object) ja).put(obj);
+			        jsonarray.add(obj);
+			      //  assetList.add(obj);
+				//asset=new Asset();
+			///	assetList.add(asset);
+
+			}
+
+
+      // JSONArray jsonArray = (JSONArray)jsonObject;
+       if (jsonarray != null) {
+         int len = jsonarray.size();
+             for (int i=0;i<len;i++){
+                   assetList.add(jsonarray.get(i).toString());
+    }
+}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//System.out.println(e.getErrorCode());
+			throw new SQLException("Connection Error Occurred");
+		}
+		finally
+		{
+			conn.close();
+		}
+
+
+
+		return assetList;
+	}
+
+
 
 
 
