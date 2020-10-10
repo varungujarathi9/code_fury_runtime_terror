@@ -165,7 +165,7 @@ public class EAssetBLImpl implements EAssetBL{
 		status = eAssetDao.returnAssets(assetList);
 		return false;
 	}
-	
+
 	@Override
 	public List<Asset> showAvailableAssets(int userId) {
 		// TODO Auto-generated method stub
@@ -188,6 +188,19 @@ public class EAssetBLImpl implements EAssetBL{
 				throw new DBConnCreationException("Connection Error Occurred");
 			}
 			return overdueAssetsList;
+	}
+
+	@Override
+			public List<String> getCategoryList() throws DBConnCreationException {
+				// TODO Auto-generated method stub
+				List<String> categoryList=null;
+				try {
+					categoryList=eAssetDao.getCategoryList();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					throw new DBConnCreationException("Connection Error Occurred");
+				}
+				return categoryList;
 	}
 
 }

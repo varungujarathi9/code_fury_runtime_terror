@@ -10,7 +10,7 @@ import com.hsbc.easset.models.Asset;
 import com.hsbc.easset.models.User;
 
 public interface EAssetDao {
-	
+
 	boolean addUser(User user) throws SQLException,SQLIntegrityConstraintViolationException;
 	boolean validateLogin(User user) throws SQLException;
 	boolean addAsset(Asset asset) throws SQLException;
@@ -26,4 +26,5 @@ public interface EAssetDao {
 	List<String> showAssets(int userid) throws   SQLException;
 	public List<Asset> showAvailableAssets(int userId) throws SQLException;
 	List<String> getOverdueAssets() throws SQLException;
+	List<String> getCategoryList() throws SQLException;
 }

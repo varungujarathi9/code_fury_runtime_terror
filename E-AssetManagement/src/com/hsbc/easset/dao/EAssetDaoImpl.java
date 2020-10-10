@@ -639,57 +639,7 @@ public class EAssetDaoImpl implements EAssetDao{
 									banStatus = true;
 									break;
 								}
-	@Override
-		public List<String> getOverdueAssets() throws SQLException {
-			// TODO Auto-generated method stub
-			JSONArray jsonarray = new JSONArray();
-			List<String> overdueAssetsList=new ArrayList<String>();
-			try {
-				conn=DBHelper.getConnection();
-				stmt=conn.createStatement();
-				resultSet=stmt.executeQuery(resourceBundle.getString("getOverdueAssets"));
 
-				while(resultSet.next())
-				{
-					JSONObject obj = new JSONObject();
-			        obj.put("USER_ID",resultSet.getInt(1) );
-			        obj.put("ASSET_ID",resultSet.getInt(2));
-			        obj.put("ISSUE_DATE",resultSet.getDate(3));
-			        obj.put("EXPECTED_RETURN_DATE",	resultSet.getDate(4));
-			        obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
-			        obj.put("ADMIN_ALERT",	resultSet.getString(6));
-			        obj.put("NAME",	resultSet.getString(8));
-			        obj.put("TELEPHONENUMBER",	resultSet.getLong(9));
-			        obj.put("EMAILID",	resultSet.getString(10));
-			        obj.put("USERNAME",	resultSet.getString(11));
-			        obj.put("PASSWORD",	resultSet.getString(12));
-			        obj.put("LASTLOGIN",	resultSet.getDate(13));
-			        obj.put("ROLE",	resultSet.getString(14));
-			        obj.put("ASSET_NAME",	resultSet.getString(16));
-			        obj.put("ASSET_TYPE",	resultSet.getString(17));
-			        obj.put("ASSET_DESCRIPTION",	resultSet.getString(18));
-			        obj.put("DATE_ADDED",	resultSet.getDate(19));
-			        obj.put("IS_AVAILABLE",	resultSet.getString(20));
-
-			        jsonarray.add(obj);
-
-				}
-				if (jsonarray != null) {
-					int len = jsonarray.size();
-				    for (int i=0;i<len;i++)
-                   		overdueAssetsList.add(jsonarray.get(i).toString());
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				//System.out.println(e.getErrorCode());
-				throw new SQLException("Connection Error Occurred");
-			}
-			finally
-			{
-				conn.close();
-			}
-			return overdueAssetsList;
-	}
 
 							}
 
@@ -812,6 +762,58 @@ public class EAssetDaoImpl implements EAssetDao{
 				return assetList;
 
 			}
+
+			@Override
+					public List<String> getOverdueAssets() throws SQLException {
+						// TODO Auto-generated method stub
+						JSONArray jsonarray = new JSONArray();
+						List<String> overdueAssetsList=new ArrayList<String>();
+						try {
+							conn=DBHelper.getConnection();
+							stmt=conn.createStatement();
+							resultSet=stmt.executeQuery(resourceBundle.getString("getOverdueAssets"));
+
+							while(resultSet.next())
+							{
+								JSONObject obj = new JSONObject();
+						        obj.put("USER_ID",resultSet.getInt(1) );
+						        obj.put("ASSET_ID",resultSet.getInt(2));
+						        obj.put("ISSUE_DATE",resultSet.getDate(3));
+						        obj.put("EXPECTED_RETURN_DATE",	resultSet.getDate(4));
+						        obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
+						        obj.put("ADMIN_ALERT",	resultSet.getString(6));
+						        obj.put("NAME",	resultSet.getString(8));
+						        obj.put("TELEPHONENUMBER",	resultSet.getLong(9));
+						        obj.put("EMAILID",	resultSet.getString(10));
+						        obj.put("USERNAME",	resultSet.getString(11));
+						        obj.put("PASSWORD",	resultSet.getString(12));
+						        obj.put("LASTLOGIN",	resultSet.getDate(13));
+						        obj.put("ROLE",	resultSet.getString(14));
+						        obj.put("ASSET_NAME",	resultSet.getString(16));
+						        obj.put("ASSET_TYPE",	resultSet.getString(17));
+						        obj.put("ASSET_DESCRIPTION",	resultSet.getString(18));
+						        obj.put("DATE_ADDED",	resultSet.getDate(19));
+						        obj.put("IS_AVAILABLE",	resultSet.getString(20));
+
+						        jsonarray.add(obj);
+
+							}
+							if (jsonarray != null) {
+								int len = jsonarray.size();
+							    for (int i=0;i<len;i++)
+			                   		overdueAssetsList.add(jsonarray.get(i).toString());
+							}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							//System.out.println(e.getErrorCode());
+							throw new SQLException("Connection Error Occurred");
+						}
+						finally
+						{
+							conn.close();
+						}
+						return overdueAssetsList;
+	}
 
 
 
