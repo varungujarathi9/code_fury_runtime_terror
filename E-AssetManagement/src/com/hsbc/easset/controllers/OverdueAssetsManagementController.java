@@ -49,8 +49,8 @@ public class OverdueAssetsManagementController extends HttpServlet {
 				overdueAssetsList = eAssetBL.getOverdueAssets();
 				if(overdueAssetsList.size() > 0)
 				{
-					JSONArray json = new JSONArray(assetList);
-					System.out.println("returned assets info");
+					JSONArray json = new JSONArray(overdueAssetsList);
+					System.out.println("returned overdue assets info");
 					out.println(json);
 				}
 				else
