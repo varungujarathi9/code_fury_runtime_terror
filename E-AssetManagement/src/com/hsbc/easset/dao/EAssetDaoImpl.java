@@ -560,9 +560,10 @@ return status;
 	}
 
 	@Override
-		public JSONArray getOverdueAssets() throws SQLException {
+		public List<String> getOverdueAssets() throws SQLException {
 			// TODO Auto-generated method stub
 			JSONArray jsonarray = new JSONArray();
+			List<String> overdueAssetsList=new ArrayList<String>();
 			try {
 				conn=DBHelper.getConnection();
 				stmt=conn.createStatement();
@@ -593,6 +594,11 @@ return status;
 			        jsonarray.add(obj);
 
 				}
+				if (jsonarray != null) {
+					int len = jsonarray.size();
+				    for (int i=0;i<len;i++)
+                   		overdueAssetsList.add(jsonarray.get(i).toString());
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				//System.out.println(e.getErrorCode());
@@ -602,7 +608,7 @@ return status;
 			{
 				conn.close();
 			}
-			return jsonarray;
+			return overdueAssetsList;
 	}
 
 

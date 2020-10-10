@@ -1,7 +1,5 @@
 package com.hsbc.easset.controllers;
-import org.json.simple.*;
-import org.json.simple.parser.*;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
@@ -22,7 +20,7 @@ import com.hsbc.easset.exceptions.DBConnCreationException;
 @WebServlet(asyncSupported = true, urlPatterns = { "/OverdueAssetsManaqgement" })
 public class OverdueAssetsManaqgement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,11 +37,11 @@ public class OverdueAssetsManaqgement extends HttpServlet {
 		EAssetBL eAssetBL=new EAssetBLImpl();
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
-		JSONArray jsonarray = new JSONArray();
+		List<String> overdueAssetsList= new ArrayList<String>();
 		try
 		{
-			jsonarray=eAssetBL.getOverdueAssets();
-			out.println(jsonarray);
+			overdueAssetsList=eAssetBL.getOverdueAssets();
+			out.println(overdueAssetsList);
 		}
 		catch(DBConnCreationException|NullPointerException|InputMismatchException exception)
 		{

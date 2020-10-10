@@ -1,7 +1,5 @@
 package com.hsbc.easset.bl;
-import org.json.simple.*;
-import org.json.simple.parser.*;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
+
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -170,16 +168,16 @@ public class EAssetBLImpl implements EAssetBL{
 		return false;
 	}
 	@Override
-		public JSONArray getOverdueAssets() throws DBConnCreationException {
+		public List<String> getOverdueAssets() throws DBConnCreationException {
 			// TODO Auto-generated method stub
-			JSONArray jsonarray=null;
+			List<String> overdueAssetsList=null;
 			try {
-				jsonarray=eAssetDao.getOverdueAssets();
+				overdueAssetsList=eAssetDao.getOverdueAssets();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				throw new DBConnCreationException("Connection Error Occurred");
 			}
-			return jsonarray;
+			return overdueAssetsList;
 	}
 
 }
