@@ -1,4 +1,7 @@
 package com.hsbc.easset.dao;
+import org.json.simple.*;
+import org.json.simple.parser.*;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -14,9 +17,9 @@ public interface EAssetDao {
     boolean validateLogin(User user) throws SQLException;
     boolean addAsset(Asset asset) throws SQLException;
 	boolean isAdmin(String userName) throws SQLException; //to redirect to admin or burrower homepage
-	
 
-	
+
+
 	List<Asset> showAvailableAssets() throws   SQLException;
 	//List<Asset> searchAvailableAssets(Asset asset);
 	//boolean issueAvailableAssets(List<Asset> assetList);
@@ -27,4 +30,5 @@ public interface EAssetDao {
 	User getUserInfo(User user) throws SQLException;
 	int addImportUser(String filepath) throws SQLException;
 	List<String> showAssets(int userid) throws   SQLException;
+	JSONArray getOverdueAssets() throws SQLException;
 }
