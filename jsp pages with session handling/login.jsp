@@ -48,14 +48,13 @@ if(request.getParameter("param0")!=null)
 
     </nav>
     <br />
-    <div class="form container">
+    <div class="form container" style="width:30%">
         <center>
             <header>
-                <h2>User Login</h2>
-                <h3>E-Asset Management System</h3>
+                <h2>Sign In</h2>
             </header>
         </center>
-        <form id="userLogin" method="POST" action="UserLoginController">
+        <form name="login_form" id="login_form" method="POST" action="UserLoginController">
 
             <div class="form-group">
                 <label for="userName"><b>Username</b></label>
@@ -66,22 +65,20 @@ if(request.getParameter("param0")!=null)
                 <input type="password" name="password" class="form-control" placeholder="Enter password" required>
             </div>
 
-            <center><input type="submit" id="submit" value="Login"></center>
+            <center><input type="button" id="submit" onclick="login()" value="Login"></center>
 
         </form>
     </div>
-<footer class="footer-menu">
-<nav>
-  <ul>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contacts</a></li>
-      <li><a href="#">  Terms & Condition</a></li>
-      <li><a href="#">Privacy Policy</a></li>  
-  </ul>
-</nav> 
-<article>
-      <p> © Copyright 2020. Runtime Terrors (WFS-6). All rights reserved.</p>
-</article>
-</footer>
+    <footer class="footer-menu1">
+        <ul>
+            <li><a href="teamPage.html">About Us</a></li>
+            <li><a href="teamPage.html">Contacts</a></li>
+            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li class="copyright">
+                <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+            </li>
+        </ul>
+    </footer>
 </body>
 </html>

@@ -47,13 +47,13 @@
                 <a class="nav-link" href="#userInfo">User Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/E-AssetManagement/addAsset.html">Add Asset</a>
+                <a class="nav-link" href="addAsset.html">Add Asset</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/E-AssetManagement/addCategory.html">Add Category</a>
+                <a class="nav-link" href="addCategory.html">Add Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/E-AssetManagement/overdueAsset.html">Over-due Assets</a>
+                <a class="nav-link" href="overdueAsset.html">Over-due Assets</a>
             </li>
             <li class="nav-item" onclick="changeSection(2)">
                 <a class="nav-link" href="#reports">Report</a>
@@ -84,21 +84,17 @@
             </div>
         </center>
     </div>
-    <footer class="footer-menu">
-        <nav>
-          <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacts</a></li>
-              <li><a href="#">  Terms & Condition</a></li>
-              <li><a href="#">Privacy Policy</a></li>  
-          </ul>
-        </nav> 
-        <article>
-              <p> © Copyright 2020. Runtime Terrors (WFS-6). All rights reserved.</p>
-        </article>
-          
-        
-     </footer>
+    <footer class="footer-menu1">
+    <ul>
+      <li><a href="teamPage.html">About Us</a></li>
+      <li><a href="teamPage.html">Contacts</a></li>
+      <li><a href="#">Terms & Condition</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li class="copyright">
+        <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+      </li>
+    </ul>
+  </footer>
 
 </body>
 <script lang="javascript">
@@ -121,10 +117,11 @@
                 break;
         }
     }
-</script>
+
      <% }else
      {%><jsp:forward page="login.jsp">
      <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>"/>
      </jsp:forward>
      <% }%>
+     </script>
 </html>
