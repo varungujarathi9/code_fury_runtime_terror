@@ -25,7 +25,7 @@ function borrowedAssets(){
             //request ready
 
             if (this.responseText[0] == "[") {
-                var assetsList = "<table class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th></tr></thead><tbody>";
+                var assetsList = "<table id='table1' class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th></tr></thead><tbody>";
                 var response = JSON.parse(this.responseText);
                 for(i = 0; i < response.length; i++){
                     assetsList += "<tr>";

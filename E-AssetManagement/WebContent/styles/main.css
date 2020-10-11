@@ -245,3 +245,42 @@ footer {
 {
   border: 2px solid black;
 }
+#table1{
+  
+  border-radius: 15px;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 1);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 1);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 1);
+  text-align: center;
+  background-color: #fff;
+}
+
+#table1 tbody tr:nth-child(2n)
+{
+	background-color: #e9e6f3;
+	color:#808080;
+}
+#table1 thead{ 
+  font-family: 'Muli', sans-serif;
+  font-size: 20px;
+  color: #fff;
+  background-color: darkslategray;
+}
+#table1 tr {
+  border-bottom: 2px transparent;
+  font-size: large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#table1 tr:hover {
+  background-color:grey;
+  color:white; 
+  cursor: pointer;
+}
+#table1 tr:nth-child(2n):hover {
+  background-color:grey;
+  color:white; 
+  cursor: pointer;
+}
