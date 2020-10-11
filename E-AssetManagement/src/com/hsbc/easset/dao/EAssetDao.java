@@ -14,10 +14,7 @@ public interface EAssetDao {
 	boolean validateLogin(User user) throws SQLException;
 	boolean addAsset(Asset asset) throws SQLException;
 	boolean isAdmin(String userName) throws SQLException; //to redirect to admin or burrower homepage
-	
-	//List<Asset> searchAvailableAssets(Asset asset);
-	//boolean issueAvailableAssets(List<Asset> assetList);
-	
+	List<Asset> showAvailableAssets() throws   SQLException;
 	boolean existsCategory(String categoryName) throws SQLException;
 	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws  SQLException;
 	User getUserInfo(User user) throws SQLException;
@@ -28,4 +25,5 @@ public interface EAssetDao {
 	List<String> getCategoryList() throws SQLException;
 	List<Asset> showBorrowedAssets(String userid) throws SQLException;
 	boolean returnAssets(String assetId, String userId);
+	List<String> getOverdueMessages(int userId) throws SQLException;
 }

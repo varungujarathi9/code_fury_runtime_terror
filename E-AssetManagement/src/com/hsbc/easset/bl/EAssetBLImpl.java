@@ -17,7 +17,7 @@ import com.hsbc.easset.models.User;
 
 public class EAssetBLImpl implements EAssetBL{
 	private EAssetDao eAssetDao;
-	
+
 	public EAssetBLImpl()
 	{
 		eAssetDao=new EAssetDaoImpl();
@@ -27,7 +27,7 @@ public class EAssetBLImpl implements EAssetBL{
 	//Telephone Number,EmailId and Password validations
 		private boolean validateTelephoneNumber(long telephoneNumber)
 		{
-			return Pattern.matches("\\d{10}", String.valueOf(telephoneNumber)); 
+			return Pattern.matches("\\d{10}", String.valueOf(telephoneNumber));
 		}
 		private boolean validateEmailId(String emailId)
 		{
@@ -35,7 +35,7 @@ public class EAssetBLImpl implements EAssetBL{
 		}
 		private boolean validatePassword(String password,String confirmPassword)
 		{
-			return (password==confirmPassword); 
+			return (password==confirmPassword);
 		}
 		@Override
 		public boolean addUser(User user,String confirmPassword) throws DBConnCreationException, SQLIntegrityConstraintViolationException, InvalidTelephoneNumberException,InvalidEmailIdException,PasswordMismatchException {
@@ -140,7 +140,7 @@ public class EAssetBLImpl implements EAssetBL{
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		return userObj;
-		
+
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class EAssetBLImpl implements EAssetBL{
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
-		
+
 		return result;
 	}
 
@@ -169,7 +169,7 @@ public class EAssetBLImpl implements EAssetBL{
 		}
 		return assetList;
 	}
-	
+
 	@Override
 	public boolean borrowAssets(int assetId, int userId) throws SQLException  {
 		// TODO Auto-generated method stub
@@ -182,8 +182,8 @@ public class EAssetBLImpl implements EAssetBL{
 			throw new SQLException("Connection Error Occurred in BL");
 		}
 		return status;
-		
-		
+
+
 	}
 
 	@Override
@@ -198,7 +198,7 @@ public class EAssetBLImpl implements EAssetBL{
 				}
 				return categoryList;
 	}
-	
+
 	@Override
 	public List<String> getOverdueAssets() throws DBConnCreationException {
 		// TODO Auto-generated method stub
@@ -219,5 +219,18 @@ public class EAssetBLImpl implements EAssetBL{
 		status = eAssetDao.returnAssets(assetId, userId);
 		return false;
 	}
+	@Override
+		public List<String> getOverdueMessages(int userId) throws DBConnCreationException {
+			// TODO Auto-generated method stub
+			List<String> overdueMessagesList=null;
+			try {
+				overdueMessagesList=eAssetDao.getOverdueMessages(userId);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw new DBConnCreationException("Connection Error Occurred");
+			}
+			return overdueMessagesList;
+	}
+
 
 }

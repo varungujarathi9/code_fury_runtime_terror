@@ -35,4 +35,5 @@ public interface EAssetBL {
 	boolean returnAssets(String assetId, String userId);
 	public List<Asset> showAvailableAssets(int userId);
 	boolean borrowAssets(int assetId, int userId) throws SQLException;
+	List<String> getOverdueMessages(int userId) throws DBConnCreationException;
 }
