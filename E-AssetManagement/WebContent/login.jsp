@@ -2,10 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<script type="text/javascript" src="./script/login.js"></script>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <script type="text/javascript" src="./script/login.js"></script>
 
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
@@ -20,18 +22,21 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript"> window.history.forward(); function noBack() { alert("Back button is restricted"); window.history.forward(); } </script> 
+
 </head>
+
 <body>
 <!-- Session handling -->
 <% if(request.getParameter("param1")!=null)
 {
-	out.println(request.getParameter("param1"));
+	//out.println(request.getParameter("param1"));
 }
 if(request.getParameter("param0")!=null)
 {
-	out.println(request.getParameter("param1"));
+	//out.println(request.getParameter("param1"));
 }%>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
         <!-- Links -->
         <!-- <ul class="navbar-nav">
@@ -65,11 +70,11 @@ if(request.getParameter("param0")!=null)
                 <input type="password" name="password" class="form-control" placeholder="Enter password" required>
             </div>
 
-            <center><input type="button" id="submit" onclick="login()" value="Login"></center>
-
+            <center><input type="button" class="btn" id="submit" onclick="login()" value="Login"></center>
+            <p id="form_alert" style="color:red;"></p>
         </form>
     </div>
-    <footer class="footer-menu1">
+    <footer class="footer-menu">
         <ul>
             <li><a href="teamPage.html">About Us</a></li>
             <li><a href="teamPage.html">Contacts</a></li>
@@ -81,4 +86,5 @@ if(request.getParameter("param0")!=null)
         </ul>
     </footer>
 </body>
+
 </html>

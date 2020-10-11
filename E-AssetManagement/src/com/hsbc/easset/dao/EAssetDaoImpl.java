@@ -217,7 +217,7 @@ public class EAssetDaoImpl implements EAssetDao{
 	@Override
 	public boolean isAdmin(String userName) throws SQLException {
 		// TODO Auto-generated method stub
-		boolean status=true;
+		boolean status=false;
 		try {
 			conn=DBHelper.getConnection();
 			pre=conn.prepareStatement(resourceBundle.getString("roleQuery"));
@@ -228,6 +228,9 @@ public class EAssetDaoImpl implements EAssetDao{
 			if(resultSet.getString(1).equals("ADMIN")) //if we formerly store admin role as 1 and burrower as 0 in db
 			{
 				status=true;
+			}
+			else {
+				status = false;
 			}
 
 
@@ -1084,21 +1087,7 @@ public class EAssetDaoImpl implements EAssetDao{
 						return categoryList;
 					}
 
-					@Override
-					public List<Asset> showBorrowedAssets(String userid) throws SQLException {
 
-
-						// TODO Auto-generated method stub
-						//return json data//
-						//assetList is an array of json strings where each string represents one json object//
-						//assetList=[{},{}]
-						//System.out.println("in dao layer show assets method");
-						JSONArray jsonarray = new JSONArray();
-						List<Asset> assetList=new ArrayList<Asset>();
-						//assetList=null;
-						Asset asset=null;
-						try {
-							conn=DBHelper.getConnection();
 
 			@Override
 			public List<String> getOverdueMessages(int userId) throws SQLException {
@@ -1152,7 +1141,22 @@ public class EAssetDaoImpl implements EAssetDao{
 				}
 				return overdueMessagesList;
 			}
+			
+			@Override
+			public List<Asset> showBorrowedAssets(String userid) throws SQLException {
 
+
+				// TODO Auto-generated method stub
+				//return json data//
+				//assetList is an array of json strings where each string represents one json object//
+				//assetList=[{},{}]
+				//System.out.println("in dao layer show assets method");
+				JSONArray jsonarray = new JSONArray();
+				List<Asset> assetList=new ArrayList<Asset>();
+				//assetList=null;
+				Asset asset=null;
+				try {
+					conn=DBHelper.getConnection();
 
 							//		System.out.println("2");
 							pre=conn.prepareStatement(resourceBundle.getString("showBorrowedAssets"));

@@ -91,7 +91,7 @@ public class BorrowerShowAssetsController extends HttpServlet {
 			else {
 				response.getWriter().println("No Assets Available ...."); //
 				//out.println("No Assets Available ...."); //
-				//request.getRequestDispatcher("home.html").include(request, response);
+				//request.getRequestDispatcher("home.jsp").include(request, response);
 			}
 		}
 		catch(Exception exception) {

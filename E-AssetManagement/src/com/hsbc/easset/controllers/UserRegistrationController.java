@@ -78,13 +78,15 @@ public class UserRegistrationController extends HttpServlet {
 				eAssetBL.addUser(user,confirmPassword);
 	        	//out.println("Registered Successfully...");
 	        	//direct to login page
-	        	request.getRequestDispatcher("login.html").forward(request, response);
+	        	//request.getRequestDispatcher("login.jsp").forward(request, response);
+				response.getWriter().println("1");
 			}
 			catch(DBConnCreationException|SQLIntegrityConstraintViolationException|InvalidEmailIdException|InvalidTelephoneNumberException|PasswordMismatchException exception)
 			{
 				//out.println(exception.getMessage());
 				//redirect to registration page
-				request.getRequestDispatcher("index.html").include(request, response);
+				//request.getRequestDispatcher("index.html").include(request, response);
+				response.getWriter().print(exception.getMessage());
 			}
 
 		}
@@ -92,13 +94,15 @@ public class UserRegistrationController extends HttpServlet {
 		{
 			//out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("index.html").include(request, response);
+			//request.getRequestDispatcher("index.html").include(request, response);]
+			response.getWriter().print(exception.getMessage());
 		}
 		catch(Exception exception)
 		{
 			//out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("index.html").include(request, response);
+//			request.getRequestDispatcher("index.html").include(request, response);
+			response.getWriter().print(exception.getMessage());
 		}
 
 	}

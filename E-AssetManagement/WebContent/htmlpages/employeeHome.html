@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    import="com.hsbc.easset.models.*" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="ISO-8859-1">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- <script src="script/employeeHome.js"></script> -->
@@ -36,15 +34,6 @@
 </head>
 
 <body style="background-color:white">
-  <%!User user=null; %>
-  <!-- Session handling -->
-  <% if(!session.isNew())
-{
-	//passing user info to js
-	user=(User)session.getAttribute("userSession");
-	if(user.getRole().equals(RoleType.BORROWER))
-	{%>
-
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
     <!-- Links -->
@@ -101,7 +90,7 @@
       </div>
     </center>
   </div>
-  <footer class="footer-menu1">
+  <footer class="footer-menu">
     <ul>
       <li><a href="teamPage.html">About Us</a></li>
       <li><a href="teamPage.html">Contacts</a></li>
@@ -116,7 +105,6 @@
 </body>
 <script src="script/getAvailableAssets.js"></script>
 <script src="script/getBorrowedAssets.js"></script>
-<script src="script/overdueMessages.js"></script>
 <script lang="javascript">
   function changeSection(sectionId) {
     var userInfoDiv = document.getElementById("userInfo");
@@ -149,25 +137,6 @@
         break;
     }
   }
-  <%}
-  else
-  {
-    session.invalidate();
-%>
- <script lang="javascript">alert("Unauthorized Access")</script>
-   <jsp:forward page="login.jsp">
-     <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>" />
-   </jsp:forward>
- <%
- }
-}
-  else
-  {%>
-  <script lang="javascript">alert("Session Timed Out")</script>
-    <jsp:forward page="login.jsp">
-      <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>" />
-   </jsp:forward>
- <%}%>
 </script>
 
 </html>

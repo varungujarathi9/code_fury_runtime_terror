@@ -2,10 +2,12 @@
     import="com.hsbc.easset.models.*" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<script type="text/javascript" src="./script/addAsset.js"></script>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Asset</title>
+    <script type="text/javascript" src="./script/addAsset.js"></script>
 
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
@@ -20,38 +22,51 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.history.forward();
+
+        function noBack() {
+            alert("Back button is restricted");
+            window.history.forward();
+        }
+    </script>
+
+    <script type="text/javascript">
+        window.history.forward();
+
+        function noBack() {
+            alert("Back button is restricted");
+            window.history.forward();
+        }
+    </script>
+
 </head>
+
 <body>
-<%!User user=null; %>
-<!-- Session handling -->
-<% if(!session.isNew())
+    <%!User user=null; %>
+    <!-- Session handling -->
+    <% if(!session.isNew())
 {
 	user=(User)session.getAttribute("userSession");
 	if(user.getRole().equals(RoleType.ADMIN))
 		{%>
-	
-	<!--  passing user info to js-->
-	<input type="text" id="jspName" value=<%=user.getName()%>>
-	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
-	<input type="text" id="jspRole" value=<%=user.getRole()%>>
-	<input type="text" id="jspEmailId" value=<%=user.getEmailId()%>>
-	<input type="text" id="jspUsername" value=<%=user.getUsername()%>>
-	<input type="text" id="jspPassword" value=<%=user.getPassword()%>>
-	<input type="text" id="jspLastLogin" value=<%=user.getLastLogin()%>>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <!--  passing user info to js-->
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
         <!-- Links -->
         <!-- <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link 3</a>
-          </li>
-        </ul> -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link 3</a>
+              </li>
+            </ul> -->
 
     </nav>
     <br />
@@ -67,7 +82,8 @@
             </strong>
             <ol type="1">
                 <!-- TODO -->
-                <li>All fields are compulsory<p style="color:red;display:inline">*</p></li>
+                <li>All fields are compulsory<p style="color:red;display:inline">*</p>
+                </li>
                 <li>Make sure that the correct asset type and description is entered</li>
             </ol>
         </div>
@@ -102,33 +118,34 @@
                 <p id="addCategory_alert" style="color:red;"></p>
             </div>
 
-            <center><input type="submit" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
+            <center><input type="button" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
             <p id="form_alert" style="color:red;"></p>
         </form>
     </div>
-  <footer class="footer-menu">
-    <ul>
-      <li><a href="teamPage.html">About Us</a></li>
-      <li><a href="teamPage.html">Contacts</a></li>
-      <li><a href="#">Terms & Condition</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li class="copyright">
-        <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
-      </li>
-    </ul>
-  </footer>
-     <%}
+    <footer class="footer-menu">
+        <ul>
+            <li><a href="teamPage.html">About Us</a></li>
+            <li><a href="teamPage.html">Contacts</a></li>
+            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li class="copyright">
+                <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+            </li>
+        </ul>
+    </footer>
+    <%}
      else
      {
      	session.invalidate();%>
-    	 <jsp:forward page="login.jsp">
-         <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>"/>
-         </jsp:forward>
-     <%}
+    <jsp:forward page="login.jsp">
+        <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>" />
+    </jsp:forward>
+    <%}
       }else
      {%><jsp:forward page="login.jsp">
-     <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>"/>
-     </jsp:forward>
-     <% }%>
+        <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>" />
+    </jsp:forward>
+    <% }%>
 </body>
+
 </html>

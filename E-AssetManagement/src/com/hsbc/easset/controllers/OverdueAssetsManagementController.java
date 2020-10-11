@@ -58,27 +58,27 @@ public class OverdueAssetsManagementController extends HttpServlet {
 				else
 				{
 				 	out.print("No Overdue Assets Available ....");
-					request.getRequestDispatcher("adminHome.html").forward(request, response);
+					request.getRequestDispatcher("adminHome.jsp").forward(request, response);
 				}
 			}
 			catch(DBConnCreationException exception)
 			{
 				out.println(exception.getMessage());
 				//redirect to registration page
-				request.getRequestDispatcher("adminHome.html").forward(request, response);
+				request.getRequestDispatcher("adminHome.jsp").forward(request, response);
 			}
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("adminHome.html").forward(request, response);
+			request.getRequestDispatcher("adminHome.jsp").forward(request, response);
 		}
 		catch(Exception exception)
 		{
 			System.out.println("EXCEPTION:"+exception.getMessage());
 			out.print(exception.getMessage());
-			request.getRequestDispatcher("adminHome.html").forward(request, response);
+			request.getRequestDispatcher("adminHome.jsp").forward(request, response);
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
 		}
 

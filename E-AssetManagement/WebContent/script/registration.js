@@ -180,7 +180,10 @@ function submitForm() {
                 submitBtn.value = "Submitted!";
                 document.forms["reg_form"].reset();
                 console.log("Form submitted");
-                window.location.replace("/E-AssetManagement/login.html");
+                if(this.responseText == '1')
+                    window.location.replace("/E-AssetManagement/login.html");
+                else
+                    formAlert.innerHTML = this.responseText;
                 // window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
             } else {
                 // formAlert.innerHTML = "Error submitting form";

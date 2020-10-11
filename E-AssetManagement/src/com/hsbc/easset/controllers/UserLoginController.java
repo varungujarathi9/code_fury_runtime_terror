@@ -90,7 +90,8 @@ public class UserLoginController extends HttpServlet {
         			//out.println(exception.getMessage());
         			//redirect to login page
         			exception.printStackTrace();
-        			request.getRequestDispatcher("login.html").include(request, response);
+        			//request.getRequestDispatcher("login.jsp").include(request, response);
+        			response.getWriter().println(exception.getMessage());
         		}
         		session=request.getSession(true);
         		//out.println("<p style='float:right;color:red'>Login Credentials are valid</p>");
@@ -99,16 +100,18 @@ public class UserLoginController extends HttpServlet {
         		{
         			eAssetBL.isAdmin(user.getUsername());
         			System.out.println("Redirecting to home page");
-        			request.getRequestDispatcher("adminHome.html").forward(request, response);
-//        			if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
-//        			{	//direct to admin homepage
-//        				request.getRequestDispatcher("adminHome.html").forward(request, response);
-//        			}
-//        			else
-//        			{
-//        				//direct to burrower homepage
-//        				request.getRequestDispatcher("employeeHome.html").forward(request, response);
-//        			}
+        			// request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+					if(eAssetBL.isAdmin(user.getUsername())) //if logged user is admin or burrower
+					{	//direct to admin homepage
+						//request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+						response.getWriter().print("ADMIN");
+					}
+					else
+					{
+						//direct to burrower homepage
+						//request.getRequestDispatcher("employeeHome.jsp").forward(request, response);
+						response.getWriter().print("BORROWER");
+					}
         		}
         		catch(DBConnCreationException exception)
         		{
@@ -117,14 +120,16 @@ public class UserLoginController extends HttpServlet {
         			//redirect to login page
 
         			exception.printStackTrace();
-//        			request.getRequestDispatcher("login.html").include(request, response);
+        			response.getWriter().println(exception.getMessage());
+//        			request.getRequestDispatcher("login.jsp").include(request, response);
         		}
         	}
         	else
         	{
         		//out.println("<p style='float:right;color:red'>Login Credentials are not valid</p>");
         		System.out.println("INVALID CREDS");
-//        		request.getRequestDispatcher("login.html").include(request, response);
+        		response.getWriter().println("INVALID CREDENTIALS");
+//        		request.getRequestDispatcher("login.jsp").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
@@ -132,7 +137,8 @@ public class UserLoginController extends HttpServlet {
         	//out.println(exception.getMessage());
 
 			exception.printStackTrace();
-//        	request.getRequestDispatcher("login.html").include(request, response);
+			response.getWriter().println(exception.getMessage());
+//        	request.getRequestDispatcher("login.jsp").include(request, response);
 
         }
 
@@ -141,13 +147,15 @@ public class UserLoginController extends HttpServlet {
 		{
 			//out.println(exception.getMessage());
 			exception.printStackTrace();
-//			request.getRequestDispatcher("login.html").include(request, response);
+			response.getWriter().println(exception.getMessage());
+//			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			//out.println(exception.getMessage());
 			exception.printStackTrace();
-//			request.getRequestDispatcher("login.html").include(request, response);
+			response.getWriter().println(exception.getMessage());
+//			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 
 	}

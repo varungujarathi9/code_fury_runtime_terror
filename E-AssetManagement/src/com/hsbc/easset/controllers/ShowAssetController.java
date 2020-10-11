@@ -75,7 +75,7 @@ public class ShowAssetController extends HttpServlet {
 			 	response.getWriter().print("Sorry! You cannot buy more assets");
 			 	//out.println("Sorry you have been banned");
 			 	System.out.println("Sorry! You cannot buy more assets");
-	         	// request.getRequestDispatcher("home.html").include(request, response);
+	         	// request.getRequestDispatcher("home.jsp").include(request, response);
 			}
 		}
 

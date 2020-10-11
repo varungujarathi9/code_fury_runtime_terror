@@ -70,7 +70,7 @@ public class ReturnAssetsController extends HttpServlet {
 //				else
 //				{
 //				 	response.getWriter().print("No Assets to Return !!!");
-//		         	// request.getRequestDispatcher("home.html").include(request, response);
+//		         	// request.getRequestDispatcher("home.jsp").include(request, response);
 //				}
 			}
 

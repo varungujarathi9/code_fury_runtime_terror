@@ -15,7 +15,9 @@ function login() {
     var username = loginForm["userName"];
     var password = loginForm["password"];
     var submitBtn = document.getElementById("submit");
-
+    var formAlert = document.getElementById("form_alert");
+    submitBtn.value = "Submitting...";
+    
     var ajax = new XMLHttpRequest();
 
     ajax.open("POST", "/E-AssetManagement/UserLoginController", true);
@@ -29,15 +31,19 @@ function login() {
             //request ready
             submitBtn.value = "Submitted!";
             loginForm.reset();
-            console.log("Form submitted");
-            if(this.responseText == 'ADMIN'){
-                window.location.replace("/E-AssetManagement/adminHome.html");
+            var response = this.responseText;
+            console.log(response == "1");
+            console.log(response);
+            console.log(typeof response);
+            console.log(typeof "1");
+            if(response == "ADMIN"){
+                window.location.replace("/E-AssetManagement/adminHome.jsp");
             }
-            else if(this.reponseText == 'BORROWER'){
-                window.location.replace("/E-AssetManagement/employeeHome.html");
+            else if(response == "BORROWER"){
+                window.location.replace("/E-AssetManagement/employeeHome.jsp");
             }
             else{
-
+                formAlert.innerHTML = this.responseText;
             }
             // window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
         } else {

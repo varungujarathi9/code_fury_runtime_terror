@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+
 import com.hsbc.easset.bl.EAssetBL;
 import com.hsbc.easset.bl.EAssetBLImpl;
 import com.hsbc.easset.exceptions.DBConnCreationException;
@@ -58,27 +60,27 @@ public class OverdueMessagesController extends HttpServlet {
 				{
 				 	out.print("No Overdue Messages Available ....");
 				 	//redirect to employee home page
-					request.getRequestDispatcher("employeeHome.html").include(request, response);
+					request.getRequestDispatcher("employeeHome.jsp").include(request, response);
 				}
 			}
 			catch(DBConnCreationException exception)
 			{
 				out.println(exception.getMessage());
 				//redirect to employee home page
-				request.getRequestDispatcher("employeeHome.html").include(request, response);
+				request.getRequestDispatcher("employeeHome.jsp").include(request, response);
 			}
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("employeeHome.html").include(request, response);
+			request.getRequestDispatcher("employeeHome.jsp").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			System.out.println("EXCEPTION:"+exception.getMessage());
 			out.print(exception.getMessage());
-			request.getRequestDispatcher("employeeHome.html").include(request, response);
+			request.getRequestDispatcher("employeeHome.jsp").include(request, response);
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
 		}
 	}

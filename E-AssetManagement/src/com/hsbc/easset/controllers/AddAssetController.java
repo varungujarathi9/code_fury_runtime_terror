@@ -81,27 +81,31 @@ public class AddAssetController extends HttpServlet {
 	        	System.out.println("eassetBL.Addasset(asset)");
 	        	eAssetBL.addAsset(asset);
 	        	System.out.println("eassetBL.Addasset(asset) RETURN");
-	        	out.println("Added Successfully..."+assetData.get(0)+assetData.get(1));
+	        	response.getWriter().print("ASSET ADDED!!!");
+	        	//out.println("Added Successfully..."+assetData.get(0)+assetData.get(1));
 	        }
 	        catch(DBConnCreationException exception)
 	        {
-	        	out.println(exception.getMessage());
+	        	response.getWriter().print(exception.getMessage());
+//	        	out.println(exception.getMessage());
 	        	//redirect to addasset page
-	        	request.getRequestDispatcher("addAsset.html").include(request, response);
+	        	//request.getRequestDispatcher("addAsset.jsp").include(request, response);
 	        }
 
 			}
 			catch(NullPointerException|InputMismatchException exception)
 			{
-				out.println(exception.getMessage());
+				response.getWriter().print(exception.getMessage());
+				//out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("addAsset.html").include(request, response);
+				//request.getRequestDispatcher("addAsset.jsp").include(request, response);
 			}
 			catch(Exception exception)
 			{
-				out.println(exception.getMessage());
+				response.getWriter().print(exception.getMessage());
+//				out.println(exception.getMessage());
 				//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-				request.getRequestDispatcher("addAsset.html").include(request, response);
+				//request.getRequestDispatcher("addAsset.jsp").include(request, response);
 			}
 
 	}

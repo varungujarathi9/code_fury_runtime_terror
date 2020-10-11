@@ -92,8 +92,7 @@ public class EAssetBLImpl implements EAssetBL{
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
-			eAssetDao.isAdmin(userName);
-			status=true;
+			status = eAssetDao.isAdmin(userName);
 		} catch (SQLException e) {
 			throw new DBConnCreationException("Connection Error Occurred");
 		}

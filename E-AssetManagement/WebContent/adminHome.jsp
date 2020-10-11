@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<!-- <script src="script/getUserInfo.js"></script> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="script/getUserInfo.js"></script> -->
     <!-- <script src="script/getBorrowedAssets.js"></script> -->
     <title>Home Page</title>
 
@@ -22,6 +22,9 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript"> window.history.forward(); function noBack() { alert("Back button is restricted"); window.history.forward(); } </script>
+
 </head>
 
 <body style="background-color:white">
@@ -30,15 +33,9 @@
 <% if(!session.isNew())
 {
 	//passing user info to js
-	user=(User)session.getAttribute("userSession");%>
-	<input type="text" id="jspName" value=<%=user.getName()%>>
-	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
-	<input type="text" id="jspRole" value=<%=user.getRole()%>>
-	<input type="text" id="jspEmailId" value=<%=user.getEmailId()%>>
-	<input type="text" id="jspUsername" value=<%=user.getUsername()%>>
-	<input type="text" id="jspPassword" value=<%=user.getPassword()%>>
-	<input type="text" id="jspLastLogin" value=<%=user.getLastLogin()%>>
-	
+	user=(User)session.getAttribute("userSession");
+	if(user.getRole().equals(RoleType.ADMIN))
+	{%>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
         <!-- Links -->
@@ -47,13 +44,13 @@
                 <a class="nav-link" href="#userInfo">User Info</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="addAsset.html">Add Asset</a>
+                <a class="nav-link" href="/E-AssetManagement/addAsset.jsp">Add Asset</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="addCategory.html">Add Category</a>
+                <a class="nav-link" href="/E-AssetManagement/addCategory.jsp">Add Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="overdueAsset.html">Over-due Assets</a>
+                <a class="nav-link" href="/E-AssetManagement/overdueAsset.jsp">Over-due Assets</a>
             </li>
             <li class="nav-item" onclick="changeSection(2)">
                 <a class="nav-link" href="#reports">Report</a>
@@ -84,7 +81,7 @@
             </div>
         </center>
     </div>
-    <footer class="footer-menu1">
+    <footer class="footer-menu">
     <ul>
       <li><a href="teamPage.html">About Us</a></li>
       <li><a href="teamPage.html">Contacts</a></li>
@@ -118,10 +115,24 @@
         }
     }
 
-     <% }else
-     {%><jsp:forward page="login.jsp">
-     <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>"/>
-     </jsp:forward>
-     <% }%>
+<%}
+     else
+     {
+     	session.invalidate();
+%>
+		<script lang="javascript">alert("Unauthorized Access")</script>
+    	<jsp:forward page="login.jsp">
+        <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>" />
+    	</jsp:forward>
+    <%
+    }
+}
+     else
+     {%>
+     <script lang="javascript">alert("Session Timed Out")</script>
+     	<jsp:forward page="login.jsp">
+       	<jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>" />
+    	</jsp:forward>
+    <%}%>
      </script>
 </html>

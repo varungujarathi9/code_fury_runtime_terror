@@ -58,23 +58,23 @@ public class FileUpload extends HttpServlet {
 					//System.out.println(count);
 					if(count==0)
 					{
-						request.getRequestDispatcher("importUsers.html").include(request, response);
+						request.getRequestDispatcher("importUsers.jsp").include(request, response);
 						out.println("<h1>Phone Number or Email Id not valid in your data file.Also check all fields have to be mandatory.Please check your Users.json File</h1>");	
 					}
 					else if(count>0)
 					{
-					request.getRequestDispatcher("importUsers.html").include(request, response);
+					request.getRequestDispatcher("importUsers.jsp").include(request, response);
 					out.println("<h1>The total number of users imported to database is</h1>"+count);
 					}
 				} catch (DBConnCreationException e) {
 					// TODO Auto-generated catch block
-					request.getRequestDispatcher("importUsers.html").include(request, response);
+					request.getRequestDispatcher("importUsers.jsp").include(request, response);
 					out.println("<h1>DB Conection Error</h1>");
 				}
 				catch(Exception e)
 				{
 					System.out.println(e.getMessage());
-					//request.getRequestDispatcher("importUsers.html").include(request, response);
+					//request.getRequestDispatcher("importUsers.jsp").include(request, response);
 					//out.println(e.getMessage());
 					
 				//System.out.println("file uploaded");
@@ -85,7 +85,7 @@ public class FileUpload extends HttpServlet {
 		} catch (FileUploadException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			request.getRequestDispatcher("importUsers.html").include(request, response);
+			request.getRequestDispatcher("importUsers.jsp").include(request, response);
 			out.println("<h1>File Upload errot</h1>");
 		}
 		

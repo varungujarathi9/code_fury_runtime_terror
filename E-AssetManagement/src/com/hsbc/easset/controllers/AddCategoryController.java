@@ -76,24 +76,24 @@ public class AddCategoryController extends HttpServlet {
         			eAssetBL.addCategory(categoryName,lendingPeriod,lateFees);
         			out.println("Added Successfully...");
         			//direct to addasset page
-        			request.getRequestDispatcher("addAsset.html").forward(request, response);
+        			request.getRequestDispatcher("addAsset.jsp").forward(request, response);
         		}
         		catch(DBConnCreationException exception)
             	{
         			out.println(exception.getMessage());
         			//redirect to addcategory page
-        			request.getRequestDispatcher("addCategory.html").include(request, response);
+        			request.getRequestDispatcher("addCategory.jsp").include(request, response);
             	}
         	else
         	{
         		out.println("<p style='float:left;color:red'>Category already exists</p>");
-        		request.getRequestDispatcher("addCategory.html").include(request, response);
+        		request.getRequestDispatcher("addCategory.jsp").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
         {
         	out.println(exception.getMessage());
-        	request.getRequestDispatcher("addCategory.html").include(request, response);
+        	request.getRequestDispatcher("addCategory.jsp").include(request, response);
         }
 
 		}
@@ -101,13 +101,13 @@ public class AddCategoryController extends HttpServlet {
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("addCategory.html").include(request, response);
+			request.getRequestDispatcher("addCategory.jsp").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("addCategory.html").include(request, response);
+			request.getRequestDispatcher("addCategory.jsp").include(request, response);
 		}
 	}
 
