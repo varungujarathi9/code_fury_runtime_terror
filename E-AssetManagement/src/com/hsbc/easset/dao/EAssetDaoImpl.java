@@ -516,10 +516,10 @@ public class EAssetDaoImpl implements EAssetDao{
 
 			@Override
 			public List<String> showAssets(String userid) throws SQLException {
-				
-				
+
+
 				// TODO Auto-generated method stub
-				//return json data// 
+				//return json data//
 				 //assetList is an array of json strings where each string represents one json object//
 				//assetList=[{},{}]
 				//System.out.println("in dao layer show assets method");
@@ -529,47 +529,47 @@ public class EAssetDaoImpl implements EAssetDao{
 				Asset asset=null;
 				try {
 					conn=DBHelper.getConnection();
-					
-					
-					
-					
+
+
+
+
 			//		System.out.println("2");
 					pre=conn.prepareStatement(resourceBundle.getString("showassets"));
 					pre.setInt(1, Integer.parseInt(userid));
 					//pre.setDate(2,Date.valueOf(customer.getDob()));
 					resultSet=pre.executeQuery();
 					resultSet.next();
-					
-					
+
+
 					while(resultSet.next())
 					{
-						
+
 					//	System.out.println(resultSet.getBoolean(6));
-						  JSONObject obj = new JSONObject(); 
+						  JSONObject obj = new JSONObject();
 						  obj.put("Asset_ID",resultSet.getInt(1) );
 						  obj.put("USER_ID",resultSet.getInt(2));
-						  obj.put("ISSUE DATE",resultSet.getDate(3)); 
+						  obj.put("ISSUE DATE",resultSet.getDate(3));
 						  obj.put("EXPECTED_RETURN_DATE", resultSet.getDate(4));
 						  //obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
 						  //obj.put("ADMIN_ALERT", resultSet.getString(6));
-						  
-						  // ((Object) ja).put(obj); 
+
+						  // ((Object) ja).put(obj);
 						  jsonarray.add(obj);
-						 
+
 					      // assetList.add(obj);
 						//asset=new Asset();
-					///	assetList.add(asset);	
-						
+					///	assetList.add(asset);
+
 					}
 
 
-		       //JSONArray jsonArray = (JSONArray)jsonObject; 
-		     if (jsonarray != null) { 
+		       //JSONArray jsonArray = (JSONArray)jsonObject;
+		     if (jsonarray != null) {
 		         int len = jsonarray.size();
-		             for (int i=0;i<len;i++){ 
+		             for (int i=0;i<len;i++){
 		                  assetList.add(jsonarray.get(i).toString());
-		    } 
-		} 
+		    }
+		}
 				}	 catch (SQLException e) {
 					// TODO Auto-generated catch block
 					System.out.println(e.getErrorCode());
@@ -580,9 +580,9 @@ public class EAssetDaoImpl implements EAssetDao{
 				{
 					conn.close();
 				}
-				
+
 		//System.out.println("end");
-				
+
 				return assetList;
 			}
 
@@ -946,7 +946,58 @@ public class EAssetDaoImpl implements EAssetDao{
 					return categoryList;
 			}
 
+			@Override
+			public List<String> getOverdueMessages(int userId) throws SQLException {
+				// TODO Auto-generated method stub
+				JSONArray jsonarray = new JSONArray();
+				List<String> overdueMessagesList=new ArrayList<String>();
+				try {
+					conn=DBHelper.getConnection();
+					pre=conn.prepareStatement(resourceBundle.getString("getOverdueMessages"));
+					pre.setInt(1, userId);
+					resultSet=pre.executeQuery();
 
+					while(resultSet.next())
+					{
+						JSONObject obj = new JSONObject();
+				        obj.put("USER_ID",resultSet.getInt(1));
+				        obj.put("NAME",resultSet.getString(2));
+				        obj.put("ASSET_ID",resultSet.getInt(3));
+				        obj.put("ASSET_NAME",resultSet.getString(4));
+				        obj.put("ISSUE_DATE",resultSet.getDate(5));
+				        obj.put("EXPECTED_RETURN_DATE",resultSet.getDate(6));
+
+				        jsonarray.add(obj);
+
+					}
+					if (jsonarray != null) {
+						int len = jsonarray.size();
+					    for (int i=0;i<len;i++)
+					    	overdueMessagesList.add(jsonarray.get(i).toString());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error Code"+e.getErrorCode());
+					System.out.println(e.getMessage());
+					try {
+						conn.rollback();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					throw new SQLException("Connection Error Occurred");
+				}
+				finally
+				{
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return overdueMessagesList;
+			}
 
 
 

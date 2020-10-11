@@ -5,9 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<script src="script/getAvailableAssets.js"></script>
-    <script src="script/getBorrowedAssets.js"></script>
-    <!-- <script src="script/employeeHome.js"></script> -->
+<!-- <script src="script/employeeHome.js"></script> -->
     <title>Employee Home Page</title>
 
     <!-- BOOTSTRAP 4 LIBRARIES -->
@@ -23,6 +21,8 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"> window.history.forward(); function noBack() { alert("Back button is restricted"); window.history.forward(); } </script>
 </head>
 <body style="background-color:white">
 <%!User user=null; %>
@@ -31,6 +31,7 @@
 {
 	//passing user info to js
 	user=(User)session.getAttribute("userSession");%>
+	<input type="text" id="jspUniquId" value=<%=user.getUniqueId()%>>
 	<input type="text" id="jspName" value=<%=user.getName()%>>
 	<input type="text" id="jspTelephoneNumber" value=<%=user.getTelphoneNumber()%>>
 	<input type="text" id="jspRole" value=<%=user.getRole()%>>
@@ -46,7 +47,7 @@
           <a class="nav-link" href="#userInfo">User Info</a>
         </li>
         <li class="nav-item" onclick="changeSection(2)">
-          <a class="nav-link" href="borrowedAssets.html">My Assets</a>
+          <a class="nav-link" href="#borrowAssets">My Assets</a>
         </li>
         <li class="nav-item" onclick="changeSection(3)">
           <a class="nav-link" href="#issueAssets">Issue Assets</a>
@@ -94,7 +95,7 @@
         </div>
       </center>
     </div>
-    <footer class="footer-menu1">
+    <footer class="footer-menu">
       <ul>
         <li><a href="teamPage.html">About Us</a></li>
         <li><a href="teamPage.html">Contacts</a></li>
@@ -107,6 +108,9 @@
     </footer>
 
   </body>
+  <script src="script/getAvailableAssets.js"></script>
+  <script src="script/getBorrowedAssets.js"></script>
+  <script src="script/overdueMessages.js"></script>
   <script lang="javascript">
     function changeSection(sectionId) {
       var userInfoDiv = document.getElementById("userInfo");
@@ -138,6 +142,7 @@
           break;
       }
     }
+  
   
      <% }else
      {%><jsp:forward page="login.jsp">

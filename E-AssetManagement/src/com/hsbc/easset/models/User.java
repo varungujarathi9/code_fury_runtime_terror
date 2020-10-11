@@ -3,6 +3,7 @@ package com.hsbc.easset.models;
 import java.time.LocalDateTime;
 
 public class User {
+	private int uniqueId;
 	private String name;
 	private RoleType role;
 	private long telphoneNumber;
@@ -10,6 +11,12 @@ public class User {
 	private String password;
 	private String username;
 	private LocalDateTime lastLogin;
+	public int getUniqueId() {
+			return uniqueId;
+		}
+		public void setUniqueId(int uniqueId) {
+			this.uniqueId = uniqueId;
+	}
 	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
@@ -52,6 +59,6 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
+
+
 }
