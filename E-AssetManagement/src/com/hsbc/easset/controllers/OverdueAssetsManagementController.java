@@ -1,10 +1,12 @@
 package com.hsbc.easset.controllers;
-import org.json.simple.*;
+import org.json.*;
 import org.json.simple.parser.*;
 import jdk.nashorn.internal.ir.debug.JSONWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +43,7 @@ public class OverdueAssetsManagementController extends HttpServlet {
 		try
 		{
 			//create conn with bl
-			EAssetDao eAssetBL = new EAssetBLImpl();
+			EAssetBL eAssetBL = new EAssetBLImpl();
 			List<String> overdueAssetsList = new ArrayList<String>();
 			//overdueAssetsList is an array of json strings where each string represents one json object//
 			try

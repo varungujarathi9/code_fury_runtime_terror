@@ -1,5 +1,5 @@
 package com.hsbc.easset.controllers;
-import org.json.simple.*;
+import org.json.*;
 import org.json.simple.parser.*;
 import jdk.nashorn.internal.ir.debug.JSONWriter;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class GetCategoryListController extends HttpServlet {
 		try
 		{
 			//create conn with bl
-			EAssetDao eAssetBL = new EAssetBLImpl();
+			EAssetBL eAssetBL = new EAssetBLImpl();
 			List<String> categoryList = new ArrayList<String>();
 			//categoryList is an array of json strings where each string represents one json object//
 			try
