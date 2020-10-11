@@ -1,11 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <script type="text/javascript" src="./script/login.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src="./script/login.js"></script>
 
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
@@ -20,12 +20,18 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
-  	<script type="text/javascript"> window.history.forward(); function noBack() { alert("Back button is restricted"); window.history.forward(); } </script> 
-
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<!-- Session handling -->
+<% if(request.getParameter("param1")!=null)
+{
+	out.println(request.getParameter("param1"));
+}
+if(request.getParameter("param0")!=null)
+{
+	out.println(request.getParameter("param1"));
+}%>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
         <!-- Links -->
         <!-- <ul class="navbar-nav">
@@ -63,7 +69,7 @@
 
         </form>
     </div>
-    <footer class="footer-menu">
+    <footer class="footer-menu1">
         <ul>
             <li><a href="teamPage.html">About Us</a></li>
             <li><a href="teamPage.html">Contacts</a></li>
@@ -75,5 +81,4 @@
         </ul>
     </footer>
 </body>
-
 </html>

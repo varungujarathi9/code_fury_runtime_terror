@@ -206,5 +206,18 @@ public class EAssetBLImpl implements EAssetBL{
 				}
 				return categoryList;
 	}
+	
+	@Override
+	public List<String> getOverdueAssets() throws DBConnCreationException {
+		// TODO Auto-generated method stub
+		List<String> overdueAssetsList=null;
+		try {
+			overdueAssetsList=eAssetDao.getOverdueAssets();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DBConnCreationException("Connection Error Occurred");
+		}
+		return overdueAssetsList;
+	}
 
 }
