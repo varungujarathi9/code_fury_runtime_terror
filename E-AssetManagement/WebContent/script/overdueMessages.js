@@ -8,12 +8,12 @@ window.addEventListener('load', function(){
 //	var jsUsername=document.getElementById("jspUsername").value;
 //	var jsPassword=document.getElementById("jspPassword").value;
 //	var jsLastLogin=document.getElementById("jspLastLogin").value;
-	
+
     var messages = document.getElementById("messages");
     messages.innerHTML = "Requesting server...";
 
     var ajax=new XMLHttpRequest();
-    ajax.open("POST","/E-AssetManagement/OverdueMessageController",true);
+    ajax.open("POST","/E-AssetManagement/OverdueMessagesController",true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send("userId="+jsUniqueId);
     ajax.onreadystatechange=function(){
