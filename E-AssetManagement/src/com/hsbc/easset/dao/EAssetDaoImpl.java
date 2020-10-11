@@ -382,7 +382,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			public int addImportUser(String filepath) throws SQLException {
 				// TODO Auto-generated method stub
 				int result=0;
-				//	System.out.println(filepath);
+				System.out.println(filepath);
 				JSONParser parser = new JSONParser();
 				Object obj;
 				try {
@@ -515,59 +515,74 @@ public class EAssetDaoImpl implements EAssetDao{
 			}
 
 			@Override
-			public List<String> showAssets(int userid) throws SQLException {
+			public List<String> showAssets(String userid) throws SQLException {
+				
+				
 				// TODO Auto-generated method stub
-				//return json data//
-				//assetList is an array of json strings where each string represents one json object//
+				//return json data// 
+				 //assetList is an array of json strings where each string represents one json object//
 				//assetList=[{},{}]
-				System.out.println("in dao layer show assets method");
-				JSONArray jsonarray = new JSONArray();
+				//System.out.println("in dao layer show assets method");
+			     JSONArray jsonarray = new JSONArray();
 				List<String> assetList=new ArrayList<String>();
 				//assetList=null;
 				Asset asset=null;
 				try {
 					conn=DBHelper.getConnection();
+					
+					
+					
+					
+			//		System.out.println("2");
 					pre=conn.prepareStatement(resourceBundle.getString("showassets"));
-					pre.setInt(1, userid);
+					pre.setInt(1, Integer.parseInt(userid));
 					//pre.setDate(2,Date.valueOf(customer.getDob()));
 					resultSet=pre.executeQuery();
+					resultSet.next();
+					
+					
 					while(resultSet.next())
 					{
-						JSONObject obj = new JSONObject();
-						obj.put("ASSET_ID",resultSet.getInt(1) );
-						obj.put("USER_ID",resultSet.getInt(2));
-						obj.put("ISSUE DATE",resultSet.getDate(3));
-						obj.put("EXPECTED_RETURN_DATE",	resultSet.getDate(4));
-						obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
-						obj.put("ADMIN_ALERT",	resultSet.getString(6));
-
-						//  ((Object) ja).put(obj);
-						jsonarray.add(obj);
-						//  assetList.add(obj);
+						
+					//	System.out.println(resultSet.getBoolean(6));
+						  JSONObject obj = new JSONObject(); 
+						  obj.put("Asset_ID",resultSet.getInt(1) );
+						  obj.put("USER_ID",resultSet.getInt(2));
+						  obj.put("ISSUE DATE",resultSet.getDate(3)); 
+						  obj.put("EXPECTED_RETURN_DATE", resultSet.getDate(4));
+						  //obj.put("ACTUAL_RETURN_DATE",resultSet.getDate(5));
+						  //obj.put("ADMIN_ALERT", resultSet.getString(6));
+						  
+						  // ((Object) ja).put(obj); 
+						  jsonarray.add(obj);
+						 
+					      // assetList.add(obj);
 						//asset=new Asset();
-						///	assetList.add(asset);
-
+					///	assetList.add(asset);	
+						
 					}
 
 
-					// JSONArray jsonArray = (JSONArray)jsonObject;
-					if (jsonarray != null) {
-						int len = jsonarray.size();
-						for (int i=0;i<len;i++){
-							assetList.add(jsonarray.get(i).toString());
-						}
-					}
-				}
-				catch (SQLException e) {
+		       //JSONArray jsonArray = (JSONArray)jsonObject; 
+		     if (jsonarray != null) { 
+		         int len = jsonarray.size();
+		             for (int i=0;i<len;i++){ 
+		                  assetList.add(jsonarray.get(i).toString());
+		    } 
+		} 
+				}	 catch (SQLException e) {
 					// TODO Auto-generated catch block
-					//System.out.println(e.getErrorCode());
+					System.out.println(e.getErrorCode());
+				e.printStackTrace();
 					throw new SQLException("Connection Error Occurred");
 				}
 				finally
 				{
 					conn.close();
 				}
-
+				
+		//System.out.println("end");
+				
 				return assetList;
 			}
 

@@ -26,7 +26,7 @@ public interface EAssetDao {
 	boolean addCategory(String categoryName,int lendingPeriod,int lateFees) throws  SQLException;
 	User getUserInfo(User user) throws SQLException;
 	int addImportUser(String filepath) throws SQLException;
-	List<String> showAssets(int userid) throws   SQLException;
+	List<String> showAssets(String userid) throws   SQLException;
 	public List<Asset> showAvailableAssets(int userId) throws SQLException;
 	boolean borrowAssets(int assetId, int userId) throws SQLException;
 	List<String> getOverdueAssets() throws SQLException;
