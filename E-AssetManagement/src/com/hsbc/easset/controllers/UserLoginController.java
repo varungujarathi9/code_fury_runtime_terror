@@ -117,14 +117,14 @@ public class UserLoginController extends HttpServlet {
         			//redirect to login page
 
         			exception.printStackTrace();
-        			request.getRequestDispatcher("login.html").include(request, response);
+//        			request.getRequestDispatcher("login.html").include(request, response);
         		}
         	}
         	else
         	{
         		//out.println("<p style='float:right;color:red'>Login Credentials are not valid</p>");
         		System.out.println("INVALID CREDS");
-        		request.getRequestDispatcher("login.html").include(request, response);
+//        		request.getRequestDispatcher("login.html").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
@@ -132,7 +132,7 @@ public class UserLoginController extends HttpServlet {
         	//out.println(exception.getMessage());
 
 			exception.printStackTrace();
-        	request.getRequestDispatcher("login.html").include(request, response);
+//        	request.getRequestDispatcher("login.html").include(request, response);
 
         }
 
@@ -141,13 +141,13 @@ public class UserLoginController extends HttpServlet {
 		{
 			//out.println(exception.getMessage());
 			exception.printStackTrace();
-			request.getRequestDispatcher("login.html").include(request, response);
+//			request.getRequestDispatcher("login.html").include(request, response);
 		}
 		catch(Exception exception)
 		{
 			//out.println(exception.getMessage());
 			exception.printStackTrace();
-			request.getRequestDispatcher("login.html").include(request, response);
+//			request.getRequestDispatcher("login.html").include(request, response);
 		}
 
 	}

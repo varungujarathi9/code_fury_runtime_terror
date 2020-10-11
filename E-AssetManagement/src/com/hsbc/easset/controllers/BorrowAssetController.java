@@ -61,9 +61,8 @@ public class BorrowAssetController extends HttpServlet {
 		
 		assetId=Integer.parseInt(data.get(0).toString());
 		userId=Integer.parseInt(data.get(1).toString());
-		System.out.println("*********************************"+data);
         //create conn with bl
-		System.out.println("Calling easset BL");
+		System.out.println("Calling EAssetBL from BorrowAssetController");
 		EAssetBL eAssetBL=new EAssetBLImpl();
 		try {
 			status=eAssetBL.borrowAssets(assetId,userId);

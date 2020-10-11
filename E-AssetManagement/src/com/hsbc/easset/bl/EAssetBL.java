@@ -32,7 +32,7 @@ public interface EAssetBL {
 	List<String> getOverdueAssets() throws DBConnCreationException;
 	List<String> getCategoryList() throws DBConnCreationException;
 
-	boolean returnAssets(List<String> assetList);
+	boolean returnAssets(String assetId, String userId);
 	public List<Asset> showAvailableAssets(int userId);
 	boolean borrowAssets(int assetId, int userId) throws SQLException;
 }

@@ -55,13 +55,10 @@ public class ShowAssetController extends HttpServlet {
 			while(enumeration.hasMoreElements())
 			{
 				parameterName=enumeration.nextElement().toString();
-				System.out.println(parameterName);
 			    value=request.getParameter(parameterName);
 			    userData.add(value);
 			}
-			System.out.println("*****************************"+userData);
 			userId=Integer.parseInt(userData.get(0).toString());
-//			userId=1;
 			
 	        //create conn with dao
 			EAssetBL eAssetBL=new EAssetBLImpl();
@@ -70,10 +67,8 @@ public class ShowAssetController extends HttpServlet {
 			if(assetList.size()>0)
 			{
 				JSONArray json = new JSONArray(assetList);	
-	
 				response.getWriter().println(json);
 				
-
 			}
 			else
 			{

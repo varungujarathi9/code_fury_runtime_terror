@@ -20,7 +20,7 @@ function login() {
 
     ajax.open("POST", "/E-AssetManagement/UserLoginController", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("&username=" + username + "&password=" + password);
+    ajax.send("&username=" + username.value + "&password=" + password.value);
 
     ajax.onreadystatechange = function () {
         if (this.readyState == 3) {
@@ -37,7 +37,7 @@ function login() {
                 window.location.replace("/E-AssetManagement/employeeHome.html");
             }
             else{
-                
+
             }
             // window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);
         } else {

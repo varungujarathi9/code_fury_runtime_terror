@@ -1,4 +1,4 @@
-window.addEventListener('load', showAssets());
+// window.addEventListener('load', showAssets());
 
 function showAssets() {
     //recieving user info from jsp
@@ -23,7 +23,7 @@ function showAssets() {
         } else if (this.readyState == 4 && this.status == 200) {
             //request ready
 
-            if (varType(this.responseText) == "Object") {
+            if (this.responseText[0] == "[") {
                 var assetsList = "<table class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th><th> </th></tr></thead><tbody>";
                 var response = JSON.parse(this.responseText);
                 for (i = 0; i < response.length; i++) {
@@ -69,25 +69,25 @@ function issueAsset(assetId) {
     showAssets();
 }
 
-function varType(object) {
-    var stringConstructor = "test".constructor;
-    var arrayConstructor = [].constructor;
-    var objectConstructor = ({}).constructor;
-    if (object === null) {
-        return "null";
-    }
-    if (object === undefined) {
-        return "undefined";
-    }
-    if (object.constructor === stringConstructor) {
-        return "String";
-    }
-    if (object.constructor === arrayConstructor) {
-        return "Array";
-    }
-    if (object.constructor === objectConstructor) {
-        return "Object";
-    } {
-        return "don't know";
-    }
-}
+// function varType(object) {
+//     var stringConstructor = "test".constructor;
+//     var arrayConstructor = [].constructor;
+//     var objectConstructor = ({}).constructor;
+//     if (object === null) {
+//         return "null";
+//     }
+//     if (object === undefined) {
+//         return "undefined";
+//     }
+//     if (object.constructor === stringConstructor) {
+//         return "String";
+//     }
+//     if (object.constructor === arrayConstructor) {
+//         return "Array";
+//     }
+//     if (object.constructor === objectConstructor) {
+//         return "Object";
+//     } {
+//         return "don't know";
+//     }
+// }

@@ -158,14 +158,6 @@ public class EAssetBLImpl implements EAssetBL{
 	}
 
 	@Override
-	public boolean returnAssets(List<String> assetList) {
-		// TODO Auto-generated method stub
-		boolean status=false;
-		status = eAssetDao.returnAssets(assetList);
-		return false;
-	}
-
-	@Override
 	public List<Asset> showAvailableAssets(int userId) {
 		// TODO Auto-generated method stub
 		List<Asset> assetList=new ArrayList<>();
@@ -218,6 +210,14 @@ public class EAssetBLImpl implements EAssetBL{
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		return overdueAssetsList;
+	}
+	
+	@Override
+	public boolean returnAssets(String assetId, String userId) {
+		// TODO Auto-generated method stub
+		boolean status=false;
+		status = eAssetDao.returnAssets(assetId, userId);
+		return false;
 	}
 
 }

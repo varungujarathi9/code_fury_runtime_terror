@@ -1,4 +1,6 @@
-window.addEventListener('load', function(){
+// window.addEventListener('load', borrowedAssets());
+
+function borrowedAssets(){
 	//recieving user info from jsp
 //	var jsName=document.getElementById("jspName").value;
 //	var jsTelephoneNumber=document.getElementById("jspTelephoneNumber").value;
@@ -7,14 +9,14 @@ window.addEventListener('load', function(){
 //	var jsUsername=document.getElementById("jspUsername").value;
 //	var jsPassword=document.getElementById("jspPassword").value;
 //	var jsLastLogin=document.getElementById("jspLastLogin").value;
-	
+
     var borrowedAssets = document.getElementById("borrowedAssets");
     borrowedAssets.innerHTML = "Requesting server...";
 
     var ajax=new XMLHttpRequest();
-    ajax.open("GET","/E-AssetManagement/BorrowAssetController",true);
+    ajax.open("POST","/E-AssetManagement/BorrowerShowAssetsController",true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send();
+    ajax.send("userId=1");
     ajax.onreadystatechange=function(){
         if(this.readyState==3){
             borrowedAssets.innerHTML="Displaying...";
@@ -22,47 +24,75 @@ window.addEventListener('load', function(){
         else if (this.readyState==4&&this.status==200) {
             //request ready
 
-            var assetsList = "<table border=1><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th><th>Date Issued</th><th>Due Date</th><th>Late Fees</th></tr>";
-            var response = JSON.parse(this.responseText);
-            for(i = 0; i < response.length; i++){
-                assetsList += "<tr>";
-                assetsList += "<td>"+response[i].name+"</td>";
-                assetsList += "<td>"+response[i].assetType+"</td>";
-                assetsList += "<td>"+response[i].description+"</td>";
-                assetsList += "<td>"+response[i].dateOfIssue+"</td>";
-                assetsList += "<td>"+response[i].dueDate+"</td>";
-                assetsList += "<td>"+response[i].lateFees+"</td>";
-                assetsList += "<td><button id='"+response[i].assetId+"' onclick='returnAsset("+response[i].assetId+")'>Return Now</button></td>";
-                assetsList += "</tr>";
+            if (this.responseText[0] == "[") {
+                var assetsList = "<table class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th></tr></thead><tbody>";
+                var response = JSON.parse(this.responseText);
+                for(i = 0; i < response.length; i++){
+                    assetsList += "<tr>";
+                    assetsList += "<td>"+response[i].name+"</td>";
+                    assetsList += "<td>"+response[i].assetType+"</td>";
+                    assetsList += "<td>"+response[i].description+"</td>";
+                    assetsList += "<td><input type='button' class='btn' id='r"+response[i].assetId+"' onclick='returnAsset("+response[i].assetId+")' value='Return Now'></td>";
+                    assetsList += "</tr>";
+                }
+                assetsList += "</tbody></table>"
+                borrowedAssets.innerHTML = assetsList;
             }
-            assetsList += "</table>"
-            borrowedAssets.innerHTML = assetsList;
+            else{
+                borrowedAssets.innerHTML = this.responseText;
+            }
 
         }
         else if(this.readyState==4){
             borrowedAssets.innerHTML = "AJAX RECEIVED ERROR RESPONSE <br/><b>Error code</b> : " + this.status;
         }
     }
-});
+}
 
 function returnAsset(assetId){
-    var returnButton = document.getElementById(assetId);
-    returnButton.innerHTML = "Issuing";
+    console.log("1");
+    var returnButton = document.getElementById("r"+assetId);
+    returnButton.value = "Returning.....";
 
     var ajax=new XMLHttpRequest();
-    ajax.open("GET","/E-AssetManagement/BorrowReturnAssetController",true);
+    ajax.open("POST","/E-AssetManagement/ReturnAssetsController",true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("assetId="+assetId+"?userId=1");
+    ajax.send("userId=1&assetId="+assetId);
     ajax.onreadystatechange=function(){
+        console.log(this.status+" "+this.readyState);
         if (this.readyState==4&&this.status==200) {
             //request ready
-            returnButton.innerHTML = "Returned";
+            returnButton.value = "Returned";
+            borrowedAssets();
             // TODO: change color of button
         }
         else if(this.readyState==4){
-            returnButton.innerHTML = "Not Returned";
+            returnButton.value = "Not Returned";
             // TODO: change color of button
         }
     }
 
+}
+
+function varType(object) {
+    var stringConstructor = "test".constructor;
+    var arrayConstructor = [].constructor;
+    var objectConstructor = ({}).constructor;
+    if (object === null) {
+        return "null";
+    }
+    if (object === undefined) {
+        return "undefined";
+    }
+    if (object.constructor === stringConstructor) {
+        return "String";
+    }
+    if (object.constructor === arrayConstructor) {
+        return "Array";
+    }
+    if (object.constructor === objectConstructor) {
+        return "Object";
+    } {
+        return "don't know";
+    }
 }
