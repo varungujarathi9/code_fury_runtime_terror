@@ -37,12 +37,9 @@ function usernameSelector() {
             emailInput.focus();
         } else {
             userNameInput.value = emailInput.value;
-            userNameInput.disabled = true;
         }
     } else {
         checkBox.value = "false";
-        userNameInput.value = "";
-        userNameInput.disabled = false;
     }
 }
 
@@ -163,7 +160,6 @@ function submitForm() {
         submitBtn.disabled = true;
         submitBtn.value = "Processing...";
         var currentDate = new Date();
-
         ajax.open("POST", "/E-AssetManagement/UserRegistrationController", true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         ajax.send("name=" + name.value + "&telephone=" + mobile.value + "&email=" + email.value + "&username=" + username.value + "&password=" + password.value + "&conf_password=" + confPassword.value + "&timestamp=" + currentDate.getDate() + "/" +
@@ -181,7 +177,7 @@ function submitForm() {
                 document.forms["reg_form"].reset();
                 console.log("Form submitted");
                 if(this.responseText == '1')
-                    window.location.replace("/E-AssetManagement/login.html");
+                    window.location.replace("/E-AssetManagement/login.jsp");
                 else
                     formAlert.innerHTML = this.responseText;
                 // window.setTimeout(function(){submitBtn.disabled =false;submitBtn.value="Register";},3000);

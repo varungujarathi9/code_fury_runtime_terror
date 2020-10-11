@@ -62,7 +62,8 @@ public class AddCategoryController extends HttpServlet {
 		}
 		String categoryName=categoryData.get(0).toString();
 		int lendingPeriod=Integer.parseInt(categoryData.get(1).toString());
-		int lateFees=Integer.parseInt(categoryData.get(2).toString());
+		int banPeriod=Integer.parseInt(categoryData.get(2).toString());
+		int lateFees=Integer.parseInt(categoryData.get(3).toString());
 
         //create conn with bl
 		EAssetBL eAssetBL= new EAssetBLImpl();
@@ -73,41 +74,45 @@ public class AddCategoryController extends HttpServlet {
         	if(!eAssetBL.existsCategory(categoryName))
         		try
         		{
-        			eAssetBL.addCategory(categoryName,lendingPeriod,lateFees);
-        			out.println("Added Successfully...");
+        			eAssetBL.addCategory(categoryName,lendingPeriod,lateFees, banPeriod);
+        			out.println("Added Successfully!!!");
         			//direct to addasset page
-        			request.getRequestDispatcher("addAsset.jsp").forward(request, response);
+        			//request.getRequestDispatcher("addAsset.jsp").forward(request, response);
         		}
         		catch(DBConnCreationException exception)
             	{
+        			exception.printStackTrace();
         			out.println(exception.getMessage());
         			//redirect to addcategory page
-        			request.getRequestDispatcher("addCategory.jsp").include(request, response);
+        			//request.getRequestDispatcher("addCategory.jsp").include(request, response);
             	}
         	else
         	{
-        		out.println("<p style='float:left;color:red'>Category already exists</p>");
-        		request.getRequestDispatcher("addCategory.jsp").include(request, response);
+        		out.println("Category already exists");
+        		//request.getRequestDispatcher("addCategory.jsp").include(request, response);
         	}
         }
         catch(DBConnCreationException exception)
         {
+        	exception.printStackTrace();
         	out.println(exception.getMessage());
-        	request.getRequestDispatcher("addCategory.jsp").include(request, response);
+        	//request.getRequestDispatcher("addCategory.jsp").include(request, response);
         }
 
 		}
 		catch(NullPointerException|InputMismatchException exception)
 		{
+			exception.printStackTrace();
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("addCategory.jsp").include(request, response);
+			//request.getRequestDispatcher("addCategory.jsp").include(request, response);
 		}
 		catch(Exception exception)
 		{
+			exception.printStackTrace();
 			out.println(exception.getMessage());
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
-			request.getRequestDispatcher("addCategory.jsp").include(request, response);
+			//request.getRequestDispatcher("addCategory.jsp").include(request, response);
 		}
 	}
 

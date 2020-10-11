@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import com.hsbc.easset.dao.EAssetDao;
 import com.hsbc.easset.dao.EAssetDaoImpl;
 import com.hsbc.easset.models.Asset;
+import com.hsbc.easset.models.Borrower;
 
 /**
 * Servlet implementation class BorrowerShowAssetsController
@@ -68,12 +69,14 @@ public class BorrowerShowAssetsController extends HttpServlet {
 				parameterName=enumeration.nextElement().toString();
 
 				value=request.getParameter(parameterName);
-				userData.add(value); //
+				userData.add(value);
 			}
+			
+			id=userData.get(0).toString();
 
 			//create conn with dao
 			EAssetDao eAssetDao = new EAssetDaoImpl();
-			List<Asset> assetList = new ArrayList<Asset>();
+			List<Borrower> assetList = new ArrayList<Borrower>();
 			// //assetList is an arrayof json strings where each string represents one json object//
 			//assetList=[{obj1},{obj2},{obj3},{}]
 			assetList = eAssetDao.showBorrowedAssets(id);

@@ -25,13 +25,15 @@ function borrowedAssets(){
             //request ready
 
             if (this.responseText[0] == "[") {
-                var assetsList = "<table id='table1' class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th></tr></thead><tbody>";
+                var assetsList = "<table id='table1' class='table table-hover'><thead><tr><th>Asset Name</th><th>Asset Type</th><th>Description</th><th>Date of Issue</th><th>Return By</th></tr></thead><tbody>";
                 var response = JSON.parse(this.responseText);
                 for(i = 0; i < response.length; i++){
                     assetsList += "<tr>";
-                    assetsList += "<td>"+response[i].name+"</td>";
+                    assetsList += "<td>"+response[i].assetName+"</td>";
                     assetsList += "<td>"+response[i].assetType+"</td>";
-                    assetsList += "<td>"+response[i].description+"</td>";
+                    assetsList += "<td>"+response[i].assetDesc+"</td>";
+                    assetsList += "<td>"+response[i].dateOfissue+"</td>";
+                    assetsList += "<td>"+response[i].expectedReturnDate+"</td>";                   
                     assetsList += "<td><input type='button' class='btn' id='r"+response[i].assetId+"' onclick='returnAsset("+response[i].assetId+")' value='Return Now'></td>";
                     assetsList += "</tr>";
                 }

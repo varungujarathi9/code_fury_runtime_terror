@@ -49,7 +49,13 @@ public class EAssetBLImpl implements EAssetBL{
 //				throw new PasswordMismatchException("Passwords do not match.....");
 			try {
 				status = eAssetDao.addUser(user);
-			} catch (SQLException e) {
+			} 
+			catch(SQLIntegrityConstraintViolationException e)
+			{
+				
+				throw new SQLIntegrityConstraintViolationException("Email Id or Username already exists.......");
+			}
+			catch (SQLException e) {
 				// TODO Auto-generated catch block
 				throw new DBConnCreationException("Connection Error Occurred");
 			}
@@ -104,8 +110,7 @@ public class EAssetBLImpl implements EAssetBL{
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
-			eAssetDao.existsCategory(categoryName);
-			status=true;
+			status = eAssetDao.existsCategory(categoryName);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DBConnCreationException("Connection Error Occurred");
@@ -114,15 +119,14 @@ public class EAssetBLImpl implements EAssetBL{
 	}
 
 	@Override
-	public boolean addCategory(String categoryName, int lendingPeriod, int lateFees)
-			throws DBConnCreationException {
+	public boolean addCategory(String categoryName, int lendingPeriod, int lateFees, int banPeriod) throws DBConnCreationException {
 		// TODO Auto-generated method stub
 		boolean status=false;
 		try {
-			eAssetDao.addCategory(categoryName, lendingPeriod, lateFees);
-			status=true;
+			status = eAssetDao.addCategory(categoryName, lendingPeriod, lateFees, banPeriod);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new DBConnCreationException("Connection Error Occurred");
 		}
 		return status;

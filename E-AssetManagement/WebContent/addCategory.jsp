@@ -36,11 +36,13 @@
 <body>
     <%!User user=null; %>
     <!-- Session handling -->
-    <% if(!session.isNew())
-{
-	user=(User)session.getAttribute("userSession");
-	if(user.getRole().equals(RoleType.ADMIN))
-		{%>
+    <% 
+	 	if(!session.isNew())
+		{
+			user=(User)session.getAttribute("userSession");
+			if(user != null && user.getRole().equals(RoleType.ADMIN))
+			{
+	%>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
@@ -90,6 +92,13 @@
                     id="lendingPeriod" min="1" required>
                 <p id="lendingPeriod_alert" style="color:red;"></p>
             </div>
+            
+            <div class="form-group">
+                <label for="banPeriod">Ban Period (in days)<p style="color:red;display:inline">*</p></label>
+                <input type="number" class="form-control" name="banPeriod" placeholder="Enter the ban period"
+                    id="banPeriod" min="1" required>
+                <p id="banPeriod_alert" style="color:red;"></p>
+            </div>
 
             <div class="form-group">
                 <label for="lateFees">Late Fees (per day)<p style="color:red;display:inline">*</p></label>
@@ -98,7 +107,7 @@
                 <p id="lateFees_alert" style="color:red;"></p>
             </div>
 
-            <center><input type="submit" id="submitBtn" class="btn" value="Add Category"></center>
+            <center><input type="button" id="submitBtn" class="btn" value="Add Category" onclick="addCategory()"></center>
             <p id="form_alert" style="color:red;"></p>
 
         </form>
@@ -114,14 +123,19 @@
             </li>
         </ul>
     </footer>
-    <%}
-     else
-     {
-     	session.invalidate();%>
-    <jsp:forward page="login.jsp">
-        <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>" />
-    </jsp:forward>
-    <%} }else
+    <%
+    	}
+     	else
+    	{
+     		session.invalidate();
+     %>
+	    <jsp:forward page="login.jsp">
+	        <jsp:param name="param0" value="<h1>Unauthorized Access..... Please log back in!!!!</h1>" />
+	    </jsp:forward>
+    <%
+    		} 
+		}
+	 	else
      {%><jsp:forward page="login.jsp">
         <jsp:param name="param1" value="<h1>Session timed out..... Please log back in!!!!</h1>" />
     </jsp:forward>

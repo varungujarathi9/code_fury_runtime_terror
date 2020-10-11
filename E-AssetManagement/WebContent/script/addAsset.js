@@ -4,20 +4,50 @@
  */
 window.addEventListener('load',function()
 {
+	// retrieve values of form fields
+    var addAsset = document.forms["addAssetForm"];
+    var category =  addAsset["category"];
+	var submitBtn =  document.getElementById("submitBtn");
+	var formAlert =  document.getElementById("form_alert");
 	
-   //Show Add Category Button on selecting 'Other' Category
-    document.getElementById('category').addEventListener('change', function () {
-        var categoryValue = this.value;
-        if(categoryValue == "Other"){
-            document.getElementById('addCategory').style.display = 'block'; 
-            document.getElementById('submitBtn').disabled = true; 
+	var ajax=new XMLHttpRequest();
+    submitBtn.disabled = true;
+    //category.disabled = true;
+    submitBtn.value="Loading data...";
+
+
+    ajax.open("POST","/E-AssetManagement/GetCategoryListController",true);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.send();
+    ajax.onreadystatechange=function(){
+        if(this.readyState==3){
+        submitBtn.value="Loading...";
+        }
+        else if (this.readyState==4&&this.status==200) {
+	        //request ready
+	        submitBtn.value="Add Asset!";
+	        submitBtn.disabled = false;
+	        //category.disabled = false;
+	        
+	        if (this.responseText[0] == "[") {
+	            var options = "<option value=''>-Select Category-</option>";
+	            var response = JSON.parse(this.responseText);
+	            for (i = 0; i < response.length; i++) {
+	            	options += "<option value="+response[i]+">"+response[i]+"</option>";
+	            }
+	            category.innerHTML = options;
+	        }
+	        else{
+	            
+	        }
+	        addAsset.reset();
+	        
         }
         else{
-            document.getElementById('addCategory').style.display = 'none'; 
-            document.getElementById('submitBtn').disabled = false; 
+            submitBtn.disabled =false;
+            submitBtn.value="Add Asset"
         }
-     
-    });
+    }
 
 })
 
@@ -59,9 +89,9 @@ function addAsset(){
         submitBtn.value="Processing...";
 
 
-        ajax.open("POST","http://localhost:8080/E-AssetManagement/AddAssetController",true);
+        ajax.open("POST","/E-AssetManagement/AddAssetController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.send("name="+name.value+"description"+description.value+"category="+category.value);
+        ajax.send("name="+name.value+"&category="+category.value+"&description"+description.value);
         ajax.onreadystatechange=function(){
             if(this.readyState==3){
             submitBtn.value="Submitting...";
@@ -69,12 +99,12 @@ function addAsset(){
             else if (this.readyState==4&&this.status==200) {
             //request ready
             submitBtn.value="Submitted!";
-            document.forms["addAssetForm"].reset();
-            window.setTimeout(function(){submitBtn.disabled =false;},8000);
+            addAsset.reset();
+            formAlert.innerHTML = this.responseText;
+            window.setTimeout(function(){submitBtn.disabled =false;},3000);
             }
             else{
-                formAlert.innerHTML = "Error submitting form";
-                window.setTimeout(function(){formAlert.innerHTML = "";},5000);
+                window.setTimeout(function(){formAlert.innerHTML = "";},3000);
                 submitBtn.disabled =false;
                 submitBtn.value="Add Asset"
             }

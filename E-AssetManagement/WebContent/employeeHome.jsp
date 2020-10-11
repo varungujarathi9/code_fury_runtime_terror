@@ -42,7 +42,7 @@
 {
 	//passing user info to js
 	user=(User)session.getAttribute("userSession");
-	if(user.getRole().equals(RoleType.BORROWER))
+	if( user != null && user.getRole().equals(RoleType.BORROWER))
 	{%>
 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

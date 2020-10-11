@@ -2,17 +2,6 @@
  * @author Madhura Avachat
  * @createdOn 03 Oct 2020
  */
-window.addEventListener('load',function()
-{
-	//recieving user info from jsp
-	var jsName=document.getElementById("jspName").value;
-	var jsTelephoneNumber=document.getElementById("jspTelephoneNumber").value;
-	var jsRole=document.getElementById("jspRole").value;
-	var jsEmailId=document.getElementById("jspEmailId").value;
-	var jsUsername=document.getElementById("jspUsername").value;
-	var jsPassword=document.getElementById("jspPassword").value;
-	var jsLastLogin=document.getElementById("jspLastLogin").value;
-})
 
 
 function addCategory(){
@@ -21,25 +10,23 @@ function addCategory(){
     
     // retrieve values of form fields
     var addCategoryForm = document.forms["addCategoryForm"];
-    var name = addCategory["name"];
-    var lendingPeriod =  addCategory["lendingPeriod"];
-    console.log("Found lending period obj "+lendingPeriod);
-    var lateFees =  addCategory["lateFees"];
+    var name = addCategoryForm["name"];
+    var lendingPeriod =  addCategoryForm["lendingPeriod"];
+    var banPeriod =  addCategoryForm["banPeriod"];
+    var lateFees =  addCategoryForm["lateFees"];
 
 
     // get p tag elements
     var nameAlert = document.getElementById("name_alert");
     var lendingPeriodAlert =  document.getElementById("lendingPeriod_alert");
+    var banPeriodAlert =  document.getElementById("banPeriod_alert");
     var lateFeesAlert =  document.getElementById("lateFees_alert");
     var formAlert =  document.getElementById("form_alert");
 
     var submitBtn =  document.getElementById("submitBtn");
 
-    //Verifying required input 
-    console.log("name "+name.value);
-    console.log(" lending"+lendingPeriod.value);
-    console.log(" late"+lateFees.value);
-    if(name.value!="" && lendingPeriod.value!="" && lateFees.value!=""){
+;
+    if(name.value!="" && lendingPeriod.value!="" && lateFees.value!="" && banPeriod.value!=""){
         dataValid=true;
         formAlert.innerHTML = "";
     }
@@ -47,38 +34,45 @@ function addCategory(){
         dataValid=false;
         formAlert.innerHTML = "Please fill required values";
     }
-
-    if(!Number.isInteger(lendingPeriod.value)){
+    var integerPattern = /^\d+$/;
+    if(!lendingPeriod.value.match(integerPattern)){
+    	
         dataValid=false;
         lendingPeriodAlert.innerHTML = "Please fill in Integer values";
+    }
+    
+    if(!banPeriod.value.match(integerPattern)){
+    	
+        dataValid=false;
+        banPeriodAlert.innerHTML = "Please fill in Integer values";
     }
 
     //Sending Data to the Controller
     if(dataValid == true){
         console.log("Sending data to server");
         var ajax=new XMLHttpRequest();
-        submitBtn.disabled =true;
+        submitBtn.disabled = true;
         submitBtn.value="Processing...";
 
 
-        ajax.open("POST","http://localhost:8080/E-AssetManagement/AddCategoryController",true);
+        ajax.open("POST","/E-AssetManagement/AddCategoryController",true);
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.send("name="+name.value+"description"+description.value+"category="+category.value);
+        ajax.send("name="+name.value+"&lendingPeriod="+lendingPeriod.value+"&banPeriod="+banPeriod.value+"&lateFees="+lateFees.value);
         ajax.onreadystatechange=function(){
             if(this.readyState==3){
-            submitBtn.value="Submitting...";
+            	submitBtn.value="Submitting...";
             }
             else if (this.readyState==4&&this.status==200) {
-            //request ready
-            submitBtn.value="Submitted!";
-            document.forms["addAssetForm"].reset();
-            window.setTimeout(function(){submitBtn.disabled =false;},8000);
+            	//request ready
+	            submitBtn.value="Add Category";
+	            addCategoryForm.reset();
+	            formAlert.innerHTML=this.responseText;
+	            window.setTimeout(function(){submitBtn.disabled =false;},3000);
             }
             else{
-                formAlert.innerHTML = "Error submitting form";
-                window.setTimeout(function(){formAlert.innerHTML = "";},5000);
+                window.setTimeout(function(){formAlert.innerHTML = "";},3000);
                 submitBtn.disabled =false;
-                submitBtn.value="Add Asset"
+                submitBtn.value="Add Category"
             }
         }
     }

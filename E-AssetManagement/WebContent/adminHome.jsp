@@ -34,7 +34,7 @@
 {
 	//passing user info to js
 	user=(User)session.getAttribute("userSession");
-	if(user.getRole().equals(RoleType.ADMIN))
+	if( user != null && user.getRole().equals(RoleType.ADMIN))
 	{%>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>

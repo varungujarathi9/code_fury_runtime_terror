@@ -36,7 +36,7 @@ public class GetCategoryListController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
@@ -53,7 +53,7 @@ public class GetCategoryListController extends HttpServlet {
 				{
 					JSONArray json = new JSONArray(categoryList);
 					System.out.println("returned category list");
-					out.println(json);
+					out.print(json);
 				}
 				else
 				{
@@ -76,7 +76,7 @@ public class GetCategoryListController extends HttpServlet {
 		catch(Exception exception)
 		{
 			System.out.println("EXCEPTION:"+exception.getMessage());
-			out.print(exception.getMessage());
+			out.println(exception.getMessage());
 			//request.getRequestDispatcher("adminHome.jsp").forward(request, response);
 			//response.sendError(response.SC_EXPECTATION_FAILED,"Data Error");
 		}

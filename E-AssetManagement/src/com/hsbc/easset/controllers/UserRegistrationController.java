@@ -61,14 +61,15 @@ public class UserRegistrationController extends HttpServlet {
 			{
 				parameterName=enumeration.nextElement().toString();
 			    value=request.getParameter(parameterName);
+			    System.out.println(value);
 			    userData.add(value);
 			}
 			user.setName(userData.get(0).toString());
 			user.setTelphoneNumber(Long.parseLong(userData.get(1).toString()));
 			user.setEmailId(userData.get(2).toString());
 			user.setUsername(userData.get(3).toString());
-			user.setPassword(userData.get(5).toString());
-			confirmPassword=userData.get(6).toString();
+			user.setPassword(userData.get(4).toString());
+			confirmPassword=userData.get(5).toString();
 			user.setRole(RoleType.BORROWER);
 			//user.setDob(LocalDate.parse(customerData.get(2).toString(),formatter));
 	        //create conn with bl
@@ -79,7 +80,7 @@ public class UserRegistrationController extends HttpServlet {
 	        	//out.println("Registered Successfully...");
 	        	//direct to login page
 	        	//request.getRequestDispatcher("login.jsp").forward(request, response);
-				response.getWriter().println("1");
+				response.getWriter().print("1");
 			}
 			catch(DBConnCreationException|SQLIntegrityConstraintViolationException|InvalidEmailIdException|InvalidTelephoneNumberException|PasswordMismatchException exception)
 			{

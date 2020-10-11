@@ -23,6 +23,7 @@ import java.util.PropertyResourceBundle;
 //import com.hsbc.banking.models.Bank;
 import com.hsbc.easset.helpers.DBHelper;
 import com.hsbc.easset.models.Asset;
+import com.hsbc.easset.models.Borrower;
 import com.hsbc.easset.models.RoleType;
 import com.hsbc.easset.models.User;
 
@@ -70,7 +71,7 @@ public class EAssetDaoImpl implements EAssetDao{
 		}
 		catch(SQLIntegrityConstraintViolationException e)
 		{
-			System.out.println(e.getMessage());
+			System.out.println("ALPHABETADELTA"+e.getMessage());
 			try {
 				conn.rollback();
 			}
@@ -78,7 +79,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			throw new SQLIntegrityConstraintViolationException("Email Id or Username already exists.......");
+			throw new SQLIntegrityConstraintViolationException("Email ID or Username already exists!!! Please check");
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -253,19 +254,8 @@ public class EAssetDaoImpl implements EAssetDao{
 		return status;
 	}
 
-	//	@Override
-	//	public boolean issueAvailableAssets(List<Asset> assetList) {
-		//		// TODO Auto-generated method stub
-		//		return false;
-		//	}
-		//
-		//	@Override
-		//	public boolean returnAssets(List<Asset> assetList) {
-			//		// TODO Auto-generated method stub
-			//		return false;
-			//	}
 			public boolean existsCategory(String categoryName) throws SQLException {
-				// TODO Auto-generated method stub
+
 				boolean status=false;
 				try {
 					conn=DBHelper.getConnection();
@@ -273,6 +263,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					pre.setString(1, categoryName);
 					resultSet=pre.executeQuery();
 					resultSet.next();
+					//System.out.println("********************************************"+resultSet.getInt(1));
 					if(resultSet.getInt(1)>0)
 					{
 						status=true;
@@ -299,8 +290,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			}
 
 			@Override
-			public boolean addCategory(String categoryName, int lendingPeriod, int lateFees)
-			throws SQLException {
+			public boolean addCategory(String categoryName, int lendingPeriod, int lateFees, int banPeriod) throws SQLException {
 				// TODO Auto-generated method stub
 				boolean status=false;
 				try
@@ -310,6 +300,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					pre.setString(1, categoryName);
 					pre.setInt(2, lendingPeriod);
 					pre.setInt(3, lateFees);
+					pre.setInt(4, banPeriod);
 					pre.executeUpdate();
 					conn.commit();
 					status=true;
@@ -1050,25 +1041,29 @@ public class EAssetDaoImpl implements EAssetDao{
 					@Override
 					public List<String> getCategoryList() throws SQLException {
 						// TODO Auto-generated method stub
-						JSONArray jsonarray = new JSONArray();
+//						JSONArray jsonarray = new JSONArray();
 						List<String> categoryList=new ArrayList<String>();
 						try {
 							conn=DBHelper.getConnection();
 							stmt=conn.createStatement();
 							resultSet=stmt.executeQuery(resourceBundle.getString("getCategoryList"));
 
+//							while(resultSet.next())
+//							{
+//								JSONObject obj = new JSONObject();
+//								obj.put("CATEGORY",resultSet.getString(1) );
+//								jsonarray.add(obj);
+//
+//							}
 							while(resultSet.next())
 							{
-								JSONObject obj = new JSONObject();
-								obj.put("CATEGORY",resultSet.getString(1) );
-								jsonarray.add(obj);
-
+								categoryList.add(resultSet.getString(1));
 							}
-							if (jsonarray != null) {
-								int len = jsonarray.size();
-								for (int i=0;i<len;i++)
-								categoryList.add(jsonarray.get(i).toString());
-							}
+//							if (jsonarray != null) {
+//								int len = jsonarray.size();
+//								for (int i=0;i<len;i++)
+//								categoryList.add(jsonarray.get(i).toString());
+//							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							//System.out.println(e.getErrorCode());
@@ -1143,7 +1138,7 @@ public class EAssetDaoImpl implements EAssetDao{
 			}
 			
 			@Override
-			public List<Asset> showBorrowedAssets(String userid) throws SQLException {
+			public List<Borrower> showBorrowedAssets(String userid) throws SQLException {
 
 
 				// TODO Auto-generated method stub
@@ -1152,9 +1147,9 @@ public class EAssetDaoImpl implements EAssetDao{
 				//assetList=[{},{}]
 				//System.out.println("in dao layer show assets method");
 				JSONArray jsonarray = new JSONArray();
-				List<Asset> assetList=new ArrayList<Asset>();
+				List<Borrower> assetList=new ArrayList<Borrower>();
 				//assetList=null;
-				Asset asset=null;
+				Borrower borrower=null;
 				try {
 					conn=DBHelper.getConnection();
 
@@ -1164,28 +1159,23 @@ public class EAssetDaoImpl implements EAssetDao{
 							//pre.setDate(2,Date.valueOf(customer.getDob()));
 							resultSet=pre.executeQuery();
 							//resultSet.next();
-
+							//a.ASSET_ID, a.ASSET_NAME, a.ASSET_TYPE, a.ASSET_DESCRIPTION, b.ISSUE_DATE, b.EXPECTED_RETURN_DATE
 							while(resultSet.next())
 							{
-								System.out.println("ASSET ID: "+resultSet.getInt(1));
-								preC = conn.prepareStatement(resourceBundle.getString("getAssetDetails"));
-								preC.setInt(1,resultSet.getInt(1));
-								resultSetC=preC.executeQuery();
-								//resultSetC.next();
-
-								while(resultSetC.next())
-								{
+	
 									System.out.println("ASSET NAME: "+resultSet.getString(2));
 
-									asset=new Asset();
-									asset.setAssetId(resultSetC.getInt(1));
-									asset.setName(resultSetC.getString(2));
-									asset.setAssetType(resultSetC.getString(3));
-									asset.setDescription(resultSetC.getString(4));
+									borrower=new Borrower();
+									borrower.setAssetId(resultSet.getInt(1));
+									borrower.setAssetName(resultSet.getString(2));
+									borrower.setAssetType(resultSet.getString(3));
+									borrower.setAssetDesc(resultSet.getString(4));
+									borrower.setDateOfissue(LocalDate.parse(resultSet.getDate(5).toString()));
+									borrower.setExpectedReturnDate(LocalDate.parse(resultSet.getDate(6).toString()));
 									//								asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
 									//								asset.setAvailable("1");
-									assetList.add(asset);
-								}
+									assetList.add(borrower);
+								
 
 							}
 

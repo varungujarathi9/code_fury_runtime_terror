@@ -109,7 +109,7 @@ header {
 }
 
 input[type=button] {
-  width: 100%;
+  width: 100%!important;
   box-align: center;
   border-style: solid;
   border-radius: 5px;

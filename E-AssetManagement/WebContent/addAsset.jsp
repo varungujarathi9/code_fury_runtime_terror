@@ -7,7 +7,6 @@
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Asset</title>
-    <script type="text/javascript" src="./script/addAsset.js"></script>
 
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
@@ -48,7 +47,7 @@
     <% if(!session.isNew())
 {
 	user=(User)session.getAttribute("userSession");
-	if(user.getRole().equals(RoleType.ADMIN))
+	if( user != null && user.getRole().equals(RoleType.ADMIN))
 		{%>
 
     <!--  passing user info to js-->
@@ -117,6 +116,7 @@
                 <input type="button" id="submitBtn" class="btn1" value="Add Category">
                 <p id="addCategory_alert" style="color:red;"></p>
             </div>
+            
 
             <center><input type="button" id="submitBtn" class="btn" onclick="addAsset()" value="Add Asset"></center>
             <p id="form_alert" style="color:red;"></p>
@@ -147,5 +147,5 @@
     </jsp:forward>
     <% }%>
 </body>
-
+<script type="text/javascript" src="./script/addAsset.js"></script>
 </html>
