@@ -412,6 +412,7 @@ public class EAssetDaoImpl implements EAssetDao{
 					resultSet=pre.executeQuery();
 					resultSet.next();
 					userObj=new User();
+					userObj.setUniqueId(resultSet.getInt(1));
 					userObj.setName(resultSet.getString(2));
 					userObj.setTelphoneNumber(resultSet.getLong(3));
 					userObj.setEmailId(resultSet.getString(4));
@@ -1136,7 +1137,7 @@ public class EAssetDaoImpl implements EAssetDao{
 				}
 				return overdueMessagesList;
 			}
-			
+
 			@Override
 			public List<Borrower> showBorrowedAssets(String userid) throws SQLException {
 
@@ -1162,7 +1163,7 @@ public class EAssetDaoImpl implements EAssetDao{
 							//a.ASSET_ID, a.ASSET_NAME, a.ASSET_TYPE, a.ASSET_DESCRIPTION, b.ISSUE_DATE, b.EXPECTED_RETURN_DATE
 							while(resultSet.next())
 							{
-	
+
 									System.out.println("ASSET NAME: "+resultSet.getString(2));
 
 									borrower=new Borrower();
@@ -1175,7 +1176,7 @@ public class EAssetDaoImpl implements EAssetDao{
 									//								asset.setDateAdded(LocalDate.parse(resultSet.getDate(5).toString()));
 									//								asset.setAvailable("1");
 									assetList.add(borrower);
-								
+
 
 							}
 
