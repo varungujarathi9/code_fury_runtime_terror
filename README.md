@@ -41,7 +41,3 @@
 23. Now the Project is ready to Run, right click on Project name -> Run As -> Run on Server (Tomcat server to be added explicitly).
 24. The Index Page will load on Web Browser.
 
-### ADMIN LOGIN CREDENTIALS :-
-
-**USER NAME**  -> varungujarathi9  
-**PASSWORD** -> AAAAa@2
