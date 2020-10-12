@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- BOOTSTRAP 4 LIBRARIES -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+      <script type="text/javascript">
+    window.history.forward();
+
+    function noBack() {
+      //alert("Back button is restricted");
+      window.history.forward();
+    }
+    window.onload = function() {
+        document.addEventListener("contextmenu", function(e){
+          e.preventDefault();
+          //alert('Sorry!! Restricted content, cannot use that function ');
+        }, false);
+
+        document.addEventListener("keydown", function(e) {
+        //document.onkeydown = function(e) {
+
+          // Ctrl C disabled
+          if (e.ctrlKey && e.keyCode == 67) {
+            disabledEvent(e);
+            //alert('Sorry!! Restricted content, cannot use Ctrl+C function ');
+          }
+          // Ctrl S disabled
+          if (e.ctrlKey && e.keyCode == 83) {
+            disabledEvent(e);
+            //alert('Sorry!! Restricted content, cannot use Ctrl+S function ');
+          }
+          // Ctrl X disabled
+          if (e.ctrlKey && e.keyCode == 88) {
+            disabledEvent(e);
+            //alert('Sorry!! Restricted content, cannot use Ctrl+X function ');
+          }
+          // Ctrl V disabled
+          if (e.ctrlKey && e.keyCode == 86) {
+            disabledEvent(e);
+            //alert('Sorry!! Restricted content, cannot use Ctrl+V function ');
+          }
+        }, false);
+        function disabledEvent(e){
+          if (e.stopPropagation){
+            e.stopPropagation();
+          } else if (window.event){
+            window.event.cancelBubble = true;
+          }
+          e.preventDefault();
+          return false;
+        }
+    }
+  </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="/E-AssetManagement/">E-Asset Management</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/E-AssetManagement/login.html">User Login</a>
+          </li>
+        </ul>
+
+    </nav>
+    <br/>
+    <div class="form container"style="width:40%">
+        <center>
+            <header>
+              <h2>Sign Up</h2>
+  
+            </header>
+          </center>
+          <div class="instructions">
+            <strong><h3 align="center">Instructions for filling form</h3></strong>
+            <ol type="1">
+                <li>All fields are mandatory *</li>
+                <li>Email & Phone should be valid & working</li>
+                <li>Password should be strong enough</li>
+                <li>You can your email as username</li>
+            </ol>
+          </div>
+        <form name="reg_form" id="reg_form" method="POST" action="UserRegistrationController">
+
+                <div class="form-group">
+                    <label for="name">Full Name<p style="color:red;display:inline">*</p></label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" style='text-transform: capitalize;' onkeyup="validateName()" required>
+                    <p id="name_alert" style="color:red;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Mobile Number<p style="color:red;display:inline">*</p></label>
+                    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter your mobile number (10 Digits)" onkeyup="validateMobile()" maxlength=10 size=10 required>
+                    <p id="mobile_alert" style="color:red;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address<p style="color:red;display:inline">*</p></label>
+                    <input type="text" name="email" class="form-control" id="email" placeholder="Enter your email address" onkeyup="validateEmail()" required>
+                    <p id="email_alert" style="color:red;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username<p style="color:red;display:inline">*</p>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="useEmail" value="useEmail" onclick="usernameSelector()">
+                        <label class="custom-control-label" for="customCheck">Select this to use email as username</label>
+                      </div>
+                    </label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username" required>
+                    <p id="username_alert" style="color:red;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password<p style="color:red;display:inline">*</p></label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter a strong password" onkeyup="validatePassword()" id="password" required>
+                    <p id="password_alert" style="color:red;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="conf_password">Confirm Password<p style="color:red;display:inline">*</p></label>
+                    <input type="password" name="conf_password" class="form-control" id="conf_password" placeholder="Re-enter password to confirm" onkeyup="matchPasswords()" required>
+                    <p id="conf_password_alert" style="color:red;"></p>
+                </div>
+
+                <center><input type="button" id="submitBtn" class="btn" value="Register" onclick="submitForm()"></center>
+
+                <p id="form_alert" style="color:red;"></p>
+                <a href='/E-AssetManagement/login.html'>Already registered? Login here</a>
+        </form>
+    </div>
+    <footer class="footer-menu">
+      <ul>
+          <li><a href="team.html">About Us</a></li>
+          <li><a href="team.html">Contacts</a></li>
+          <li><a href="#">Terms & Condition</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li class="copyright">
+              <p>&copy; Copyright 2020. Runtime Terror (WFS-6 Team 1). All rights reserved.</p>
+          </li>
+      </ul>
+  </footer>
+</body>
+<script type="text/javascript" src="./script/registration.js"></script>
+</html>

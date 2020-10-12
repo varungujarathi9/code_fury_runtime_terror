@@ -1,0 +1,3 @@
+#url=jdbc:derby:D:/database/testdb;create=true
+#url=jdbc:derby:E:/Study/Spring Tool WorkSpace/HSBC_2020DB/testdb;create=true #Aishwarya
+#url=jdbc:derby:E:/Study/Spring Tool WorkSpace/HSBC_2020DB/testdb;create=true
