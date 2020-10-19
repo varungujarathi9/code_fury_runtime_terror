@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script type="text/javascript" src="./script/importUsers.js"></script>
+<!--  <script type="text/javascript" src="../script/importUsers.js"></script>-->
     <!-- BOOTSTRAP 4 LIBRARIES -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
@@ -23,21 +23,7 @@
       //alert("Back button is restricted");
       window.history.forward();
     }
-    if (typeof(Storage) !== "undefined") {
-        if(sessionStorage.getItem("role")=="ADMIN"){
-        	//alert("Role " + sessionStorage.getItem("role") + " cannot access this page");
-            window.location.replace('/E-AssetManagement/adminHome.html');
-        }
-        else if(sessionStorage.getItem("role")==null){
-        	window.location.replace('/E-AssetManagement/login.html');
-        }
-        else{
-        	console.log(sessionStorage.getItem("role"))
-        }
-    }
-    else{
-    	window.location.replace('/E-AssetManagement/login.html');
-    }
+    
     window.onload = function() {
         document.addEventListener("contextmenu", function(e){
           e.preventDefault();
@@ -96,11 +82,11 @@
         <div class="instructions" style="padding: 10px;">
             <h5 align="center">(select json/xml file) :</h5>
           </div>
-        <form id="importUser" method="POST" action="FileUpload" enctype="multipart/form-data">
+        <form name="importUser" id="importUser" method="POST" action="FileUpload" enctype="multipart/form-data">
             <div class="form-group1 ">
                 <label for="myfile">Select a file:</label>
                 <input type="file" id="myfile" name="myfile" accept=".xml,.json,|text/*"><br><br>
-                <input type="button" class="btn" id="submit"  value="Import">
+                <input type="submit" class="btn" id="submit"  name="submit" value="Import">
             </div>
         </form>
         </div>

@@ -353,6 +353,8 @@ public class EAssetDaoImpl implements EAssetDao{
 			public int addImportUser(String filepath) throws SQLException {
 				// TODO Auto-generated method stub
 				int result=0;
+				String password; 
+				String BasicBase64format;
 				//	System.out.println(filepath);
 				JSONParser parser = new JSONParser();
 				Object obj;
@@ -370,16 +372,18 @@ public class EAssetDaoImpl implements EAssetDao{
 						JSONObject name = (JSONObject)jsonObject.get(i);
 						// LinkedHashMap<String, String> names = new LinkedHashMap<String, String>(name);
 						// System.out.println(names);
-						pre.setInt(1,UniqueID);
-						pre.setString(2, name.get("Name").toString());     ///this is been hardcoded..think of how to avoid hardcoding///
-						pre.setString(3, name.get("Role").toString());
-						pre.setString(4, name.get("Telephone").toString());
-						pre.setString(5, name.get("Email").toString());
-						pre.setString(6, name.get("UserName").toString());
-						pre.setString(7, name.get("Password").toString());
-						pre.setDate(8, Date.valueOf("2020-03-09"));
+						//pre.setInt(1,UniqueID);
+						pre.setString(1, name.get("Name").toString());     ///this is been hardcoded..think of how to avoid hardcoding///
+						pre.setString(2, name.get("Telephone").toString());
+						pre.setString(3, name.get("Email").toString());
+						pre.setString(4, name.get("UserName").toString());
+						password=name.get("Password").toString();
+						BasicBase64format= Base64.getEncoder().encodeToString(password.getBytes()); 
+						pre.setString(5, BasicBase64format);
+						pre.setDate(6, null);
+						pre.setString(7, name.get("Role").toString());
 						pre.executeUpdate();
-						UniqueID++;
+						//UniqueID++;
 						i++;
 						iterator.next();
 					}
